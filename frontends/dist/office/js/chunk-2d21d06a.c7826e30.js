@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d21d06a"],{d019:function(t,a,s){"use strict";s.r(a);var l=function(){var t=this,a=t.$createElement,s=t._self._c||a;return s("panel",{attrs:{title:"รายงาน"}},[s("div",{staticClass:"mt-5"},[s("vs-tabs",{staticClass:"my-3"},[s("vs-tab",{attrs:{label:"พนักงานใหม่"}},[s("div")]),s("vs-tab",{attrs:{label:"พนักงานทั้งหมด"}},[s("div")])],1)],1)])},e=[],n={},i=n,c=s("2877"),r=Object(c["a"])(i,l,e,!1,null,null,null);a["default"]=r.exports}}]);
+//# sourceMappingURL=chunk-2d21d06a.c7826e30.js.map

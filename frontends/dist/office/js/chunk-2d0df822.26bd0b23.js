@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0df822"],{"89e0":function(t,a,e){"use strict";e.r(a);var n=function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("vx-card",[e("vs-tabs",[e("vs-tab",{attrs:{label:"รายงานข้อมูลสมาชิกทั้งหมด"}}),e("vs-tab",{attrs:{label:"รายงานสมาชิกใหม่"}})],1)],1)},s=[],l={},r=l,c=e("2877"),u=Object(c["a"])(r,n,s,!1,null,null,null);a["default"]=u.exports}}]);
+//# sourceMappingURL=chunk-2d0df822.26bd0b23.js.map

@@ -1,0 +1,159 @@
+{
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "vuex",
+		"body": [
+			"import {} from 'vuex'",
+			"$1"
+		],
+		"description": "import vuex"
+	},
+	"console.error()": {
+		"scope": "javascript,typescript",
+		"prefix": "cle",
+		"body": [
+			"console.error(error)",
+			"return ''"
+		],
+		"description": "import vuex"
+	},
+	"try {} catch (error) {}": {
+		"scope": "javascript,typescript",
+		"prefix": "tcy",
+		"body": [
+			"try {\n${1} \n}catch (error) {${2}}"
+		],
+		"description": "import vuex"
+	},
+	"สร้าง api get": {
+		"scope": "javascript",
+		"prefix": "api-get",
+		"body": [
+			"const data = await this.api.get($1)"
+		]
+	},
+	"สร้าง api post": {
+		"scope": "javascript",
+		"prefix": "api-post",
+		"body": [
+			"const data = await this.api.post($1,$2)"
+		]
+	},
+	"สร้าง async": {
+		"scope": "javascript",
+		"prefix": "async",
+		"body": [
+			"async ${1} (${2}) {",
+			"try {",
+			"${3}",
+			"}catch(error) {",
+			"console.error(error)",
+			"return false"
+			"}",
+			"},"
+		]
+	},
+	"สร้าง component input": {
+		"scope": "vue-html",
+		"prefix": "form-input",
+		"body": [
+			"<form-input label='${1}' v-model='${2}' ${5:v-validate='`required`'} ${6:data-vv-as='${1}'} :col='${8}' />",
+			""
+		]
+	},
+	"สร้าง component datepiker": {
+		"scope": "vue-html",
+		"prefix": "form-date-picker",
+		"body": [
+			"<form-date-picker label='${1}' v-model='${2}' ${5:v-validate='`required`'} ${6:data-vv-as='${1}'} :col='${8}' />",
+			""
+		]
+	},
+	"สร้าง component input currency": {
+		"scope": "vue-html",
+		"prefix": "form-input-currency",
+		"body": [
+			"<form-input-currency label='${1}' v-model='${2}' ${5:v-validate='`required`'} ${6:data-vv-as='${1}'} :col='${8}' />",
+			""
+		]
+	},
+	"สร้าง form modal": {
+		// "scope": "vue-html",
+		"prefix": "form-modal",
+		"body": [
+			"<template> <form-modal title='title' ref='formmodal' @save='handleSubmit' @cancel='cancel'> <b-row> </b-row> </form-modal> </template> \n <script> export default { data() { return { form: {} } }, methods: { show() { this.clearForm();this.switch('show'); }, async handleSubmit() { try { const validatetor = await this.\\$\$validator.validateAll(); if (!validatetor) { this.alertValidate(); return ''; } } catch (error) { console.error(error); return '' } }, cancel() { this.clearForm(); }, clearForm() { const form = this.form; Object.keys(form).forEach(fill => [(form[fill] = '')]); this.switch('hide'); }, switch(type) { type === 'show' ? this.\\$refs\..formmodal.show() : this.\\$refs\..formmodal.hide() } } } </script>",
+		]
+	},
+	// "สร้าง data-table": {
+	// 	"scope": "vue-html",
+	// 	"prefix": "data-table",
+	// 	"body": [
+	// 		"<template>",
+	// 		"${1}",
+	// 		"</template>"
+	// 	]
+	// },
+	"สร้าง form tree select": {
+		"scope": "vue-html",
+		"prefix": "form-tree-select",
+		"body": "<form-treeselect label='${1}' v-model='${2}' ${5:v-validate='`required`'} ${6:data-vv-as='${1}'} :col='${8}' />"
+	},
+	"สร้าง full form": {
+		"scope": "vue-html",
+		"prefix": "form-form",
+		"body": [
+			"<form @submit.prevent='_handleSubmit'>${1}\n</form>"
+		]
+	},
+	"สร้าง form select": {
+		"scope": "vue-html",
+		"prefix": "form-select",
+		"body": [
+			"<form-select\n label='${1}'\n v-model='${2}'\n ${5:v-validate='`required`'}\n ${6:data-vv-as='${1}'}\n :options=\"${7:options}\"\n :trackLable=\"${8:label}\"\n :col='${9}'\n />",
+		]
+	},
+	"สร้าง panel": {
+		// "scope": "vue-html",
+		"prefix": "panel",
+		"body": [
+			"<template> <panel title=\" ${1}\"> <b-row>${2}</b-row> </panel> </template> <script> export default {} </script>"
+		]
+	},
+	"สร้าง Data Table": {
+		"scope": null,
+		"prefix": "data-table",
+		"body": "<template> \n <panel title='${1}'> \n<div class='row'> \n<b-col sm='12'> \n<data-table \n id='${2}' \n ref='${2}' \n name='${2}' \n :columns='columns' \n :url='url' \n :viewable='false' \n @clickNew='OpenFormMoal' \n @clickDelete='clickDelete' \n @clickEdit='clickEdit' \n />\n </b-col>\n </div>\n</panel>\n </template>\n <script> \n export default { data() {return { columns: [ { data: 'DT_RowIndex', type: 'text', name: 'DT_RowIndex', text: 'ลำดับ', class: 'fit', orderable: false, searchable: false } ],\n url: '' }}, \nmethods: { \nOpenFormMoal() { \nconsole.log('OpenFormMoal') }, \nreloader() { \n this.\\$refs\..${2}.reload() }, \n async clickDelete(data) { \ntry { \nawait this.del(``) ; \n this.reloader() ; \n return '' } \n catch (error) { \n console.error(error) ;return '' } }, \n async clickEdit(val) { \n try { this.reloader(); return '' } \n catch (error) { \n console.error(error);return '' } \n} \n} \n}\n </script> \n"
+	},
+	"สร้าง console.log เป็นสี": {
+		"scope": "javascript,typescript",
+		"prefix": "clc",
+		"body": "console.log(`%c ${1}`, `color: #bada55`)"
+	},
+	"สร้าง convert date datatable": {
+		"scope": "javascript,typescript",
+		"prefix": "datatable-convert-date",
+		"body": ",render(data) { if (!data) return '';return moment(data).format('DD/MM/YYYY').convertDate(); }"
+	},
+	"สร้าง convert number": {
+		"scope": "javascript,typescript",
+		"prefix": "datatable-convert-number",
+		"body": ",isNumeric: true"
+	},
+	"สร้าง field for data table": {
+		"scope": "javascript,typescript",
+		"prefix": "datatable-field",
+		"body": "{data: '${1}',\n type: '${2:number,text,date}',\n name: '${1}', \n text: '${3:ชื่อเรียก}', \n isNumeric: ${4:false} \n },${5}"
+	},
+	"สร้าง const Name = () => import('')": {
+		"scope": "javascript,typescript",
+		"prefix": "cim",
+		"body": "const ${1} = () => import($2)"
+	},
+}
