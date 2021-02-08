@@ -31,7 +31,7 @@
                 />
               </span>
               <h2 class="brand-text">
-                ISEKI
+                A.O.M
               </h2>
             </b-link>
           </li>

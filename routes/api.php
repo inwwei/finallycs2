@@ -104,6 +104,7 @@ Route::post('product/receive/{id}', 'App\Http\Controllers\ReceiveController@getO
 Route::post('product/received/', 'App\Http\Controllers\ReceiveController@store');
 
 });
+Route::get('Charts', 'App\Http\Controllers\ChartsController@index');
 
 
 // Route::get('partner', 'App\Http\Controllers\Settings\SettingMasterCustomerController@getPartner');

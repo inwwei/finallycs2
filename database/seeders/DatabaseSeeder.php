@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingMasterProductSeeder::class);
         $this->call(SettingMasterUserSeeder::class);
         $this->call(SettingGenerateCodeSeeder::class);
+        $this->call(ChartsSeeder::class);
+
         Artisan::call('iseki:demo_user');
         Artisan::call('iseki:demo_product');
         Artisan::call('iseki:demo_customer');

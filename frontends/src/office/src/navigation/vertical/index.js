@@ -37,4 +37,4 @@ import product from './product'
 import setting from './setting'
 
 // Array of sections,
-export default [...customer, ...employee, ...product, ...setting, ...test]
+export default [...product]

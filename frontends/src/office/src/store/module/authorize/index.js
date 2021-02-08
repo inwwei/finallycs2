@@ -14,23 +14,23 @@ const getters = {
 
 // Actions
 const actions = {
-  checkAuthorize({ commit, getters }) {
-    return new Promise((resolve, reject) => {
-      const authorize_code = getters.getAuthorizeCode
-      axios.post('/api/setting/device/checkpin', {
-        pin: authorize_code,
-      })
-        .then(({ data }) => {
-          commit('SET_AUTHORIZE_CODE', data.data)
-          resolve(data)
-        })
-        .catch(err => {
-          commit('DEL_AUTHORIZE_CODE')
-          // router.push('/authorize_device')
-          reject(err)
-        })
-    })
-  },
+//   checkAuthorize({ commit, getters }) {
+//     return new Promise((resolve, reject) => {
+//       const authorize_code = getters.getAuthorizeCode
+//       axios.post('/api/setting/device/checkpin', {
+//         pin: authorize_code,
+//       })
+//         .then(({ data }) => {
+//           commit('SET_AUTHORIZE_CODE', data.data)
+//           resolve(data)
+//         })
+//         .catch(err => {
+//           commit('DEL_AUTHORIZE_CODE')
+//           // router.push('/authorize_device')
+//           reject(err)
+//         })
+//     })
+//   },
   async loginAuthorize({ commit }, code) {
     try {
       const data = await axios.post('/api/setting/device/usepin', {

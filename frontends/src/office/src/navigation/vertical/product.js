@@ -1,31 +1,47 @@
 export default [
   {
+    title: 'Page Home',
+    route: 'home',
+    icon: 'MapIcon',
+  },
+  {
+    header: 'System',
+  },
+  {
     title: 'Product',
     icon: 'ShoppingCartIcon',
     children: [
+
       {
-        title: 'Check Product Warehouse',
-        route: 'productIndex',
+        title: 'Tender Notice',
+        route: 'TenderNotice',
       },
       {
-        title: 'Product Order',
-        route: 'orderIndex',
+        title: 'Price chart',
+        route: 'Pricechart',
       },
       {
-        title: 'Product Receive',
-        route: 'productReceive',
+        title: 'Company registered',
+        route: 'CompanyRegistered',
       },
       {
-        title: 'Withdraw / Return Product',
-        route: null,
+        title: 'Ministry of Commerce information',
+        route: 'MinistryOfCommerceInformation',
       },
       {
-        title: 'Product Sale',
-        route: 'productSaleIndex',
-      },
-      {
-        title: 'Product Report',
-        route: null,
+        title: 'Manage shop',
+        route: 'ManageShop',
+
+        children: [
+          {
+            title: 'Menu',
+            route: 'Menu',
+          },
+          {
+            title: 'Profiles',
+            route: 'Profiles',
+          },
+        ],
       },
     ],
   },
