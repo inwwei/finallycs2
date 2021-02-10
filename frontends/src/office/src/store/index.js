@@ -20,7 +20,7 @@ import addProduct from './module/product/add'
 import saleProduct from './module/product/sale/sale'
 import printSaleProduct from './module/product/sale/print'
 import receive from './module/product/receive'
-import authorize from './module/authorize'
+// import authorize from './module/authorize'
 import setting from './module/setting'
 import settingBasic from './module/setting/basic'
 import settingBasicCompany from './module/setting/basic/company'
@@ -47,7 +47,7 @@ export default new Vuex.Store({
     orderProduct,
     saleProduct,
     printSaleProduct,
-    authorize,
+    // authorize,
     setting,
     settingBasic,
     settingBasicCompany,

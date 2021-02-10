@@ -15,8 +15,6 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('setting_master_product_id')->index()->comment('เชื่อมตั้งค่า');
-            $table->uuid('setting_basic_branch_id')->index()->comment('เชื่อมสาขา');
             $table->string('machine_code')->nullable()->comment('รหัสเครื่อง');
             $table->string('vin')->nullable()->comment('รหัสตัวถัง');
             $table->string('description')->nullable()->comment('รายละเอียด');
@@ -32,12 +30,6 @@ class CreateProductsTable extends Migration
             $table->timestampsBy();
             $table->softDeletes();
             $table->softDeletesBy();
-            $table->foreign('setting_basic_branch_id')->references('id')->on('setting_basic_branches')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-        $table->foreign('setting_master_product_id')->references('id')->on('setting_master_products')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
         });
     }
 

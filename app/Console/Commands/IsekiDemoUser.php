@@ -46,8 +46,6 @@ class IsekiDemoUser extends Command
             'code' => 'T0001',
             'name' => 'Mr.JIMMY',
             'username' => 'test',
-            'setting_master_users_id' => SettingMasterUser::all()->whereNotNull('ref_id')->random()->id,
-            'branch_id' => '92418200-ed72-4d86-bfef-388d851ae071',
             'email' => 'test@iseki.test',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'

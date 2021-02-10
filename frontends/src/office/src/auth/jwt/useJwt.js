@@ -3,7 +3,7 @@ import axios from '@axios'
 
 const { jwt } = useJwt(axios, {
   // Endpoints
-  loginEndpoint: 'http://finallycs2.mon//api/login',
+  loginEndpoint: 'http://finallycs2.mon/api/login',
   registerEndpoint: '/jwt/register',
   refreshEndpoint: '/jwt/refresh-token',
   logoutEndpoint: '/jwt/logout',
