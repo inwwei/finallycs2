@@ -30,8 +30,6 @@ tag
 tagVariant
 
 */
-import customer from './customer'
-import employee from './employee'
 import test from './test'
 import product from './product'
 import setting from './setting'

@@ -4,78 +4,31 @@ const data = () => ({
   api: '',
   self: '',
   refs: '',
+  test: '',
+  request_data: [],
+  request_detail: [],
   products: [],
-  pageLength: 5,
-  product_info: {
-    id: '',
-    setting_master_product_id: '',
-    setting_basic_branch_id: '',
-    machine_code: null,
-    vin: '',
-    description: '',
-    quantity: null,
-    wholesale_price: null,
-    tags: null,
-    retail_price: null,
-    name: '',
-    setQuantity: null,
-    maxQuantity: null,
-    setting_master_product: {
-      id: '',
-      ref_id: '',
-      code: '',
-      name_th: '',
-      name_en: '',
-      retail_price: null,
-      type: '',
-      title: '',
-    },
-    setting_basic_branch: {
-      branch_name: '',
-      title: '',
-    },
-  },
-
   product_id: '',
-  Branch: [],
-
+  Plants: [],
+  form: {
+    Plant_select: '',
+    first_date: '',
+    end_date: '',
+  },
   columns: [
     {
-      label: 'รหัสสินค้า',
-      field: 'setting_master_product.code',
+      label: 'ณ วันที่',
+      field: 'date',
     },
     {
-      label: 'ชื่อ(TH)',
-      field: 'setting_master_product.name_th',
+      label: 'ราคาเฉลี่ยต่ำสุด',
+      field: 'price_min',
     },
     {
-      label: 'ชื่อ(EN)',
-      field: 'setting_master_product.name_en',
+      label: 'ราคาเฉลี่ยสูงสุด',
+      field: 'price_max',
     },
-    {
-      label: 'รายละเอียด',
-      field: 'description',
-    },
-    {
-      label: 'จำนวน',
-      field: 'quantity',
-    },
-    {
-      label: 'ราคาปลีก',
-      field: 'retail_price',
-    },
-    {
-      label: 'ราคาส่ง',
-      field: 'wholesale_price',
-    },
-    {
-      label: 'แท๊ก',
-      field: 'tags',
-    },
-    {
-      label: 'จัดการ',
-      field: 'manage',
-    },
+
   ],
 })
 export default {
@@ -91,18 +44,19 @@ export default {
       state.self = self
       state.refs = refs
     },
-    SET_PRODUCT_INFO(state, data) {
-    //   state.product_info = data
-      state.product_info = data
+    SET_DATA_REQUEST(state, data) {
+      state.request_data = data.price_list
+      state.request_detail = data
     },
+
     SET_DATA(state, products) {
       state.products = products
     },
     SET_ID(state, id) {
       state.product_id = id
     },
-    SET_BRANCH(state, Branch) {
-      state.Branch = Branch
+    SET_PLANT(state, data) {
+      state.Plants = data
     },
     SET_BRANCH_ID(state, product_info) {
       state.product_info.setting_basic_branch_id = product_info.setting_basic_branch.id
@@ -110,7 +64,7 @@ export default {
   },
   actions: {
     setEditData({ commit, dispatch }, product_info) {
-      commit('SET_BRANCH_ID', product_info)
+      commit('SET_PLANT_ID', product_info)
       dispatch('editProductData')
     },
     nodeSelect({ commit }, node) {
@@ -123,12 +77,24 @@ export default {
     setApi({ commit }, { api, self, refs }) {
       commit('SET_API', { api, self, refs })
     },
-    async getSettingBasicBranch({ commit, state }) {
+    async request({ commit, state }) {
+      try {
+        console.log(state.form.Plant_select.code)
+        console.log(state.form.first_date)
+        console.log(state.form.end_date)
+        const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`)
+        commit('SET_DATA_REQUEST', data)
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async getPlants({ commit, state }) {
       try {
         const { data } = await state.api.get(
-          '/api/setting/basic/branch',
+          '/api/Plants',
         )
-        commit('SET_BRANCH', data.data)
+        commit('SET_PLANT', data.data)
       } catch (error) {
         throw error
       }

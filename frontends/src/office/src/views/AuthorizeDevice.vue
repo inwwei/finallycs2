@@ -11,7 +11,7 @@
             width="50px"
           >
           <h2 class="brand-text text-primary ml-1">
-            ISEKI
+            AOM
           </h2>
         </div>
       </b-link>
