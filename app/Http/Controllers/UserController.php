@@ -172,7 +172,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $data = User::withTrashed()->with(['userContacts', 'settingMasterUser', 'settingBasicBranch'])->find($id);
+        $data = User::with(['product'])->find($id);
 
         if ($data) {
             return response()->success($data);

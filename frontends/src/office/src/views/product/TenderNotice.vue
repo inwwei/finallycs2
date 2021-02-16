@@ -19,6 +19,7 @@
       <b-col cols="12">
 
         <vue-good-table
+          theme="nocturnal"
           :columns="columns"
           :rows="data_with_company"
           :rtl="direction"
@@ -37,51 +38,7 @@
           >
             ไม่พบข้อมูล
           </div>
-          <template
-            slot="table-row"
-            slot-scope="props"
-          >
-            <!-- Column: Action -->
-            <span v-if="props.column.field === 'manage'">
-              <span>
-                <b-dropdown
-                  variant="link"
-                  toggle-class="text-decoration-none"
-                  no-caret
-                >
-                  <template v-slot:button-content>
-                    <feather-icon
-                      icon="MoreVerticalIcon"
-                      size="16"
-                      class="text-body align-middle mr-25"
-                    />
-                  </template>
-                  <b-dropdown-item
-                    @click="infoProduct(props.row.id)"
-                  >
-                    <feather-icon
-                      icon="SearchIcon"
-                      class="mr-50"
-                    />
-                    <span>ข้อมูล</span>
-                  </b-dropdown-item>
-                  <b-dropdown-item @click="editProduct(props.row.id)">
-                    <feather-icon
-                      icon="Edit2Icon"
-                      class="mr-50"
-                    />
-                    <span>แก้ไข</span>
-                  </b-dropdown-item>
-                  <b-dropdown-item @click="deleteProduct(props.row)">
-                    <feather-icon
-                      icon="TrashIcon"
-                      class="mr-50"
-                    />
-                    <span>ลบ</span>
-                  </b-dropdown-item></b-dropdown>
-              </span>
-            </span>
-          </template>
+
           <template
             slot="pagination-bottom"
             slot-scope="props"

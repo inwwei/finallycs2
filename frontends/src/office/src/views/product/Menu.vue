@@ -141,7 +141,6 @@
       </div>
       <div class="custom-search d-flex justify-content-end mb-1">
         <b-col cols="12">
-
           <vue-good-table
             theme="nocturnal"
             :columns="columns_menu"

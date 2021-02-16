@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('Plants', 'App\Http\Controllers\PlantController@index');
     Route::resource('product', 'App\Http\Controllers\ProductController');
     Route::get('user_data', 'App\Http\Controllers\UserController@getUser');
+    Route::get('user/{id}', 'App\Http\Controllers\UserController@show');
     Route::get('user_data_all', 'App\Http\Controllers\UserController@user_data_all');
     Route::put('user_data/{id}', 'App\Http\Controllers\UserController@update_profile');
     // Route::get('post_with_company', 'App\Http\Controllers\UserController@getPostWithCompany');

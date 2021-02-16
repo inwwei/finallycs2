@@ -100,4 +100,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/product/Info',
+    name: 'productInfo',
+    component: () => import('@/views/product/Info'),
+    meta: {
+      breadcrumb: [
+        {
+          text: 'ร้านที่ลงทะเบียน',
+        },
+        {
+          text: 'ข้อมูลร้าน',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

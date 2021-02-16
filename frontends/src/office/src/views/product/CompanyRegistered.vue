@@ -19,7 +19,7 @@
       <b-col cols="12">
 
         <vue-good-table
-          :columns="columns"
+          :columns="columns_regis"
           :rows="user_all_data"
           :rtl="direction"
           :search-options="{
@@ -127,7 +127,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('company', ['user_all_data', 'form_add', 'columns', 'pageLength', 'user_data']),
+    ...mapState('company', ['user_all_data', 'form_add', 'columns_regis', 'pageLength', 'user_data']),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -145,7 +145,7 @@ export default {
     this.getUserAll()
   },
   methods: {
-    ...mapActions('company', ['setApi', 'getUser', 'infoProduct', 'deleteProduct', 'getUserAll']),
+    ...mapActions('company', ['setApi', 'getUser', 'infoProduct', 'deleteProduct', 'getUserAll', 'viewCompany']),
   },
 
 }

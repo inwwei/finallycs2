@@ -5,6 +5,8 @@ const data = () => ({
   self: '',
   refs: '',
   test: '',
+  company_id: '',
+  company_info: {},
 
   form_add: {
     user_id: '123456789',
@@ -21,8 +23,9 @@ const data = () => ({
   },
   user_all_data: [],
   user_data: {},
+  company_sub_data: [],
   data_with_company: {},
-  columns: [
+  columns_regis: [
     {
       label: 'ชื่อร้าน',
       field: 'name',
@@ -44,6 +47,52 @@ const data = () => ({
       field: 'manage',
     },
   ],
+  columns: [
+    {
+      label: 'ชื่อร้าน',
+      field: 'name',
+    },
+    {
+      label: 'ผู้จัดการร้าน',
+      field: 'user.fullname',
+    },
+    {
+      label: 'เบอร์โทรติดต่อ',
+      field: 'user.company_tel',
+    },
+    {
+      label: 'ที่อยู่',
+      field: 'user.address',
+    },
+
+  ],
+  columns_menu: [
+    {
+      label: 'ชื่อ',
+      field: 'name',
+    },
+    {
+      label: 'ราคา/กก.',
+      field: 'price_per_kk',
+    },
+    {
+      label: 'หักความชื้น (ร้อยละ)',
+      field: 'moisture',
+    },
+    {
+      label: 'ความชื้นต่ำสุด',
+      field: 'moisture_min',
+    },
+    {
+      label: 'ความชื้นสูงสุด',
+      field: 'moisture_max',
+    },
+    {
+      label: 'หักสิ่งแปลกปลอม (ร้อยละ)',
+      field: 'Foreign_matter',
+    },
+
+  ],
 })
 export default {
   namespaced: true,
@@ -62,7 +111,8 @@ export default {
       state.refs = refs
     },
     SET_DATA_REQUEST(state, data) {
-      state.request_data = data.price_list
+      state.company_sub_data = data.product
+
       state.request_detail = data
     },
     SET_DATA(state, products) {
@@ -78,11 +128,16 @@ export default {
       state.user_all_data = data
     },
     SET_ID(state, id) {
-      state.product_id = id
+      state.company_id = id
     },
     SET_PLANT(state, data) {
       state.Plants = data
     },
+    SET_COMPANY_INFO(state, data) {
+      state.company_info = data
+      state.company_sub_data = data.product
+    },
+
     SET_POST_WITH_COMPANY(state, data) {
       state.data_with_company = data
     },
@@ -219,30 +274,23 @@ export default {
         throw error
       }
     },
-    async queryProductInfo({ state, commit }) {
+    async queryCompanyInfo({ state, commit }) {
       try {
         const { data } = await state.api.get(
-          `/api/product/${state.product_id}`,
+          `/api/user/${state.company_id}`,
         )
-        commit('SET_PRODUCT_INFO', data.data)
+        commit('SET_COMPANY_INFO', data.data)
       } catch (error) {
         throw error
       }
     },
-    async infoProduct({ state }, id) {
+    async viewCompany({ state }, id) {
       try {
         router.push({ name: 'productInfo', query: { id } })
       } catch (error) {
         throw error
       }
     },
-    // async editProduct({ state }, id) {
-    //   try {
-    //     router.push({ name: 'productEdit', query: { id } })
-    //   } catch (error) {
-    //     throw error
-    //   }
-    // },
     async confirmEdit_menu({ state, commit, dispatch }) {
       try {
         if (state.modal_data.price_per_kk !== '') {
@@ -334,7 +382,6 @@ export default {
       // method นี้ คลิ๊กที่หน้าบ้าน แล้วมันจะเลือกสินค้าลงไปในตารางที่ 2
       commit('SET_ARRAY_DATA')
     },
-
     getModalId({ commit }, data) {
       // เมื่อกด "รับ" เอาข้อมูลไปเติมใน modal
       commit('SET_MODAL_DATA', data)
@@ -363,7 +410,6 @@ export default {
         throw error
       }
     },
-
     async edit_profile({ state, commit, dispatch }) {
       try {
         if (state.user_data.name !== ''
@@ -423,6 +469,5 @@ export default {
         throw error
       }
     },
-
   },
 }

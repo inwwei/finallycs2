@@ -1,7 +1,7 @@
 <template>
   <div>
     <panel
-      v-show="show_edit==false"
+
       title="ข้อมูลร้าน"
     >
       <!-- <pre>{{ user_data }}</pre> -->
@@ -277,7 +277,7 @@ export default {
   },
   data() {
     return {
-      show_edit: false,
+
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 8,
       center: [47.313220, -1.319482],
@@ -305,10 +305,7 @@ export default {
   },
   methods: {
     ...mapActions('product', ['setApi', 'getUser', 'edit_profile', 'getModalProfile']),
-    edit() {
-      this.show_edit = true
-      console.log(this.show_edit)
-    },
+
   },
 
 }
