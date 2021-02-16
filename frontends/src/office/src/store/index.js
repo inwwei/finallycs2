@@ -20,6 +20,7 @@ import addProduct from './module/product/add'
 import saleProduct from './module/product/sale/sale'
 import printSaleProduct from './module/product/sale/print'
 import receive from './module/product/receive'
+import company from './module/product/company'
 // import authorize from './module/authorize'
 import setting from './module/setting'
 import settingBasic from './module/setting/basic'
@@ -54,6 +55,7 @@ export default new Vuex.Store({
     settingBasicBranch,
     settingDevice,
     receive,
+    company,
   },
   strict: process.env.DEV,
 })

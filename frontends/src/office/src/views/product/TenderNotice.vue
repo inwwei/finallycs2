@@ -1,5 +1,5 @@
 <template>
-  <panel title="สินค้าคงเหลือ">
+  <panel title="รายการประกาศรับซื้อผลผลิตทางการเกษตร">
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-form-group>
         <div class="d-flex align-items-center">
@@ -10,23 +10,17 @@
             type="text"
             class="d-inline-block mr-1"
           />
-          <b-button
-            variant="primary"
-            style="width:210px;"
-            class="mr-1"
-            :to="{name:'productAdd'}"
-          >
-            เพิ่มข้อมูล
-          </b-button>
+
         </div>
       </b-form-group>
     </div>
+    <!-- <pre>{{ data_with_company }}</pre> -->
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-col cols="12">
 
         <vue-good-table
           :columns="columns"
-          :rows="products"
+          :rows="data_with_company"
           :rtl="direction"
           :search-options="{
             enabled: true,
@@ -37,6 +31,12 @@
             perPage: pageLength,
           }"
         >
+          <div
+            slot="emptystate"
+            class="center"
+          >
+            ไม่พบข้อมูล
+          </div>
           <template
             slot="table-row"
             slot-scope="props"
@@ -89,7 +89,7 @@
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-center mb-0 mt-1">
                 <span class="text-nowrap ">
-                  Showing 1 to
+                  แสดง 1 ถึง
                 </span>
                 <b-form-select
                   v-model="pageLength"
@@ -97,7 +97,7 @@
                   class="mx-1"
                   @input="(value)=>props.perPageChanged({currentPerPage:value})"
                 />
-                <span class="text-nowrap"> of {{ props.total }} entries </span>
+                <span class="text-nowrap"> ของ {{ props.total }} แถว </span>
               </div>
               <div>
                 <b-pagination
@@ -151,7 +151,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('product', ['test', 'products', 'columns', 'pageLength']),
+    ...mapState('company', ['test', 'products', 'columns', 'pageLength', 'data_with_company']),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -165,10 +165,10 @@ export default {
   },
   mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
-    this.getData()
+    this.post_with_company()
   },
   methods: {
-    ...mapActions('product', ['setApi', 'getData', 'queryProductInfo', 'infoProduct', 'deleteProduct', 'editProduct']),
+    ...mapActions('company', ['setApi', 'getData', 'post_with_company', 'deleteProduct', 'editProduct']),
   },
 
 }
@@ -176,5 +176,8 @@ export default {
 <style  scoped>
 label{
     font-size: larger;
+}
+.center{
+    text-align: center;
 }
 </style>

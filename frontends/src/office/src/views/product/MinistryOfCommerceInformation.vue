@@ -93,7 +93,7 @@
               slot="emptystate"
               class="center"
             >
-              ไม่มีข้อมูล
+              ไม่พบข้อมูล
             </div>
             <template
               slot="pagination-bottom"

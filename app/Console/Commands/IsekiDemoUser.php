@@ -43,6 +43,8 @@ class IsekiDemoUser extends Command
 
         // Fix user ตัวนี้ไว้จะได้จำ Login
         $data = User::create([
+            'id'=>'92B2E648-AF2F-45DC-8FF0-F9E1058A3BC9',
+            'identification_number'=>'1409600250281',
             'role'=>'member',
             'name' => 'จตุพล การเกษตร',
             'username' => 'test',

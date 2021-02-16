@@ -30,8 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('province')->nullable()->comment('จังหวัด');
             $table->string('postal_code')->nullable()->comment('รหัสไปรษณีย์');
             $table->string('role')->nullable()->comment('สิทธิ์');
-            $table->float('latitude', 8, 7)->nullable()->comment('ลติจูด');
-            $table->float('longtitude', 8, 7)->nullable()->comment('ลองติจูด');
+            $table->float('latitude', 8, 4)->nullable()->comment('ลติจูด');
+            $table->float('longtitude', 8, 4)->nullable()->comment('ลองติจูด');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

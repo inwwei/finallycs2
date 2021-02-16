@@ -15,17 +15,16 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // public function getSetting()
-    // {
-    //     $type = ['อะไหล่','อุปกรณ์ต่อพ่วง','ตัวรถ'];
-    //     $data = SettingMasterProduct::whereIn('name_th',$type)->get();
+    public function getPostWithCompany()
+    {
+        $data = Product::with('user')->get();
 
-    //     if (!$data) {
-    //         return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
-    //     } else {
-    //         return response()->success($data, [], '0', 200);
-    //     }
-    // }
+        if (!$data) {
+            return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
+        } else {
+            return response()->success($data, [], '0', 200);
+        }
+    }
 
     public function index()
     {

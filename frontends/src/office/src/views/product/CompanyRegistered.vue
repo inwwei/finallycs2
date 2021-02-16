@@ -10,14 +10,7 @@
             type="text"
             class="d-inline-block mr-1"
           />
-          <b-button
-            variant="primary"
-            style="width:210px;"
-            class="mr-1"
-            :to="{name:'productAdd'}"
-          >
-            เพิ่มข้อมูล
-          </b-button>
+
         </div>
       </b-form-group>
     </div>
@@ -26,7 +19,7 @@
 
         <vue-good-table
           :columns="columns"
-          :rows="products"
+          :rows="form_add"
           :rtl="direction"
           :search-options="{
             enabled: true,
@@ -37,6 +30,12 @@
             perPage: pageLength,
           }"
         >
+          <div
+            slot="emptystate"
+            class="center"
+          >
+            ไม่พบข้อมูล
+          </div>
           <template
             slot="table-row"
             slot-scope="props"
@@ -151,7 +150,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('product', ['test', 'products', 'columns', 'pageLength']),
+    ...mapState('company', ['test', 'form_add', 'columns', 'pageLength']),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -168,7 +167,7 @@ export default {
     this.getData()
   },
   methods: {
-    ...mapActions('product', ['setApi', 'getData', 'queryProductInfo', 'infoProduct', 'deleteProduct', 'editProduct']),
+    ...mapActions('company', ['setApi', 'getData', 'queryProductInfo', 'infoProduct', 'deleteProduct', 'editProduct']),
   },
 
 }
@@ -176,5 +175,8 @@ export default {
 <style  scoped>
 label{
     font-size: larger;
+}
+.center{
+    text-align: center;
 }
 </style>
