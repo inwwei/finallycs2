@@ -15,16 +15,17 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('machine_code')->nullable()->comment('รหัสเครื่อง');
-            $table->string('vin')->nullable()->comment('รหัสตัวถัง');
-            $table->string('description')->nullable()->comment('รายละเอียด');
-            $table->integer('quantity')->default(1)->comment('จำนวน');
-            $table->integer('wholesale_price')->nullable()->comment('ราคาขายส่ง');
-            $table->text('tags')->nullable()->comment('แท๊ก');
-            $table->integer('retail_price')->nullable()->comment('ราคาขายปลีก');
-            $table->date('received_date')->nullable()->comment('วันที่รับ');
-            $table->date('date')->nullable()->comment('วันที่ผลิต');
-            $table->enum('type_received', ['เพิ่ม','รับเข้า'])->default('รับเข้า')->nullable()->comment('สถานะการรับ');
+            $table->uuid('user_id')->nullable()->comment('เชื่อมผู้ใช้');
+            $table->string('name')->comment('ชื่อพืช')->nullable();
+            $table->double('moisture', 8, 2)->comment('หักความชื้นร้อยละ')->nullable();
+            $table->double('moisture_min', 8, 2)->comment('ความชื้นน้อยสุด')->nullable();
+            $table->double('moisture_max', 8, 2)->comment('ความชื้นมากสุด')->nullable();
+            $table->double('Foreign_matter', 8, 2)->comment('สิ่งแปลกปลอม')->nullable();
+            $table->double('price_per_kk', 8, 2)->comment('ราคาต่อกิโลกรัม')->nullable();
+            $table->double('price_per_ton', 8, 2)->comment('ราคาต่อตัน')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
             $table->rememberToken();
             $table->timestampsBy();

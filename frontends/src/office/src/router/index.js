@@ -65,13 +65,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, _, next) => {
-  // ตรวจ authorize code ก่อนว่าเครื่องได้รับอนุญาติ หรือไม่
-  try {
-    await store.dispatch('checkAuthorize')
-  } catch (e) {
-    //
-  }
-
   if (to.path === '/authorize_device') {
     return next()
   }

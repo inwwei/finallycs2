@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\IsekiDemoProduct::class,
-        Commands\IsekiDemoAutoInsertProduct::class,
+        // Commands\IsekiDemoProduct::class,
+        // Commands\IsekiDemoAutoInsertProduct::class,
     ];
 
     /**
@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('iseki:demo_product');
-        $schedule->command('iseki:demo_insertProductAuto')->dailyAt('00:00');
+        // $schedule->command('iseki:demo_insertProductAuto')->dailyAt('00:00');
     }
 
     /**

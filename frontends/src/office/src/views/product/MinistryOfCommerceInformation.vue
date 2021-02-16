@@ -5,7 +5,7 @@
         <validation-observer ref="simpleRules">
           <b-row class="ml-1 mr-1">
             <b-col class="tree">
-              <h6>เลือกพืช</h6>
+              <label>เลือกพืช</label>
               <vue-select
                 v-model="form.Plant_select"
                 :option="Plants"
@@ -76,6 +76,7 @@
       <div class="custom-search d-flex justify-content-end mb-1">
         <b-col cols="12">
           <vue-good-table
+            theme="nocturnal"
             :columns="columns"
             :rows="request_data"
             :rtl="direction"
@@ -88,6 +89,12 @@
               perPage: pageLength,
             }"
           >
+            <div
+              slot="emptystate"
+              class="center"
+            >
+              ไม่มีข้อมูล
+            </div>
             <template
               slot="pagination-bottom"
               slot-scope="props"
@@ -205,5 +212,8 @@ export default {
 }
 label {
   font-size: larger;
+}
+.center{
+    text-align: center;
 }
 </style>

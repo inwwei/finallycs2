@@ -59,12 +59,12 @@ class UserController extends Controller
 
         $user = User::create($datas);
 
-        if (isset($datas['user_contacts'])) {
-            foreach ($datas['user_contacts'] as $contact) {
-                $contact['user_id'] = $user->id;
-                UserContact::create($contact);
-            }
-        }
+        // if (isset($datas['user_contacts'])) {
+        //     foreach ($datas['user_contacts'] as $contact) {
+        //         $contact['user_id'] = $user->id;
+        //         UserContact::create($contact);
+        //     }
+        // }
 
         if (!$user) {
             return response()->error(['เพิ่มข้อมูลไม่สำเร็จ'], '40');
@@ -75,16 +75,26 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        return $request;
         $datas = $request->validate([
-            'name' => 'required',
-            'financial' => 'required',
-            'identification_number' => 'required',
-            'username' => 'required',
-            'code' => 'required',
-            'branch_id' => 'required',
+            'name' => 'sometimes',
+            'identification_number' => 'sometimes',
+            'username' => 'sometimes',
             'email' => 'required',
-            'password' => 'required',
-            'setting_master_users_id' => 'required'
+            'password' => 'sometimes',
+            'email'=> 'sometimes',
+            'ceo_prefix'=> 'sometimes',
+            'ceo_firstname'=> 'sometimes',
+            'ceo_lastname'=> 'sometimes',
+            'company_tel'=> 'sometimes',
+            'ceo_tel'=> 'sometimes',
+            'amphoe'=> 'sometimes',
+            'district'=> 'sometimes',
+            'province'=> 'sometimes',
+            'postal_code'=> 'sometimes',
+            'latitude'=> 'sometimes',
+            'longtitude'=> 'sometimes',
+            'role'=> 'sometimes',
         ]);
         $password =  $datas['password'];
         if ($datas['password'] = 'password') {
@@ -93,6 +103,45 @@ class UserController extends Controller
             $datas['password'] = Hash::make($password);
         }
         $user = User::find($id);
+        if (!$user) {
+            return response()->error(['ไม่พบข้อมูลพนักงาน'], '40');
+        }
+        $result = $user->update($datas);
+        if (!$result) {
+            return response()->error(['แก้ไขไม่สำเร็จ'], '40');
+        }
+        return response()->success($user->toArray(), [], '0',  200);
+    }
+    public function update_profile(Request $request, $id)
+    {
+
+        $datas = $request->validate([
+            'name' => 'sometimes',
+            'identification_number' => 'sometimes',
+            'username' => 'sometimes',
+            'email' => 'required',
+            'password' => 'sometimes',
+            'email'=> 'sometimes',
+            'ceo_prefix'=> 'sometimes',
+            'ceo_firstname'=> 'sometimes',
+            'ceo_lastname'=> 'sometimes',
+            'company_tel'=> 'sometimes',
+            'ceo_tel'=> 'sometimes',
+            'amphoe'=> 'sometimes',
+            'district'=> 'sometimes',
+            'province'=> 'sometimes',
+            'postal_code'=> 'sometimes',
+            'latitude'=> 'sometimes',
+            'longtitude'=> 'sometimes',
+            'role'=> 'sometimes',
+        ]);
+        $password =  $datas['password'];
+        if ($datas['password'] = 'password') {
+            $datas['password'] = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+        } else {
+            $datas['password'] = Hash::make($password);
+        }
+        $user = User::find($request->id);
         if (!$user) {
             return response()->error(['ไม่พบข้อมูลพนักงาน'], '40');
         }

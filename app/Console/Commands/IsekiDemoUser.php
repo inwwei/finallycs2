@@ -43,16 +43,39 @@ class IsekiDemoUser extends Command
 
         // Fix user ตัวนี้ไว้จะได้จำ Login
         $data = User::create([
-            'code' => 'T0001',
-            'name' => 'Mr.JIMMY',
+            'role'=>'member',
+            'name' => 'จตุพล การเกษตร',
             'username' => 'test',
             'email' => 'test@iseki.test',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
-        ]);
-
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            "ceo_prefix"=> 'นาย',
+            "ceo_firstname"=> 'จตุพล',
+            "ceo_lastname"=> 'ดอนคูณ',
+            "company_tel"=> '0973148164',
+            "ceo_tel"=> '0973148164',
+            "amphoe"=> 'เมือง',
+            "district"=> 'ศิลา',
+            "province"=> 'ขอนแก่น',
+            "postal_code"=> '40000',
+            "role"=> "member",
+            "latitude"=> 16.474751,
+            "longtitude"=> 102.7529965,
+            ]);
         User::factory()
             ->times(50)
             ->create();
+
+            $data = User::create([
+                'role'=>'guest',
+                'name' => 'guest',
+                'username' => 'guest',
+                'email' => 'guest@iseki.guest',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+                ]);
+            User::factory()
+                ->times(50)
+                ->create();
     }
 }

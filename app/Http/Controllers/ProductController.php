@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product\Product;
 use App\Models\Settings\SettingMasterProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -14,21 +15,22 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getSetting()
-    {
-        $type = ['อะไหล่','อุปกรณ์ต่อพ่วง','ตัวรถ'];
-        $data = SettingMasterProduct::whereIn('name_th',$type)->get();
+    // public function getSetting()
+    // {
+    //     $type = ['อะไหล่','อุปกรณ์ต่อพ่วง','ตัวรถ'];
+    //     $data = SettingMasterProduct::whereIn('name_th',$type)->get();
 
-        if (!$data) {
-            return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
-        } else {
-            return response()->success($data, [], '0', 200);
-        }
-    }
+    //     if (!$data) {
+    //         return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
+    //     } else {
+    //         return response()->success($data, [], '0', 200);
+    //     }
+    // }
 
     public function index()
     {
-        $data = Product::with('settingMasterProduct','settingBasicBranch')->get();
+        $user_id= Auth::user()->id;
+        $data = Product::where('user_id',$user_id)->get();
 
         if (!$data) {
             return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
@@ -36,16 +38,7 @@ class ProductController extends Controller
             return response()->success($data, [], '0', 200);
         }
     }
-    public function getProductWithBranch($branch_id)
-    {
-        $data = Product::with('settingMasterProduct','settingBasicBranch')->where('setting_basic_branch_id',$branch_id)->get();
 
-        if (!$data) {
-            return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
-        } else {
-            return response()->success($data, [], '0', 200);
-        }
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -65,25 +58,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $datas = $request->validate([
-            'setting_master_product_id' => 'required',
-            'setting_basic_branch_id' => 'required',
-            'machine_code' => 'sometimes',
-            'vin' => 'sometimes',
-            'description' => 'required',
-            'tags' => 'sometimes',
-            'quantity' => 'required',
-            'retail_price' => 'required',
-            'wholesale_price' => 'required',
-            'tags' => 'sometimes',
-            'date' => 'sometimes',
-            'type_received' => 'required',
+            'user_id' => 'required',
+            'name'=> 'required',
+            'moisture'=> 'sometimes',
+            'moisture_min'=> 'sometimes',
+            'moisture_max'=> 'sometimes',
+            'Foreign_matter'=> 'sometimes',
+            'price_per_kk'=> 'required',
+            'price_per_ton'=> 'sometimes',
+
 
         ]);
-
-
+        $datas['user_id']= Auth::user()->id;
         $product = Product::create($datas);
-
         if (!$product) {
             return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');
         } else {
@@ -127,41 +116,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
         $datas = $request->validate([
-            'setting_master_product_id' => 'required',
-            'setting_basic_branch_id' => 'required',
-            'machine_code' => 'sometimes',
-            'vin' => 'sometimes',
-            'description' => 'required',
-            'tags' => 'sometimes',
-            'quantity' => 'required',
-            'retail_price' => 'required',
-            'wholesale_price' => 'required',
-            'tags' => 'sometimes',
-            'date' => 'sometimes',
-
+            'user_id' => 'required',
+            'name'=> 'required',
+            'moisture'=> 'sometimes',
+            'moisture_min'=> 'sometimes',
+            'moisture_max'=> 'sometimes',
+            'Foreign_matter'=> 'sometimes',
+            'price_per_kk'=> 'required',
+            'price_per_ton'=> 'sometimes',
         ]);
+        $datas['user_id']= Auth::user()->id;
 
-        $product = Product::with('settingMasterProduct')->find($id);
-        if(!$product){
-            return response()->error(['ไม่พบข้อมูลสินค้าที่ต้องการ'], '40');
-        }
-
-        $result = false;
-        if ( $product->settingMasterProduct->type == 'อะไหล่') {
-            $new_quantity = $product->quantity + $datas['new_quantity'];
-            $product->fill($datas);
-            $product->quantity = $new_quantity;
-            $result = $product->save();
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');
         } else {
             $result = $product->update($datas);
+            return response()->success($result, [], '0', 200);
         }
-
-        if (!$result) {
-            return response()->error(['แก้ไขไม่สำเร็จ'], '40');
-        }
-        return response()->success($product->toArray(), [], '0', 200);
     }
 
     /**

@@ -292,12 +292,12 @@ export default {
                     component: ToastificationContent,
                     position: 'top-right',
                     props: {
-                      title: `Welcome ${
+                      title: `สวัสดี ${
                         userData.fullName || userData.username
                       }`,
                       icon: 'CoffeeIcon',
                       variant: 'success',
-                      text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
+                    //   text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
                     },
                   })
                 })

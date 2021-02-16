@@ -18,7 +18,5 @@ class DatabaseSeeder extends Seeder
         $this->call(PlantsSeeder::class);
         Artisan::call('iseki:demo_user');
 
-
-
     }
 }

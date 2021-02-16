@@ -13,11 +13,11 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, UseUuid,UseLog;
 
-    protected $appends = ['name','setQuantity','maxQuantity'];
+    // protected $appends = ['name','setQuantity','maxQuantity'];
 
-    protected $casts = [
-        'tags' => 'array',
-    ];
+    // protected $casts = [
+    //     'tags' => 'array',
+    // ];
 
     /**
      * The attributes that are mass assignable.
@@ -25,18 +25,14 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'setting_master_product_id',
-        'setting_basic_branch_id',
-        'machine_code',
-        'vin',
-        'description',
-        'quantity',
-        'retail_price',
-        'wholesale_price',
-        'tags',
-        'date',
-        'type_received',
-        'received_date'
+        'user_id',
+        'name',
+        'moisture',
+        'moisture_min',
+        'moisture_max',
+        'Foreign_matter',
+        'price_per_kk',
+        'price_per_ton',
     ];
 
     /**
@@ -50,47 +46,16 @@ class Product extends Model
      *
      * @var array
      */
-    public function settingBasicBranch()
-    {
-        return $this->belongsTo('App\Models\Settings\SettingBasicBranch');
 
-    }
-    public function attacheds()
+    public function user()
     {
-        return $this->morphMany('App\Models\Attached', 'attachedable');
-    }
-    public function settingMasterProduct()
-    {
-        return $this->belongsTo('App\Models\Settings\SettingMasterProduct');
+        return $this->belongsTo('App\Models\User');
 
     }
     public function productLog()
     {
         return $this->hasMany('App\Models\Log','ref_id','id');
     }
-    public function getNameAttribute($value)
-    {
-        // return $this->settingMasterProduct;
-         return "({$this->settingMasterProduct->name_th}) ({$this->settingMasterProduct->name_en})";
 
-    }
-
-    public function getMaxQuantityAttribute($value)
-    {
-        // return $this->settingMasterProduct;
-        return $this->quantity;
-    }
-
-    public function getSetQuantityAttribute($value)
-    {
-        // return $this->settingMasterProduct;
-        if($this->quantity !== 0){
-            return 1;
-        }else{
-            return 0;
-        }
-
-
-    }
 
 }

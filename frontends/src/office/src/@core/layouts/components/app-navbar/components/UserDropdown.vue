@@ -9,7 +9,7 @@
         <p class="user-name font-weight-bolder mb-0">
           {{ userData.fullName || userData.username }}
         </p>
-        <span class="user-status">{{ userData.role }}</span>
+        <!-- <span class="user-status">{{ userData.role }}</span> -->
       </div>
       <b-avatar
         size="40"
@@ -35,7 +35,7 @@
         icon="LogOutIcon"
         class="mr-50"
       />
-      <span>Logout</span>
+      <span>ออกจากระบบ</span>
     </b-dropdown-item></b-nav-item-dropdown>
 </template>
 

@@ -29,10 +29,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('info', 'App\Http\Controllers\LoginController@info');
     Route::resource('attached', 'App\Http\Controllers\AttachedController');
     Route::get('helper/alltag', 'App\Http\Controllers\HelperController@allTag');
+    Route::get('Charts', 'App\Http\Controllers\ChartsController@index');
+    Route::get('Plants', 'App\Http\Controllers\PlantController@index');
+    Route::resource('product', 'App\Http\Controllers\ProductController');
+    Route::get('user_data', 'App\Http\Controllers\UserController@getUser');
+    Route::put('user_data/{id}', 'App\Http\Controllers\UserController@update_profile');
 
 });
-Route::get('Charts', 'App\Http\Controllers\ChartsController@index');
-Route::get('Plants', 'App\Http\Controllers\PlantController@index');
+
+
 
 
 

@@ -23,13 +23,21 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'identification_number',
-        'financial',
         'username',
         'password',
-        'code',
-        'setting_master_users_id',
-        'branch_id',
         'email',
+        'ceo_prefix',
+        'ceo_firstname',
+        'ceo_lastname',
+        'company_tel',
+        'ceo_tel',
+        'amphoe',
+        'district',
+        'province',
+        'postal_code',
+        'latitude',
+        'longtitude',
+        'role'
 
     ];
 
@@ -52,27 +60,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userLog()
+    public function product()
     {
-        return $this->hasMany('App\Models\Log','ref_id','id');
-    }
-    public function attacheds()
-    {
-        return $this->morphMany('App\Models\Attached', 'attachedable');
+        return $this->hasMany('App\Models\Product\Product');
     }
 
-    public function userContacts()
-    {
-        return $this->hasMany('App\Models\UserContact','user_id','id');
-    }
 
-    public function settingMasterUser()
-    {
-        return $this->belongsTo('App\Models\Settings\SettingMasterUser','setting_master_users_id');
-    }
-
-    public function settingBasicBranch()
-    {
-        return $this->belongsTo('App\Models\Settings\SettingBasicBranch','branch_id','id');
-    }
 }

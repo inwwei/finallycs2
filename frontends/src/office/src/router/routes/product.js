@@ -4,15 +4,12 @@ export default [
     name: 'TenderNotice',
     component: () => import('@/views/product/TenderNotice.vue'),
     meta: {
-      pageTitle: 'ข้อมูลสินค้า',
       breadcrumb: [
         {
-          text: 'ระบบสินค้า',
-        },
-        {
-          text: 'ข้อมูลสินค้าทั้งหมด',
+          text: 'รายการประกาศรับซื้อ',
           active: true,
         },
+
       ],
     },
   },
@@ -23,10 +20,7 @@ export default [
     meta: {
       breadcrumb: [
         {
-          text: 'ระบบสินค้า',
-        },
-        {
-          text: 'ข้อมูลสินค้าทั้งหมด',
+          text: 'กราฟราคา',
           active: true,
         },
       ],
@@ -38,11 +32,9 @@ export default [
     component: () => import('@/views/product/CompanyRegistered.vue'),
     meta: {
       breadcrumb: [
+
         {
-          text: 'ระบบสินค้า',
-        },
-        {
-          text: 'ข้อมูลสินค้าทั้งหมด',
+          text: 'บริษัทที่ลงทะเบียนในระบบ',
           active: true,
         },
       ],
@@ -54,11 +46,9 @@ export default [
     component: () => import('@/views/product/MinistryOfCommerceInformation.vue'),
     meta: {
       breadcrumb: [
+
         {
-          text: 'ระบบสินค้า',
-        },
-        {
-          text: 'ข้อมูลสินค้าทั้งหมด',
+          text: 'ข้อมูลจากกระทรวงพาณิชย์',
           active: true,
         },
       ],
@@ -69,13 +59,10 @@ export default [
     name: 'ManageShop',
     component: () => import('@/views/product/ManageShop.vue'),
     meta: {
-      pageTitle: 'ข้อมูลสินค้าทั้งหมด',
       breadcrumb: [
+
         {
-          text: 'ระบบสินค้า',
-        },
-        {
-          text: 'รายการขายสินค้าทั้งหมด',
+          text: 'จัดการร้าน',
           active: true,
         },
       ],
@@ -88,13 +75,10 @@ export default [
     meta: {
       breadcrumb: [
         {
-          text: 'ระบบสินค้า',
+          text: 'จัดการร้าน',
         },
         {
-          text: 'รายการขายสินค้าทั้งหมด',
-        },
-        {
-          text: 'ขายสินค้า',
+          text: 'ประกาศ',
           active: true,
         },
       ],
@@ -107,13 +91,10 @@ export default [
     meta: {
       breadcrumb: [
         {
-          text: 'ระบบสินค้า',
+          text: 'จัดการร้าน',
         },
         {
-          text: 'รายการขายสินค้าทั้งหมด',
-        },
-        {
-          text: 'ขายสินค้า',
+          text: 'ข้อมูลร้าน',
           active: true,
         },
       ],

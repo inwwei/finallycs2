@@ -81,7 +81,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: '$ (thousands)',
+            text: ' ราคา (บาท)',
           },
         },
         fill: {

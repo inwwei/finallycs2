@@ -46,10 +46,7 @@ export default {
   components: {
     BLink,
     BNavbarNav,
-    BNavItemDropdown,
     BDropdownItem,
-    BDropdownDivider,
-    BAvatar,
 
     // Navbar Components
     DarkToggler,

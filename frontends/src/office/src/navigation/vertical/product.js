@@ -2,46 +2,47 @@ export default [
   {
     title: 'Page Home',
     route: 'home',
-    icon: 'MapIcon',
+    icon: 'HomeIcon',
   },
   {
-    header: 'System',
+    title: 'Company registered',
+    route: 'CompanyRegistered',
+    icon: 'ClipboardIcon',
+
   },
   {
-    title: 'Product',
+    title: 'Ministry of Commerce information',
+    route: 'MinistryOfCommerceInformation',
+    icon: 'FileTextIcon',
+
+  },
+  {
+    title: 'Price chart',
+    route: 'Pricechart',
+    icon: 'TrendingUpIcon',
+
+  },
+  {
+    title: 'Tender Notice',
+    route: 'TenderNotice',
     icon: 'ShoppingCartIcon',
+
+  },
+
+  {
+    title: 'Manage shop',
+    route: 'ManageShop',
+
     children: [
-
       {
-        title: 'Tender Notice',
-        route: 'TenderNotice',
+        title: 'Menu',
+        route: 'Menu',
+        icon: 'FileTextIcon',
       },
       {
-        title: 'Price chart',
-        route: 'Pricechart',
-      },
-      {
-        title: 'Company registered',
-        route: 'CompanyRegistered',
-      },
-      {
-        title: 'Ministry of Commerce information',
-        route: 'MinistryOfCommerceInformation',
-      },
-      {
-        title: 'Manage shop',
-        route: 'ManageShop',
-
-        children: [
-          {
-            title: 'Menu',
-            route: 'Menu',
-          },
-          {
-            title: 'Profiles',
-            route: 'Profiles',
-          },
-        ],
+        title: 'Profiles',
+        route: 'Profiles',
+        icon: 'ShoppingBagIcon',
       },
     ],
   },
