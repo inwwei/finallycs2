@@ -61,8 +61,10 @@ class IsekiDemoUser extends Command
             "province"=> 'ขอนแก่น',
             "postal_code"=> '40000',
             "role"=> "member",
-            "latitude"=> 16.474751,
-            "longtitude"=> 102.7529965,
+            "lat"=> 16.4736762,
+            "lng"=> 102.8241283,
+            "zoom"=>'18z',
+            "name_location"=>'คณะวิทยาศาสตร์'
             ]);
         User::factory()
             ->times(50)

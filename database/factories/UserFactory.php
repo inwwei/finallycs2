@@ -36,11 +36,11 @@ class UserFactory extends Factory
             'ceo_tel' => $this->faker->e164PhoneNumber,
             'amphoe' => $this->faker->company,
             'district' => $this->faker->company,
-            'province' => $this->faker->company,
+            'province' => $this->faker->streetAddress,
             'role'=>'member',
-            'postal_code' => '40220',
-            'latitude' => $this->faker->latitude($min = -90, $max = 90),
-            'longtitude' => $this->faker->longitude($min = -180, $max = 180),
+            'postal_code' => $this->faker->postcode,
+            'lat' => $this->faker->latitude($min = -90, $max = 90),
+            'lng' => $this->faker->longitude($min = -180, $max = 180),
             'remember_token' => Str::random(10),
         ];
     }

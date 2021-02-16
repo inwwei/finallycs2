@@ -19,50 +19,25 @@ const data = () => ({
     price_per_kk: '',
     price_per_ton: '',
   },
+  user_all_data: [],
   user_data: {},
   data_with_company: {},
   columns: [
     {
-      label: 'รายการ',
+      label: 'ชื่อร้าน',
       field: 'name',
     },
     {
-      label: 'ราคา / กิโลกรัม (บาท)',
-      field: 'price_per_kk',
+      label: 'ผู้จัดการร้าน',
+      field: 'fullname',
     },
     {
-      label: 'ผู้ประกาศ',
-      field: 'user.name',
+      label: 'เบอร์โทรติดต่อ',
+      field: 'company_tel',
     },
     {
-      label: 'ณ วันที่',
-      field: 'created_at',
-    },
-  ],
-  columns_menu: [
-    {
-      label: 'ชื่อ',
-      field: 'name',
-    },
-    {
-      label: 'ราคา/กก.',
-      field: 'price_per_kk',
-    },
-    {
-      label: 'หักความชื้น (ร้อยละ)',
-      field: 'moisture',
-    },
-    {
-      label: 'ความชื้นต่ำสุด',
-      field: 'moisture_min',
-    },
-    {
-      label: 'ความชื้นสูงสุด',
-      field: 'moisture_max',
-    },
-    {
-      label: 'หักสิ่งแปลกปลอม (ร้อยละ)',
-      field: 'Foreign_matter',
+      label: 'ที่อยู่',
+      field: 'address',
     },
     {
       label: 'จัดการ',
@@ -98,6 +73,9 @@ export default {
     },
     SET_USER(state, data) {
       state.user_data = data
+    },
+    SET_ALL(state, data) {
+      state.user_all_data = data
     },
     SET_ID(state, id) {
       state.product_id = id
@@ -371,6 +349,16 @@ export default {
           '/api/user_data',
         )
         commit('SET_USER', data.data)
+      } catch (error) {
+        throw error
+      }
+    },
+    async getUserAll({ commit, state }) {
+      try {
+        const { data } = await state.api.get(
+          '/api/user_data_all',
+        )
+        commit('SET_ALL', data.data)
       } catch (error) {
         throw error
       }

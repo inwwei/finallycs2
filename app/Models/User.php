@@ -15,6 +15,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, UseUuid, SoftDeletes,UseLog;
 
+    protected $appends = ['fullname','address'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -35,9 +37,11 @@ class User extends Authenticatable
         'district',
         'province',
         'postal_code',
-        'latitude',
-        'longtitude',
-        'role'
+        'lat',
+        'lng',
+        'role',
+        'zoom',
+        'name_location'
 
     ];
 
@@ -63,6 +67,16 @@ class User extends Authenticatable
     public function product()
     {
         return $this->hasMany('App\Models\Product\Product');
+    }
+    public function getFullNameAttribute($value)
+    {
+         return "{$this->ceo_prefix}{$this->name_en} {$this->ceo_firstname}";
+    }
+    public function getAddressAttribute($value)
+    {
+        // return "{$this->amphoe}|{$this->district}|{$this->province}|{$this->postal_code}";
+
+        return "{$this->province} | {$this->postal_code}";
     }
 
 

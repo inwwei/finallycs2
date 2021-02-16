@@ -1,5 +1,6 @@
 <template>
-  <panel title="สินค้าคงเหลือ">
+  <panel title="รายชื่อร้านทั้งหมดที่ลงทะเบียนกับทางระบบ">
+    <!-- <pre>{{ user_all_data }}</pre> -->
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-form-group>
         <div class="d-flex align-items-center">
@@ -19,7 +20,7 @@
 
         <vue-good-table
           :columns="columns"
-          :rows="form_add"
+          :rows="user_all_data"
           :rtl="direction"
           :search-options="{
             enabled: true,
@@ -42,43 +43,17 @@
           >
             <!-- Column: Action -->
             <span v-if="props.column.field === 'manage'">
-              <span>
-                <b-dropdown
-                  variant="link"
-                  toggle-class="text-decoration-none"
-                  no-caret
-                >
-                  <template v-slot:button-content>
-                    <feather-icon
-                      icon="MoreVerticalIcon"
-                      size="16"
-                      class="text-body align-middle mr-25"
-                    />
-                  </template>
-                  <b-dropdown-item
-                    @click="infoProduct(props.row.id)"
-                  >
-                    <feather-icon
-                      icon="SearchIcon"
-                      class="mr-50"
-                    />
-                    <span>ข้อมูล</span>
-                  </b-dropdown-item>
-                  <b-dropdown-item @click="editProduct(props.row.id)">
-                    <feather-icon
-                      icon="Edit2Icon"
-                      class="mr-50"
-                    />
-                    <span>แก้ไข</span>
-                  </b-dropdown-item>
-                  <b-dropdown-item @click="deleteProduct(props.row)">
-                    <feather-icon
-                      icon="TrashIcon"
-                      class="mr-50"
-                    />
-                    <span>ลบ</span>
-                  </b-dropdown-item></b-dropdown>
-              </span>
+
+              <b-button
+                @click="viewCompany(props.row.id)"
+              >
+                <feather-icon
+                  icon="SearchIcon"
+                  class="mr-50"
+                />
+                <span>ข้อมูล</span>
+              </b-button>
+
             </span>
           </template>
           <template
@@ -138,10 +113,12 @@
 import { mapState, mapActions } from 'vuex'
 
 import Ripple from 'vue-ripple-directive'
+import { BButton } from 'bootstrap-vue'
 
 export default {
   directives: {
     Ripple,
+    BButton,
   },
   data() {
     return {
@@ -150,7 +127,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('company', ['test', 'form_add', 'columns', 'pageLength']),
+    ...mapState('company', ['user_all_data', 'form_add', 'columns', 'pageLength', 'user_data']),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -164,10 +141,11 @@ export default {
   },
   mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
-    this.getData()
+    this.getUser()
+    this.getUserAll()
   },
   methods: {
-    ...mapActions('company', ['setApi', 'getData', 'queryProductInfo', 'infoProduct', 'deleteProduct', 'editProduct']),
+    ...mapActions('company', ['setApi', 'getUser', 'infoProduct', 'deleteProduct', 'getUserAll']),
   },
 
 }

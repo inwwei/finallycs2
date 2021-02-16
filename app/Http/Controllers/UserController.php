@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Settings\SettingMasterUser;
 use App\Models\User;
-use App\Models\UserContact;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function user_data_all()
+    {
+        $data = User::get();
+        return response()->success($data, [], '0', 200);
+    }
+
     public function getUser()
     {
         $data = Auth::user();
@@ -92,8 +97,8 @@ class UserController extends Controller
             'district'=> 'sometimes',
             'province'=> 'sometimes',
             'postal_code'=> 'sometimes',
-            'latitude'=> 'sometimes',
-            'longtitude'=> 'sometimes',
+            'lat'=> 'sometimes',
+            'lng'=> 'sometimes',
             'role'=> 'sometimes',
         ]);
         $password =  $datas['password'];
@@ -131,8 +136,8 @@ class UserController extends Controller
             'district'=> 'sometimes',
             'province'=> 'sometimes',
             'postal_code'=> 'sometimes',
-            'latitude'=> 'sometimes',
-            'longtitude'=> 'sometimes',
+            'lat'=> 'sometimes',
+            'lng'=> 'sometimes',
             'role'=> 'sometimes',
         ]);
         $password =  $datas['password'];

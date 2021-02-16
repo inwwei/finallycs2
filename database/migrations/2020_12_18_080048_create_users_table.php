@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('identification_number')->nullable()->comment('เลขประจำตัวประชาชน');
-            $table->string('name')->nullable()->comment('ชื่อผู้ใช้');
+            $table->string('name')->nullable()->comment('ชื่อบริษัท');
             $table->string('username')->nullable()->comment('ชื่อผู้ใช้');
             $table->string('password')->nullable()->comment('รหัส');
             $table->string('email')->nullable()->comment('อีเมล');
@@ -30,8 +30,10 @@ class CreateUsersTable extends Migration
             $table->string('province')->nullable()->comment('จังหวัด');
             $table->string('postal_code')->nullable()->comment('รหัสไปรษณีย์');
             $table->string('role')->nullable()->comment('สิทธิ์');
-            $table->float('latitude', 8, 4)->nullable()->comment('ลติจูด');
-            $table->float('longtitude', 8, 4)->nullable()->comment('ลองติจูด');
+            $table->string('name_location')->nullable()->comment('ชื่อผู้ใช้');
+            $table->float('lat', 16, 8)->nullable()->comment('ลติจูด');
+            $table->float('lng', 16, 8)->nullable()->comment('ลองติจูด');
+            $table->string('zoom')->nullable()->comment('ซูม');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
