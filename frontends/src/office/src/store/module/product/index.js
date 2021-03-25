@@ -63,30 +63,37 @@ const data = () => ({
     {
       label: 'ชื่อ',
       field: 'name',
+      sortable: false,
     },
     {
       label: 'ราคา/กก.',
       field: 'price_per_kk',
+      type: 'number',
     },
     {
       label: 'หักความชื้น (ร้อยละ)',
       field: 'moisture',
+      type: 'number',
     },
     {
       label: 'ความชื้นต่ำสุด',
       field: 'moisture_min',
+      type: 'number',
     },
     {
       label: 'ความชื้นสูงสุด',
       field: 'moisture_max',
+      type: 'number',
     },
     {
       label: 'หักสิ่งแปลกปลอม (ร้อยละ)',
       field: 'Foreign_matter',
+      type: 'number',
     },
     {
       label: 'จัดการ',
       field: 'manage',
+      sortable: false,
     },
   ],
 })
@@ -219,11 +226,31 @@ export default {
     },
     async request({ commit, state }) {
       try {
-        console.log(state.form.Plant_select.code)
-        console.log(state.form.first_date)
-        console.log(state.form.end_date)
-        const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`)
-        commit('SET_DATA_REQUEST', data)
+        if (state.form.Plant_select.code !== undefined && state.form.first_date !== '' && state.form.end_date !== '') {
+          state.self.$swal({
+            icon: 'success',
+            title: 'เรียบร้อย!',
+            confirmButtonText: 'ยืนยัน',
+            customClass: {
+              confirmButton: 'btn btn-success',
+            },
+          })
+
+          console.log(state.form.Plant_select.code)
+          console.log(state.form.first_date)
+          console.log(state.form.end_date)
+          const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`)
+          commit('SET_DATA_REQUEST', data)
+        } else {
+          state.self.$swal({
+            icon: 'warning',
+            title: 'กรุณากรอกข้อมูลให้ครบถ้วน!',
+            confirmButtonText: 'ยืนยัน',
+            customClass: {
+              confirmButton: 'btn btn-danger',
+            },
+          })
+        }
       } catch (error) {
         throw error
       }

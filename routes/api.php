@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-Route::get('product/receive', 'App\Http\Controllers\ReceiveController@getOrderDetailSucces');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +18,10 @@ Route::get('storage/{any}', 'App\Http\Controllers\StorageController@index')->whe
 /**
  * การทำงานที่เกี่ยวกับการเข้าใช้งานระบบ Login, Logout, Info
  */
+
+Route::post('login/register', 'App\Http\Controllers\LoginController@register');
 Route::post('login', 'App\Http\Controllers\LoginController@loginOffice');
-Route::post('setting/device/usepin', 'App\Http\Controllers\Settings\SettingDeviceController@usepin');
-Route::post('setting/device/checkpin', 'App\Http\Controllers\Settings\SettingDeviceController@checkpin'); // จะไม่โดนคุมด้วยสิทธิ์เพราะต้องตรวจก่อนใช้ระบบ
 Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('setting/device', 'App\Http\Controllers\Settings\SettingDeviceController');
     Route::post('logout', 'App\Http\Controllers\LoginController@logoutOffice');
     Route::get('info', 'App\Http\Controllers\LoginController@info');
     Route::resource('attached', 'App\Http\Controllers\AttachedController');

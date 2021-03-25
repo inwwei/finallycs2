@@ -131,7 +131,7 @@
               </b-form-group>
 
               <!-- checkbox -->
-              <b-form-group>
+              <!-- <b-form-group>
                 <b-form-checkbox
                   id="remember-me"
                   v-model="status"
@@ -139,7 +139,7 @@
                 >
                   จดจำฉันไว้
                 </b-form-checkbox>
-              </b-form-group>
+              </b-form-group> -->
 
               <!-- submit buttons -->
               <b-row>
@@ -155,10 +155,18 @@
                 </b-col>
                 <b-col>
                   <b-button
+                    to="/Register"
+                    variant="warning"
+                    block
+                  >
+                    สมัครสมาชิก
+                  </b-button>
+                </b-col>
+                <b-col>
+                  <b-button
                     type="submit_guest"
                     variant="success"
                     block
-                    :disabled="invalid"
                   >
                     เข้าสู่ระบบ (ผู้ใช้ทั่วไป)
                   </b-button>
@@ -220,7 +228,7 @@ export default {
     BFormInput,
     BInputGroupAppend,
     BInputGroup,
-    BFormCheckbox,
+    // BFormCheckbox,
     BAlert,
     BCardTitle,
     BImg,
@@ -233,6 +241,7 @@ export default {
   data() {
     return {
       status: '',
+      userEmail: '',
       password: 'password',
       userUsername: 'test',
       sideImg: require('@/assets/images/pages/login-v2.svg'),
@@ -313,8 +322,8 @@ export default {
         if (success) {
           useJwt
             .login({
-              // username: this.userEmail,
-              // password: this.password,
+            //   username: this.userEmail,
+            //   password: this.password,
               username: 'test',
               password: 'password',
             })

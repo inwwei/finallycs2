@@ -49,12 +49,12 @@ const data = () => ({
   ],
   columns: [
     {
-      label: 'ชื่อร้าน',
+      label: 'ชื่อ',
       field: 'name',
     },
     {
-      label: 'ผู้จัดการร้าน',
-      field: 'user.fullname',
+      label: 'ร้าน',
+      field: 'user.name',
     },
     {
       label: 'เบอร์โทรติดต่อ',
@@ -70,26 +70,32 @@ const data = () => ({
     {
       label: 'ชื่อ',
       field: 'name',
+      sortable: false,
     },
     {
       label: 'ราคา/กก.',
       field: 'price_per_kk',
+      type: 'number',
     },
     {
       label: 'หักความชื้น (ร้อยละ)',
       field: 'moisture',
+      type: 'number',
     },
     {
       label: 'ความชื้นต่ำสุด',
       field: 'moisture_min',
+      type: 'number',
     },
     {
       label: 'ความชื้นสูงสุด',
       field: 'moisture_max',
+      type: 'number',
     },
     {
       label: 'หักสิ่งแปลกปลอม (ร้อยละ)',
       field: 'Foreign_matter',
+      type: 'number',
     },
 
   ],

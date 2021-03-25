@@ -1,4 +1,18 @@
 export default [
+//   {
+//     path: '/Registers',
+//     name: 'Registers',
+//     component: () => import('@/views/pages/authentication/Register-v1.vue'),
+//     meta: {
+//       breadcrumb: [
+//         {
+//           text: 'รายการประกาศรับซื้อ',
+//           active: true,
+//         },
+
+  //       ],
+  //     },
+  //   },
   {
     path: '/product/TenderNotice',
     name: 'TenderNotice',

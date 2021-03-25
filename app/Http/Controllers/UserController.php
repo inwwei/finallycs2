@@ -39,7 +39,38 @@ class UserController extends Controller
             return response()->success($data, [], '0', 200);
         }
     }
+public function register(){{
+    $datas = $request->validate([
+        'financial' => 'required',
+        'name' => 'required',
+        'identification_number' => 'required',
+        'username' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+    ]);
+    $password =  $datas['password'];
+    if ($datas['password'] = 'password') {
+        $datas['password'] = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+    } else {
+        $datas['password'] = Hash::make($password);
+    }
+    $datas['now'] = Carbon::now();
 
+    $user = User::create($datas);
+
+    // if (isset($datas['user_contacts'])) {
+    //     foreach ($datas['user_contacts'] as $contact) {
+    //         $contact['user_id'] = $user->id;
+    //         UserContact::create($contact);
+    //     }
+    // }
+
+    if (!$user) {
+        return response()->error(['เพิ่มข้อมูลไม่สำเร็จ'], '40');
+    } else {
+        return response()->success($user, [], '0',  200);
+    }
+}}
     public function store(Request $request)
     {
         $datas = $request->validate([
@@ -47,12 +78,8 @@ class UserController extends Controller
             'name' => 'required',
             'identification_number' => 'required',
             'username' => 'required',
-            'code' => 'required',
-            'branch_id' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'user_contacts' => 'sometimes',
-            'setting_master_users_id' => 'required',
         ]);
         $password =  $datas['password'];
         if ($datas['password'] = 'password') {

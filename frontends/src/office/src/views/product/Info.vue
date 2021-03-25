@@ -125,20 +125,6 @@
       </b-form>
     </panel>
     <panel title="รายการประกาศ">
-      <!-- <div class="custom-search d-flex justify-content-end mb-1">
-        <b-form-group>
-          <div class="d-flex align-items-center">
-            <label class="mr-1">ค้นหา</label>
-            <b-form-input
-              v-model="searchTerm"
-              placeholder="ค้นหา"
-              type="text"
-              class="d-inline-block mr-1"
-            />
-
-          </div>
-        </b-form-group>
-      </div> -->
       <div class="custom-search d-flex justify-content-end mb-1">
         <b-col cols="12">
           <vue-good-table

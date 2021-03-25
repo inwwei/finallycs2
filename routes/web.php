@@ -23,4 +23,6 @@ Route::get('demo', 'App\Http\Controllers\DataTableController@demo');
 /**
  * ถ้าจะทดสอบอะไร ให้ไปสร้าง Route ไป TestController
  */
-Route::get('test', 'App\Http\Controllers\TestController@testWeb');
+Route::get('/test', function () {
+    return view('Add');
+});

@@ -103,8 +103,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return "test";
+        // 0D19CD2E-A654-4789-958A-2DA4EDB74786
+    $product = Product::find('0D19CD2E-A654-4789-958A-2DA4EDB74786');
+    $product->name = "wei";
+    $product->save();
     }
+
 
     /**
      * Update the specified resource in storage.

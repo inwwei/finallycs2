@@ -4,10 +4,9 @@
 
       <!-- Brand logo-->
       <b-link class="brand-logo">
-        <vuexy-logo />
 
         <h2 class="brand-text text-primary ml-1">
-          Vuexy
+          AOM
         </h2>
       </b-link>
       <!-- /Brand logo-->
@@ -38,12 +37,13 @@
           lg="12"
           class="px-xl-2 mx-auto"
         >
+          <!--
+          <pre>{{ username }}</pre>
+          <pre>{{ userEmail }}</pre>
+          <pre>{{ password }}</pre> -->
           <b-card-title class="mb-1">
-            Adventure starts here 🚀
+            แบบฟอร์มสมัครสมาชิก 🚀
           </b-card-title>
-          <b-card-text class="mb-2">
-            Make your app management easy and fun!
-          </b-card-text>
 
           <!-- form -->
           <validation-observer
@@ -56,7 +56,7 @@
             >
               <!-- username -->
               <b-form-group
-                label="Username"
+                label="ชื่อผู้ใช้"
                 label-for="register-username"
               >
                 <validation-provider
@@ -78,7 +78,7 @@
 
               <!-- email -->
               <b-form-group
-                label="Email"
+                label="อีเมล"
                 label-for="register-email"
               >
                 <validation-provider
@@ -101,7 +101,7 @@
               <!-- password -->
               <b-form-group
                 label-for="register-password"
-                label="Password"
+                label="รหัสผ่าน"
               >
                 <validation-provider
                   #default="{ errors }"
@@ -134,68 +134,32 @@
                 </validation-provider>
               </b-form-group>
 
-              <b-form-group>
-                <b-form-checkbox
-                  id="register-privacy-policy"
-                  v-model="status"
-                  name="checkbox-1"
-                >
-                  I agree to
-                  <b-link>privacy policy & terms</b-link>
-                </b-form-checkbox>
-              </b-form-group>
+              <b-row>
+                <b-col>
+                  <b-button
+                    variant="warning"
+                    block
+                    to="/login"
+                  >
+                    กลับ
+                  </b-button>
 
-              <b-button
-                variant="primary"
-                block
-                type="submit"
-                :disabled="invalid"
-              >
-                Sign up
-              </b-button>
+                </b-col>
+                <b-col>
+                  <b-button
+                    variant="success"
+                    block
+                    type="submit"
+                    :disabled="invalid"
+                  >
+                    สมัครสมาชิก
+                  </b-button>
+
+                </b-col>
+              </b-row>
             </b-form>
           </validation-observer>
 
-          <p class="text-center mt-2">
-            <span>Already have an account?</span>
-            <b-link :to="{name:'auth-login'}">
-              <span>&nbsp;Sign in instead</span>
-            </b-link>
-          </p>
-
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">
-              or
-            </div>
-          </div>
-
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button
-              variant="facebook"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-            <b-button
-              variant="twitter"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="TwitterIcon" />
-            </b-button>
-            <b-button
-              variant="google"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="MailIcon" />
-            </b-button>
-            <b-button
-              variant="github"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="GithubIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
     <!-- /Register-->
@@ -217,16 +181,16 @@ import useJwt from '@/auth/jwt/useJwt'
 
 export default {
   components: {
-    VuexyLogo,
+    // VuexyLogo,
     BRow,
     BImg,
     BCol,
     BLink,
     BButton,
     BForm,
-    BCardText,
+    // BCardText,
     BCardTitle,
-    BFormCheckbox,
+    // BFormCheckbox,
     BFormGroup,
     BFormInput,
     BInputGroup,
@@ -238,10 +202,12 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      status: '',
-      username: '',
-      userEmail: '',
-      password: '',
+      form: {
+        status: '',
+        username: '',
+        userEmail: '',
+        password: '',
+      },
       sideImg: require('@/assets/images/pages/register-v2.svg'),
       // validation
       required,
@@ -271,11 +237,14 @@ export default {
             password: this.password,
           })
             .then(response => {
-              useJwt.setToken(response.data.accessToken)
-              useJwt.setRefreshToken(response.data.refreshToken)
-              localStorage.setItem('userData', JSON.stringify(response.data.userData))
-              this.$ability.update(response.data.userData.ability)
-              this.$router.push('/')
+              this.$http.delete(
+                '/api/login/register', this.form,
+              )
+            //   useJwt.setToken(response.data.accessToken)
+            //   useJwt.setRefreshToken(response.data.refreshToken)
+            //   localStorage.setItem('userData', JSON.stringify(response.data.userData))
+            //   this.$ability.update(response.data.userData.ability)
+            //   this.$router.push('/')
             })
             .catch(error => {
               this.$refs.registerForm.setErrors(error.response.data.error)
@@ -290,4 +259,7 @@ export default {
 
 <style lang="scss">
 @import '@core/scss/vue/pages/page-auth.scss';
+label{
+    font-size: 18px;
+}
 </style>

@@ -16,8 +16,7 @@ class CreateBestPricesTable extends Migration
         Schema::create('best_prices', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('question')->comment('คำถาม')->nullable();
-            $table->string('company')->comment('ชื่อพืช')->nullable();
-            $table->string('location')->comment('ชื่อพืช')->nullable();
+            $table->string('company_id')->comment('เชื่อมบริษัท')->nullable();
             $table->string('name')->comment('ชื่อพืช')->nullable();
             $table->double('price_per_kk', 8, 2)->comment('ราคาต่อกิโลกรัม')->nullable();
             $table->double('price_per_ton', 8, 2)->comment('ราคาต่อตัน')->nullable();
