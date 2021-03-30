@@ -129,19 +129,6 @@
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-
-              <!-- checkbox -->
-              <!-- <b-form-group>
-                <b-form-checkbox
-                  id="remember-me"
-                  v-model="status"
-                  name="checkbox-1"
-                >
-                  จดจำฉันไว้
-                </b-form-checkbox>
-              </b-form-group> -->
-
-              <!-- submit buttons -->
               <b-row>
                 <b-col>
                   <b-button
@@ -176,11 +163,11 @@
             </b-form>
           </validation-observer>
           <!-- divider -->
-          <div class="divider my-2">
+          <!-- <div class="divider my-2">
             <div class="divider-text">
               Ver 1.0
             </div>
-          </div>
+          </div> -->
         </b-col>
       </b-col>
       <!-- /Login-->
@@ -270,8 +257,8 @@ export default {
         if (success) {
           useJwt
             .login({
-              // username: this.userEmail,
-              // password: this.password,
+            //   username: this.userEmail,
+            //   password: this.password,
               username: 'test',
               password: 'password',
             })

@@ -21,6 +21,8 @@ import saleProduct from './module/product/sale/sale'
 import printSaleProduct from './module/product/sale/print'
 import receive from './module/product/receive'
 import company from './module/product/company'
+import ranking from './module/product/ranking'
+import register from './module/product/register'
 // import authorize from './module/authorize'
 import setting from './module/setting'
 import settingBasic from './module/setting/basic'
@@ -56,6 +58,8 @@ export default new Vuex.Store({
     settingDevice,
     receive,
     company,
+    register,
+    ranking,
   },
   strict: process.env.DEV,
 })

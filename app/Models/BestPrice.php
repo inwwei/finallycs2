@@ -13,7 +13,7 @@ class BestPrice extends Model
 
     protected $fillable = [
         'question',
-        'company',
+        'company_id',
         'location',
         'name',
         'price_per_kk',

@@ -39,4 +39,9 @@ class LoginController extends Controller
     {
         return response()->success($request->user());
     }
+
+    public function register($request)
+    {return $request;
+        return response()->success($request->user());
+    }
 }

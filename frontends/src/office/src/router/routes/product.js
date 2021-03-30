@@ -55,6 +55,20 @@ export default [
     },
   },
   {
+    path: '/product/Ranking',
+    name: 'Ranking',
+    component: () => import('@/views/product/Ranking.vue'),
+    meta: {
+      breadcrumb: [
+
+        {
+          text: 'อันดับการเติบโตของราคา',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
     path: '/product/MinistryOfCommerceInformation',
     name: 'MinistryOfCommerceInformation',
     component: () => import('@/views/product/MinistryOfCommerceInformation.vue'),

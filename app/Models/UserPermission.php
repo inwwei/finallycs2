@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class UserPermission extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, UseUuid, SoftDeletes,UseLog;
+    use HasApiTokens, HasFactory, Notifiable, UseUuid, SoftDeletes;
 
     protected $fillable = [
         'user_permission',

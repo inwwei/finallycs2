@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attached extends Model
 {
-    use  SoftDeletes, UseUuid,UseLog;
+    use  SoftDeletes, UseUuid;
 
     protected $fillable = [
         'attachedable_type',

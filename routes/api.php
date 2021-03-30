@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('user_data/{id}', 'App\Http\Controllers\UserController@update_profile');
     // Route::get('post_with_company', 'App\Http\Controllers\UserController@getPostWithCompany');
     Route::get('post_with_company', 'App\Http\Controllers\ProductController@getPostWithCompany');
+    Route::resource('ranking', 'App\Http\Controllers\RankingController');
 
 
 });

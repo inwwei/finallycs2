@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes, UseUuid,UseLog;
+    use HasFactory, SoftDeletes, UseUuid;
 
     // protected $appends = ['name','setQuantity','maxQuantity'];
 

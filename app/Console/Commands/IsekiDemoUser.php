@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Company;
 use App\Models\Settings\SettingMasterUser;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -81,5 +82,31 @@ class IsekiDemoUser extends Command
             User::factory()
                 ->times(50)
                 ->create();
+
+
+                $data = Company::create([
+                    'id'=>'92B2E648-AF2F-45DC-8FF0-F9E1058A3BC9',
+                    'identification_number'=>'1409600250281',
+                    'role'=>'member',
+                    'name' => 'จตุพล การเกษตร',
+                    'username' => 'test',
+                    'email' => 'test@iseki.test',
+                    'email_verified_at' => now(),
+                    'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+                    "ceo_prefix"=> 'นาย',
+                    "ceo_firstname"=> 'จตุพล',
+                    "ceo_lastname"=> 'ดอนคูณ',
+                    "company_tel"=> '0973148164',
+                    "ceo_tel"=> '0973148164',
+                    "amphoe"=> 'เมือง',
+                    "district"=> 'ศิลา',
+                    "province"=> 'ขอนแก่น',
+                    "postal_code"=> '40000',
+                    "role"=> "member",
+                    "lat"=> 16.4736762,
+                    "lng"=> 102.8241283,
+                    "zoom"=>'18z',
+                    "name_location"=>'คณะวิทยาศาสตร์'
+                    ]);
     }
 }

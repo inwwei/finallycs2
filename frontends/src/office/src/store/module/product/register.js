@@ -5,98 +5,12 @@ const data = () => ({
   self: '',
   refs: '',
   test: 'ss',
-  request_data: [],
-  request_detail: [],
-  products: [],
-  product_id: '',
-  Plants: [],
-
-  form_add: {
-    user_id: '123456789',
-    Plant_select: '',
-    first_date: '',
-    end_date: '',
-    name: '',
-    moisture: '',
-    moisture_min: '',
-    moisture_max: '',
-    Foreign_matter: '',
-    price_per_kk: '',
-    price_per_ton: '',
+  form_register: {
+    status: '',
+    username: '',
+    userEmail: '',
+    password: '',
   },
-  form: {
-    Plant_select: '',
-    first_date: '',
-    end_date: '',
-  },
-  modal_data: {
-    id: '',
-    user_id: '123456789',
-    Plant_select: '',
-    first_date: '',
-    end_date: '',
-    name: '',
-    moisture: '',
-    moisture_min: '',
-    moisture_max: '',
-    Foreign_matter: '',
-    price_per_kk: '',
-    price_per_ton: '',
-  },
-  modal_data_profile: {},
-  user_data: {},
-  columns: [
-    {
-      label: 'ณ วันที่',
-      field: 'date',
-    },
-    {
-      label: 'ราคาเฉลี่ยต่ำสุด',
-      field: 'price_min',
-    },
-    {
-      label: 'ราคาเฉลี่ยสูงสุด',
-      field: 'price_max',
-    },
-
-  ],
-  columns_menu: [
-    {
-      label: 'ชื่อ',
-      field: 'name',
-      sortable: false,
-    },
-    {
-      label: 'ราคา/กก.',
-      field: 'price_per_kk',
-      type: 'number',
-    },
-    {
-      label: 'หักความชื้น (ร้อยละ)',
-      field: 'moisture',
-      type: 'number',
-    },
-    {
-      label: 'ความชื้นต่ำสุด',
-      field: 'moisture_min',
-      type: 'number',
-    },
-    {
-      label: 'ความชื้นสูงสุด',
-      field: 'moisture_max',
-      type: 'number',
-    },
-    {
-      label: 'หักสิ่งแปลกปลอม (ร้อยละ)',
-      field: 'Foreign_matter',
-      type: 'number',
-    },
-    {
-      label: 'จัดการ',
-      field: 'manage',
-      sortable: false,
-    },
-  ],
 })
 export default {
   namespaced: true,
@@ -104,9 +18,7 @@ export default {
   getters: {
   },
   mutations: {
-    SET_ARRAY_DATA_EDIT_PROFILE(state, data) {
-      state.modal_data_profile = data
-    },
+
     SET_API(state, {
       api, self, refs,
     }) {
@@ -114,53 +26,14 @@ export default {
       state.self = self
       state.refs = refs
     },
-    SET_DATA_REQUEST(state, data) {
-      state.request_data = data.price_list
-      state.request_detail = data
-    },
-    SET_DATA(state, products) {
-      state.products = products
-    },
-    SET_NAME(state) {
-      state.form_add.name = state.form_add.Plant_select.name
-    },
-    SET_USER(state, data) {
-      state.user_data = data
-    },
-    SET_ID(state, id) {
-      state.product_id = id
-    },
-    SET_PLANT(state, data) {
-      state.Plants = data
-    },
-    SET_BRANCH_ID(state, product_info) {
-      state.product_info.setting_basic_branch_id = product_info.setting_basic_branch.id
-    },
-    SET_MODAL_DATA(state, data) {
-      // set ข้อมูลที่มาจากหน้าบ้านในส่วนของ modal ให้เข้าไปในตัวแปร modal_data
-      state.modal_data = data
-    },
-    SET_MODAL_DATA_EDIT_PROFILE(state, data) {
-      // set ข้อมูลที่มาจากหน้าบ้านในส่วนของ modal ให้เข้าไปในตัวแปร modal_data
-      state.modal_data_profile = data
-    },
 
   },
   actions: {
-    setEditData({ commit, dispatch }, product_info) {
-      commit('SET_PLANT_ID', product_info)
-    //   dispatch('editProductData')
-    },
-    nodeSelect({ commit }, node) {
-      commit('SET_NODE', node)
-    },
-    setId({ commit }, id) {
-      commit('SET_ID', id)
-    },
+
     setApi({ commit }, { api, self, refs }) {
       commit('SET_API', { api, self, refs })
     },
-    async request_add({ state, commit, dispatch }) {
+    async register_add({ state, commit, dispatch }) {
       console.log('555')
       try {
         const result = await state.refs.simpleRules.validate()

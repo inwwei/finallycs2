@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product\Product;
-use App\Models\Settings\SettingMasterProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,8 +27,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        $user_id= Auth::user()->id;
-        $data = Product::where('user_id',$user_id)->get();
+        $user_id = Auth::user()->id;
+        $data = Product::where('user_id', $user_id)->get();
 
         if (!$data) {
             return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
@@ -37,7 +36,6 @@ class ProductController extends Controller
             return response()->success($data, [], '0', 200);
         }
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -60,17 +58,16 @@ class ProductController extends Controller
 
         $datas = $request->validate([
             'user_id' => 'required',
-            'name'=> 'required',
-            'moisture'=> 'sometimes',
-            'moisture_min'=> 'sometimes',
-            'moisture_max'=> 'sometimes',
-            'Foreign_matter'=> 'sometimes',
-            'price_per_kk'=> 'required',
-            'price_per_ton'=> 'sometimes',
-
+            'name' => 'required',
+            'moisture' => 'sometimes',
+            'moisture_min' => 'sometimes',
+            'moisture_max' => 'sometimes',
+            'Foreign_matter' => 'sometimes',
+            'price_per_kk' => 'required',
+            'price_per_ton' => 'sometimes',
 
         ]);
-        $datas['user_id']= Auth::user()->id;
+        $datas['user_id'] = Auth::user()->id;
         $product = Product::create($datas);
         if (!$product) {
             return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');
@@ -87,7 +84,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data = Product::with('settingMasterProduct','settingBasicBranch')->withTrashed()->find($id);
+        $data = Product::with('settingMasterProduct', 'settingBasicBranch')->withTrashed()->find($id);
         if ($data) {
             return response()->success($data);
         } else {
@@ -104,11 +101,10 @@ class ProductController extends Controller
     public function edit($id)
     {
         // 0D19CD2E-A654-4789-958A-2DA4EDB74786
-    $product = Product::find('0D19CD2E-A654-4789-958A-2DA4EDB74786');
-    $product->name = "wei";
-    $product->save();
+        $product = Product::find('0D19CD2E-A654-4789-958A-2DA4EDB74786');
+        $product->name = "wei";
+        $product->save();
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -120,22 +116,24 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $datas = $request->validate([
+            'id' => 'required',
             'user_id' => 'required',
-            'name'=> 'required',
-            'moisture'=> 'sometimes',
-            'moisture_min'=> 'sometimes',
-            'moisture_max'=> 'sometimes',
-            'Foreign_matter'=> 'sometimes',
-            'price_per_kk'=> 'required',
-            'price_per_ton'=> 'sometimes',
+            'name' => 'required',
+            'moisture' => 'sometimes',
+            'moisture_min' => 'sometimes',
+            'moisture_max' => 'sometimes',
+            'Foreign_matter' => 'sometimes',
+            'price_per_kk' => 'required',
+            'price_per_ton' => 'sometimes',
         ]);
-        $datas['user_id']= Auth::user()->id;
 
+        $datas['user_id'] = Auth::user()->id;
         $product = Product::find($id);
         if (!$product) {
             return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');
         } else {
             $result = $product->update($datas);
+            $product = Product::create($datas);
             return response()->success($result, [], '0', 200);
         }
     }

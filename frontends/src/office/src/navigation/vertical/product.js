@@ -17,6 +17,12 @@ export default [
 
   },
   {
+    title: 'Ranking',
+    route: 'Ranking',
+    icon: 'TrendingUpIcon',
+
+  },
+  {
     title: 'Price chart',
     route: 'Pricechart',
     icon: 'TrendingUpIcon',

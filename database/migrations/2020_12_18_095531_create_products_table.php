@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->double('moisture_max', 8, 2)->comment('ความชื้นมากสุด')->nullable();
             $table->double('Foreign_matter', 8, 2)->comment('สิ่งแปลกปลอม')->nullable();
             $table->double('price_per_kk', 8, 2)->comment('ราคาต่อกิโลกรัม')->nullable();
+            $table->enum('status', ['อัพเดท', 'ปกติ'])->default('ปกติ');
             $table->double('price_per_ton', 8, 2)->comment('ราคาต่อตัน')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
             ->onDelete('cascade');

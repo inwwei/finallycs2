@@ -221,7 +221,17 @@
                 <b-form>
                   <validation-observer ref="simpleRules">
                     <!-- <pre>{{ modal_data }}</pre> -->
-
+                    <!-- <b-col>
+                      <b-form-group>
+                        <h6>ชื่อพืช</h6>
+                        <form-input
+                          v-model="modal_data.name"
+                          disabled
+                          rules="required"
+                        />
+                      </b-form-group>
+                    </b-col> -->
+                    <!-- <pre>{{ modal_data }}</pre> -->
                     <b-col
                       v-show="modal_data.name=='ข้าวหอมมะลิ' || modal_data.name=='ข้าวเหนียว'"
                     >
