@@ -39,7 +39,7 @@
         >
           <!--
           <pre>{{ username }}</pre>
-          <pre>{{ userEmail }}</pre>
+          <pre>{{ email }}</pre>
           <pre>{{ password }}</pre> -->
           <b-card-title class="mb-1">
             แบบฟอร์มสมัครสมาชิก 🚀
@@ -67,7 +67,7 @@
                 >
                   <b-form-input
                     id="register-username"
-                    v-model="username"
+                    v-model="form.username"
                     name="register-username"
                     :state="errors.length > 0 ? false:null"
                     placeholder="johndoe"
@@ -89,7 +89,7 @@
                 >
                   <b-form-input
                     id="register-email"
-                    v-model="userEmail"
+                    v-model="form.email"
                     name="register-email"
                     :state="errors.length > 0 ? false:null"
                     placeholder="john@example.com"
@@ -115,7 +115,7 @@
                   >
                     <b-form-input
                       id="register-password"
-                      v-model="password"
+                      v-model="form.password"
                       class="form-control-merge"
                       :type="passwordFieldType"
                       :state="errors.length > 0 ? false:null"
@@ -149,8 +149,8 @@
                   <b-button
                     variant="success"
                     block
-                    type="submit"
                     :disabled="invalid"
+                    @click="register(form)"
                   >
                     สมัครสมาชิก
                   </b-button>
@@ -205,7 +205,7 @@ export default {
       form: {
         status: '',
         username: '',
-        userEmail: '',
+        email: '',
         password: '',
       },
       sideImg: require('@/assets/images/pages/register-v2.svg'),
@@ -228,27 +228,12 @@ export default {
     },
   },
   methods: {
-    register() {
+    register(form) {
       this.$refs.registerForm.validate().then(success => {
         if (success) {
-          useJwt.register({
-            username: this.username,
-            email: this.userEmail,
-            password: this.password,
-          })
-            .then(response => {
-              this.$http.delete(
-                '/api/login/register', this.form,
-              )
-            //   useJwt.setToken(response.data.accessToken)
-            //   useJwt.setRefreshToken(response.data.refreshToken)
-            //   localStorage.setItem('userData', JSON.stringify(response.data.userData))
-            //   this.$ability.update(response.data.userData.ability)
-            //   this.$router.push('/')
-            })
-            .catch(error => {
-              this.$refs.registerForm.setErrors(error.response.data.error)
-            })
+          this.$http.post(
+            '/api/register', this.form,
+          )
         }
       })
     },

@@ -64,6 +64,20 @@
               เลือก "ผู้ใช้ทั่วไป" ได้เลย
             </div>
           </b-alert>
+          <div v-show="check==false">
+            <b-alert
+              show
+              variant="success"
+            >
+              <div class="alert-body">
+                <feather-icon
+                  icon="InfoIcon"
+                  class="mr-50 mt-25"
+                />
+                กรอกข้อมูลผิดพลาด
+              </div>
+            </b-alert>
+          </div>
 
           <!-- form -->
           <validation-observer
@@ -88,7 +102,7 @@
                 >
                   <b-form-input
                     id="login-username"
-                    v-model="userUsername"
+                    v-model="userEmail"
                     :state="errors.length > 0 ? false : null"
                     name="login-userame"
                     placeholder="test"
@@ -227,9 +241,10 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      check: true,
       status: '',
       userEmail: '',
-      password: 'password',
+      password: '',
       userUsername: 'test',
       sideImg: require('@/assets/images/pages/login-v2.svg'),
 
@@ -255,16 +270,18 @@ export default {
     login() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
+          this.check = false
           useJwt
             .login({
-            //   username: this.userEmail,
-            //   password: this.password,
-              username: 'test',
-              password: 'password',
+              username: this.userEmail,
+              password: this.password,
+            //   username: 'test',
+            //   password: 'password',
             })
             .then(response => {
               const { token, name } = response.data.data
               // FIXME: หน้าบ้านต้องส่งมา
+              this.check = true
               const userData = {
                 role: 'admin', // src\auth\utils.js
                 fullName: name,
@@ -323,6 +340,7 @@ export default {
                 username: name,
                 ability: [{ action: 'manage', subject: 'all' }], // ไม่มี การทำงาน
               }
+
               useJwt.setToken(token)
               useJwt.setRefreshToken(token)
               localStorage.setItem('userData', JSON.stringify(userData))
@@ -353,6 +371,8 @@ export default {
                   this.$refs.loginForm.setErrors(error.response.data.error)
                 })
             })
+        } else {
+          console.log(111)
         }
       })
     },

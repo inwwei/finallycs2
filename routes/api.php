@@ -19,7 +19,8 @@ Route::get('storage/{any}', 'App\Http\Controllers\StorageController@index')->whe
  * การทำงานที่เกี่ยวกับการเข้าใช้งานระบบ Login, Logout, Info
  */
 
-Route::post('login/register', 'App\Http\Controllers\LoginController@register');
+// Route::post('login/register', 'App\Http\Controllers\LoginController@register');
+Route::resource('register', 'App\Http\Controllers\RegisterController');
 Route::post('login', 'App\Http\Controllers\LoginController@loginOffice');
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'App\Http\Controllers\LoginController@logoutOffice');
