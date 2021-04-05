@@ -41,8 +41,22 @@ class RegisterController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
+        $users= User::all();
+
+        foreach ($users as $index => $user) {
+            if($datas['username'] ==$user->username)
+            {
+                response()->success([
+                    'msg' => 'has'
+                ]);
+            }
+            else{
+                response()->success([
+                    'name' => 'no'
+                ]);
+            }
+        }
        $datas['password'] = Hash::make($request->password);
-       return $datas['password'];
         $user = User::create($datas);
         return $user;
     }

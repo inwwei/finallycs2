@@ -15,7 +15,8 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->nullable()->comment('เชื่อมผู้ใช้');
+            $table->uuid('company_id')->nullable()->comment('บริษัท');
+            $table->uuid('plant_id')->nullable()->comment('เชื่อมพืช');
             $table->string('question')->comment('คำถาม')->nullable();
             $table->string('name')->comment('ชื่อพืช')->nullable();
             $table->double('moisture', 8, 2)->comment('หักความชื้นร้อยละ')->nullable();
@@ -25,7 +26,9 @@ class CreateProductsTable extends Migration
             $table->double('price_per_kk', 8, 2)->comment('ราคาต่อกิโลกรัม')->nullable();
             $table->enum('status', ['อัพเดท', 'ปกติ'])->default('ปกติ');
             $table->double('price_per_ton', 8, 2)->comment('ราคาต่อตัน')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
+            $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('plant_id')->references('id')->on('plants')->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();
             $table->rememberToken();

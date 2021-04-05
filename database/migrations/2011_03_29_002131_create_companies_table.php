@@ -15,12 +15,11 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable()->comment('เชื่อมผู้ใช้');
             $table->string('identification_number')->nullable()->comment('เลขประจำตัวประชาชน');
             $table->string('name')->nullable()->comment('ชื่อบริษัท');
-            $table->string('username')->nullable()->comment('ชื่อผู้ใช้');
-            $table->string('password')->nullable()->comment('รหัส');
+            $table->string('branch')->nullable()->comment('สาขา');
             $table->string('email')->nullable()->comment('อีเมล');
-            $table->string('ceo_prefix')->nullable()->comment('คำนำหน้า');
             $table->string('ceo_firstname')->nullable()->comment('ชื่อ');
             $table->string('ceo_lastname')->nullable()->comment('นามสกุล');
             $table->string('company_tel')->nullable()->comment('เบอร์โทรบิรษัท');
@@ -29,11 +28,12 @@ class CreateCompaniesTable extends Migration
             $table->string('district')->nullable()->comment('ตำบล');
             $table->string('province')->nullable()->comment('จังหวัด');
             $table->string('postal_code')->nullable()->comment('รหัสไปรษณีย์');
-            $table->string('role')->nullable()->comment('สิทธิ์');
-            $table->string('name_location')->nullable()->comment('ชื่อผู้ใช้');
+            $table->string('name_location')->nullable()->comment('ตำแหน่ง');
             $table->float('lat', 16, 8)->nullable()->comment('ลติจูด');
             $table->float('lng', 16, 8)->nullable()->comment('ลองติจูด');
             $table->string('zoom')->nullable()->comment('ซูม');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

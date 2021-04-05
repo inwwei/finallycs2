@@ -1,6 +1,7 @@
 <template>
   <div>
     <panel title="ฟอร์มกรอกข้อมูลประกาศ">
+      <pre>{{ company_data_select }}</pre>
       <b-form>
         <validation-observer ref="simpleRules">
           <b-row class="ml-1 mr-1">
@@ -397,7 +398,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('product', ['modal_data', 'columns_menu', 'Plants', 'test', 'products', 'columns', 'form_add', 'pageLength', 'products_data_table']),
+    ...mapState('product', ['modal_data', 'company_data_select', 'columns_menu', 'Plants', 'test', 'products', 'columns', 'form_add', 'pageLength', 'products_data_table']),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -413,9 +414,12 @@ export default {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
     this.getData()
     this.getPlants()
+    setTimeout(() => {
+      this.loadCompany(this.$route.query.id)
+    }, 400)
   },
   methods: {
-    ...mapActions('product', ['getModalId', 'pushData', 'request_add', 'getPlants', 'setApi', 'getData', 'queryProductInfo', 'confirmEdit_menu', 'deleteProduct']),
+    ...mapActions('product', ['getModalId', 'loadCompany ', 'pushData', 'request_add', 'getPlants', 'setApi', 'getData', 'queryProductInfo', 'confirmEdit_menu', 'deleteProduct']),
   },
 
 }

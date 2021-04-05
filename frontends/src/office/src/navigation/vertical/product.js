@@ -40,11 +40,11 @@ export default [
     route: 'ManageShop',
 
     children: [
-      {
-        title: 'Menu',
-        route: 'Menu',
-        icon: 'FileTextIcon',
-      },
+    //   {
+    //     title: 'Menu',
+    //     route: 'Menu',
+    //     icon: 'FileTextIcon',
+    //   },
       {
         title: 'Profiles',
         route: 'Profiles',

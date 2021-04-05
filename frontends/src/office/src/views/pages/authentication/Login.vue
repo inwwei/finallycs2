@@ -51,30 +51,18 @@
           >
             กรุณาเข้าสู่ระบบ
           </b-card-title>
-          <b-alert
-            show
-            variant="success"
-          >
-            <div class="alert-body">
-              <feather-icon
-                icon="InfoIcon"
-                class="mr-50 mt-25"
-              />
-              ยินดีต้อนรับ หากท่านคือผู้ใช้ทั่วไป ท่านไม่จำเป็นต้องลงทะเบียน
-              เลือก "ผู้ใช้ทั่วไป" ได้เลย
-            </div>
-          </b-alert>
+
           <div v-show="check==false">
             <b-alert
               show
-              variant="success"
+              variant="danger"
             >
               <div class="alert-body">
                 <feather-icon
                   icon="InfoIcon"
                   class="mr-50 mt-25"
                 />
-                กรอกข้อมูลผิดพลาด
+                กรอกข้อมูลไม่ถูกต้อง
               </div>
             </b-alert>
           </div>
@@ -172,8 +160,22 @@
                     เข้าสู่ระบบ (ผู้ใช้ทั่วไป)
                   </b-button>
                 </b-col>
-              </b-row>
 
+              </b-row>
+              <br>
+              <b-alert
+                show
+                variant="success"
+              >
+                <div class="alert-body">
+                  <feather-icon
+                    icon="InfoIcon"
+                    class="mr-50 mt-25"
+                  />
+                  ยินดีต้อนรับ หากท่านคือผู้ใช้ทั่วไป ท่านไม่จำเป็นต้องลงทะเบียน
+                  เลือก "ผู้ใช้ทั่วไป" ได้เลย
+                </div>
+              </b-alert>
             </b-form>
           </validation-observer>
           <!-- divider -->
@@ -270,14 +272,15 @@ export default {
     login() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          this.check = false
           useJwt
             .login({
               username: this.userEmail,
               password: this.password,
             //   username: 'test',
             //   password: 'password',
-            })
+            }).then(
+              this.check = false,
+            )
             .then(response => {
               const { token, name } = response.data.data
               // FIXME: หน้าบ้านต้องส่งมา
@@ -328,7 +331,7 @@ export default {
             .login({
             //   username: this.userEmail,
             //   password: this.password,
-              username: 'test',
+              username: 'guest',
               password: 'password',
             })
             .then(response => {

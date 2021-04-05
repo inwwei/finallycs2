@@ -13,6 +13,7 @@ export default [
   //       ],
   //     },
   //   },
+
   {
     path: '/product/TenderNotice',
     name: 'TenderNotice',

@@ -107,7 +107,6 @@ public function register(){{
 
     public function update(Request $request, $id)
     {
-        return $request;
         $datas = $request->validate([
             'name' => 'sometimes',
             'identification_number' => 'sometimes',

@@ -16,7 +16,6 @@
     </div>
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-col cols="12">
-
         <vue-good-table
           theme="nocturnal"
           :columns="columns"
@@ -44,14 +43,14 @@
           >
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-center mb-0 mt-1">
-                <span class="text-nowrap ">
-                  แสดง 1 ถึง
-                </span>
+                <span class="text-nowrap"> แสดง 1 ถึง </span>
                 <b-form-select
                   v-model="pageLength"
-                  :options="['3','5','10']"
+                  :options="['3', '5', '10']"
                   class="mx-1"
-                  @input="(value)=>props.perPageChanged({currentPerPage:value})"
+                  @input="
+                    (value) => props.perPageChanged({ currentPerPage: value })
+                  "
                 />
                 <span class="text-nowrap"> ของ {{ props.total }} แถว </span>
               </div>
@@ -66,7 +65,7 @@
                   prev-class="prev-item"
                   next-class="next-item"
                   class="mt-1 mb-0"
-                  @input="(value)=>props.pageChanged({currentPage:value})"
+                  @input="(value) => props.pageChanged({ currentPage: value })"
                 >
                   <template #prev-text>
                     <feather-icon
@@ -99,7 +98,6 @@
         <span class="align-middle">ยืนยัน</span>
       </b-button>
     </b-row>
-    <pre>{{ products }}</pre>
   </panel>
 </template>
 
@@ -133,10 +131,10 @@ export default {
   },
   mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
-    // this.getData()
+    this.getDataRank()
   },
   methods: {
-    ...mapActions('ranking', ['setApi', 'getData']),
+    ...mapActions('ranking', ['setApi', 'getDataRank']),
   },
 
 }

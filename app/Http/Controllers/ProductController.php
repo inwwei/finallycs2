@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function getPostWithCompany()
     {
-        $data = Product::with('user')->get();
+        $data = Product::with('company')->get();
 
         if (!$data) {
             return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
@@ -28,7 +28,9 @@ class ProductController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $data = Product::where('user_id', $user_id)->get();
+        $data = Product::with('company')->whereHas('company', function($query) use ($user_id){
+            $query->where('user_id',$user_id);
+        })->get();
 
         if (!$data) {
             return response()->error(['ไม่มีข้อมูลในระบบ'], '40');

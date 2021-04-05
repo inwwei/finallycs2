@@ -21,10 +21,10 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
+        'branch',
         'identification_number',
-        'username',
-        'password',
         'email',
         'ceo_prefix',
         'ceo_firstname',
@@ -37,7 +37,6 @@ class Company extends Model
         'postal_code',
         'lat',
         'lng',
-        'role',
         'zoom',
         'name_location'
 
@@ -74,6 +73,6 @@ class Company extends Model
     {
         // return "{$this->amphoe}|{$this->district}|{$this->province}|{$this->postal_code}";
 
-        return "{$this->province} | {$this->postal_code}";
+        return "ตำบล{$this->district} อำเภอ{$this->amphoe} จังหวัด{$this->province} รหัสไปรษณีย์{$this->postal_code}";
     }
 }

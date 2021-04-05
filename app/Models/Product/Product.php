@@ -25,7 +25,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'company_id',
         'name',
         'moisture',
         'moisture_min',
@@ -47,9 +47,9 @@ class Product extends Model
      * @var array
      */
 
-    public function user()
+    public function company()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Company');
 
     }
     public function productLog()

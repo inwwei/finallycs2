@@ -169,6 +169,7 @@
 
 <script>
 /* eslint-disable global-require */
+import router from '@/router'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import {
@@ -228,12 +229,56 @@ export default {
     },
   },
   methods: {
+    clearform() {
+      this.form = {}
+    },
+
     register(form) {
       this.$refs.registerForm.validate().then(success => {
         if (success) {
-          this.$http.post(
-            '/api/register', this.form,
-          )
+          this.$swal({
+            title: 'ต้องการลงทะเบียนใช่หรือไม่ ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก',
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger ml-1',
+            },
+            buttonsStyling: false,
+          }).then(result => {
+            if (result.isConfirmed) {
+              const { data } = this.$http.post(
+                '/api/register', this.form,
+              )
+
+              if (data === 'has') {
+                this.$swal({
+                  icon: 'danger',
+                  title: 'มีผู้ใช้นี้ในระบบแล้ว',
+                  confirmButtonText: 'ยืนยัน',
+                  customClass: {
+                    confirmButton: 'btn btn-success',
+                  },
+                })
+              } else {
+                this.$swal({
+                  icon: 'success',
+                  title: 'ลงทะเบียนสำเร็จ',
+                  confirmButtonText: 'ยืนยัน',
+                  customClass: {
+                    confirmButton: 'btn btn-success',
+                  },
+                }).then(result => {
+                  if (result.isConfirmed) {
+                    this.clearform()
+                    router.push({ name: '/login', query: {} })
+                  }
+                })
+              }
+            }
+          })
         }
       })
     },

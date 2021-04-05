@@ -34,7 +34,8 @@ $result = [
 ];
             array_push($name,$result);
         }
-        return $name;
+
+        return response()->success($name, [], '0', 200);
 
     }
 

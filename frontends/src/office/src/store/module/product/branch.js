@@ -45,7 +45,6 @@ const data = () => ({
     price_per_ton: '',
   },
   modal_data_profile: {},
-  company_data_select: {},
   modal_data_profile_add: {},
   user_data: {},
   user_data_edit: {},
@@ -102,7 +101,6 @@ const data = () => ({
       field: 'manage',
       sortable: false,
     },
-
   ],
   columns_company: [
     {
@@ -126,11 +124,6 @@ const data = () => ({
     {
       label: 'จัดการ',
       field: 'manage',
-      sortable: false,
-    },
-    {
-      label: 'เข้าใช้งาน',
-      field: 'company',
       sortable: false,
     },
   ],
@@ -169,9 +162,6 @@ export default {
     },
     SET_COMPANY(state, data) {
       state.company_data = data
-    },
-    SET_COMPANY_DATA(state, data) {
-      state.company_data_select = data
     },
     SET_ID(state, id) {
       state.product_id = id
@@ -316,18 +306,6 @@ export default {
         throw error
       }
     },
-    async loadCompany({ commit, state }, id) {
-      const company_id = id
-      console.log(company_id)
-      try {
-        const { data } = await state.api.get(
-          `/api/company/${company_id}`,
-        )
-        commit('SET_COMPANY_DATA', data.data)
-      } catch (error) {
-        throw error
-      }
-    },
     async getData({ commit, state }) {
       try {
         const { data } = await state.api.get('/api/product')
@@ -353,6 +331,13 @@ export default {
         throw error
       }
     },
+    // async editProduct({ state }, id) {
+    //   try {
+    //     router.push({ name: 'productEdit', query: { id } })
+    //   } catch (error) {
+    //     throw error
+    //   }
+    // },
     async confirmEdit_menu({ state, commit, dispatch }) {
       try {
         if (state.modal_data.price_per_kk !== '') {
@@ -482,6 +467,7 @@ export default {
       // method นี้ คลิ๊กที่หน้าบ้าน แล้วมันจะเลือกสินค้าลงไปในตารางที่ 2
       commit('SET_ARRAY_DATA')
     },
+
     getModalId({ commit }, data) {
       // เมื่อกด "รับ" เอาข้อมูลไปเติมใน modal
       commit('SET_MODAL_DATA', data)
@@ -514,6 +500,7 @@ export default {
         throw error
       }
     },
+
     async edit_profile_add({ state, commit, dispatch }) {
       try {
         if (state.user_data.name !== ''

@@ -28,16 +28,8 @@ const data = () => ({
       field: 'name',
     },
     {
-      label: 'ร้าน',
-      field: 'user.name',
-    },
-    {
-      label: 'เบอร์โทรติดต่อ',
-      field: 'user.company_tel',
-    },
-    {
-      label: 'ที่อยู่',
-      field: 'user.address',
+      label: 'อัตราการเติบโต ( 1 = 100 %)',
+      field: 'sum',
     },
 
   ],
@@ -88,8 +80,8 @@ export default {
       state.self = self
       state.refs = refs
     },
-    SET_DATA(state, products) {
-      state.products = products
+    SET_DATA(state, data) {
+      state.products = data
     },
     SET_ALL(state, data) {
       state.user_all_data = data
@@ -105,7 +97,7 @@ export default {
     setApi({ commit }, { api, self, refs }) {
       commit('SET_API', { api, self, refs })
     },
-    async getData({ commit, state }) {
+    async getDataRank({ commit, state }) {
       try {
         const { data } = await state.api.get(
           '/api/ranking',

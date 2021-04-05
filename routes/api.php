@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+Route::resource('ranking', 'App\Http\Controllers\RankingController');
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user_data', 'App\Http\Controllers\UserController@getUser');
     Route::get('user/{id}', 'App\Http\Controllers\UserController@show');
     Route::get('user_data_all', 'App\Http\Controllers\UserController@user_data_all');
-    Route::put('user_data/{id}', 'App\Http\Controllers\UserController@update_profile');
     // Route::get('post_with_company', 'App\Http\Controllers\UserController@getPostWithCompany');
     Route::get('post_with_company', 'App\Http\Controllers\ProductController@getPostWithCompany');
-    Route::resource('ranking', 'App\Http\Controllers\RankingController');
+    Route::resource('company', 'App\Http\Controllers\CompanyController');
 
 
 });

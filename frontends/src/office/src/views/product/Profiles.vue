@@ -1,10 +1,9 @@
 <template>
   <div>
-    <panel
+    <!-- <panel
 
       title="ข้อมูลร้าน"
     >
-      <!-- <pre>{{ user_data }}</pre> -->
       <b-form class="mt-2">
         <b-row>
           <b-col sm="4">
@@ -116,7 +115,9 @@
               />
             </b-form-group>
           </b-col>
-          <b-col cols="12">
+          <b-col
+            cols="12"
+          >
             <b-button
               v-ripple.400="'rgba(255, 255, 255, 0.15)'"
               v-b-modal.modal-profile
@@ -127,24 +128,36 @@
               แก้ไข
             </b-button>
           </b-col>
+
         </b-row>
       </b-form>
-    </panel>
+    </panel> -->
+    <!-- <pre>{{ user_data }}</pre> -->
+    <b-col cols="12">
+      <b-button
+        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+        v-b-modal.modal-profile
+        variant="primary"
+        class="mt-2 mr-1"
+        @click="getModalProfile(user_data)"
+      >
+        เพิ่มร้าน
+      </b-button>
+    </b-col>
+    <br>
     <b-modal
       id="modal-profile"
       cancel-variant="danger"
       ok-title="ยืนยัน"
       cancel-title="ยกเลิก"
       centered
-      @ok="edit_profile"
+      @ok="edit_profile_add"
     >
       <b-form>
         <validation-observer ref="simpleRules">
           <!-- <pre>{{ modal_data_profile }}</pre> -->
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.name"
                 label="ชื่อร้าน"
@@ -153,9 +166,16 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile.branch"
+                label="สาขา"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.ceo_firstname"
                 label="ชื่อผู้จัดการ"
@@ -164,9 +184,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.ceo_lastname"
                 label="นามสกุลผู้จัดการ"
@@ -175,9 +193,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.district"
                 label="ตำบล"
@@ -186,9 +202,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.amphoe"
                 label="อำเภอ"
@@ -197,9 +211,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.province"
                 label="จังหวัด"
@@ -208,9 +220,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.postal_code"
                 label="รหัสไปรษณีย์"
@@ -219,9 +229,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.email"
                 label="อีเมล"
@@ -230,17 +238,239 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group
-              label-for="number"
-            >
+            <b-form-group label-for="number">
               <form-input
                 v-model="modal_data_profile.company_tel"
                 label="เบอร์โทรติดต่อ"
                 rules="required"
               />
             </b-form-group>
+          </b-col> </validation-observer></b-form>
+    </b-modal>
+    <b-modal
+      id="modal-profile-add"
+      cancel-variant="danger"
+      ok-title="ยืนยัน"
+      cancel-title="ยกเลิก"
+      centered
+      @ok="edit_profile_edit"
+    >
+      <b-form>
+        <validation-observer ref="simpleRules">
+          <!-- <pre>{{ modal_data_profile }}</pre> -->
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.name"
+                label="ชื่อร้าน"
+                rules="required"
+              />
+            </b-form-group>
           </b-col>
-        </validation-observer></b-form> </b-modal>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.branch"
+                label="สาขา"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.ceo_firstname"
+                label="ชื่อผู้จัดการ"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.ceo_lastname"
+                label="นามสกุลผู้จัดการ"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.district"
+                label="ตำบล"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.amphoe"
+                label="อำเภอ"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.province"
+                label="จังหวัด"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.postal_code"
+                label="รหัสไปรษณีย์"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.email"
+                label="อีเมล"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label-for="number">
+              <form-input
+                v-model="modal_data_profile_add.company_tel"
+                label="เบอร์โทรติดต่อ"
+                rules="required"
+              />
+            </b-form-group>
+          </b-col> </validation-observer></b-form>
+    </b-modal>
+    <div class="custom-search d-flex justify-content-end mb-1">
+      <b-col cols="12">
+        <vue-good-table
+          theme="nocturnal"
+          :columns="columns_company"
+          :rows="company_data"
+          :rtl="direction"
+          :search-options="{
+            enabled: true,
+            externalQuery: searchTerm,
+          }"
+          :pagination-options="{
+            enabled: true,
+            perPage: pageLength,
+          }"
+        >
+          <div
+            slot="emptystate"
+            class="center"
+          >
+            ไม่พบข้อมูล
+          </div>
+          <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <!-- Column: Action -->
+            <span v-if="props.column.field === 'manage'">
+              <span>
+                <b-dropdown
+                  variant="link"
+                  toggle-class="text-decoration-none"
+                  no-caret
+                >
+                  <template v-slot:button-content>
+                    <feather-icon
+                      icon="MoreVerticalIcon"
+                      size="16"
+                      class="text-body align-middle mr-25"
+                    />
+                  </template>
+
+                  <b-dropdown-item
+                    v-b-modal.modal-profile-add
+                    @click="getModalProfileList(props.row)"
+                  >
+                    <feather-icon
+                      icon="Edit2Icon"
+                      class="mr-50"
+                    />
+                    <span>แก้ไข</span>
+                  </b-dropdown-item>
+                  <b-dropdown-item @click="deletecompany(props.row)">
+                    <feather-icon
+                      icon="TrashIcon"
+                      class="mr-50"
+                    />
+                    <span>ปิดกิจการ</span>
+                  </b-dropdown-item></b-dropdown>
+              </span>
+            </span>
+            <span v-else-if="props.column.field === 'company'">
+              <span>
+                <b-button
+                  v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                  variant="primary"
+                  @click="selcectCompany(modal_data_profile_add.id)"
+                >
+                  เลือก
+                </b-button>
+              </span>
+            </span>
+          </template>
+          <template
+            slot="pagination-bottom"
+            slot-scope="props"
+          >
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex align-items-center mb-0 mt-1">
+                <span class="text-nowrap"> แสดง 1 ถึง </span>
+                <b-form-select
+                  v-model="pageLength"
+                  :options="['3', '5', '10']"
+                  class="mx-1"
+                  @input="
+                    (value) => props.perPageChanged({ currentPerPage: value })
+                  "
+                />
+                <span class="text-nowrap"> ของ {{ props.total }} แถว </span>
+              </div>
+              <div>
+                <b-pagination
+                  :value="1"
+                  :total-rows="props.total"
+                  :per-page="pageLength"
+                  first-number
+                  last-number
+                  align="right"
+                  prev-class="prev-item"
+                  next-class="next-item"
+                  class="mt-1 mb-0"
+                  @input="(value) => props.pageChanged({ currentPage: value })"
+                >
+                  <template #prev-text>
+                    <feather-icon
+                      icon="ChevronLeftIcon"
+                      size="18"
+                    />
+                  </template>
+                  <template #next-text>
+                    <feather-icon
+                      icon="ChevronRightIcon"
+                      size="18"
+                    />
+                  </template>
+                </b-pagination>
+              </div>
+            </div>
+          </template>
+        </vue-good-table>
+      </b-col>
+    </div>
     <!-- <panel title="แผนที่">
       <b-row>
         <l-map
@@ -258,6 +488,8 @@
 </template>
 
 <script>
+import router from '@/router'
+
 import { mapState, mapActions } from 'vuex'
 import {
   LMap, LTileLayer, LMarker, LPopup,
@@ -277,17 +509,23 @@ export default {
   },
   data() {
     return {
-
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 8,
-      center: [47.313220, -1.319482],
-      markerLatLng: [47.313220, -1.319482, { draggable: 'true' }],
+      center: [47.31322, -1.319482],
+      markerLatLng: [47.31322, -1.319482, { draggable: 'true' }],
       dir: false,
       searchTerm: '',
     }
   },
   computed: {
-    ...mapState('product', ['test', 'user_data', 'modal_data_profile']),
+    ...mapState('product', [
+      'user_data',
+      'pageLength',
+      'company_data',
+      'columns_company',
+      'modal_data_profile',
+      'modal_data_profile_add',
+    ]),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -301,22 +539,36 @@ export default {
   },
   mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
+    this.getCompany() // มันคือ company
     this.getUser()
   },
   methods: {
-    ...mapActions('product', ['setApi', 'getUser', 'edit_profile', 'getModalProfile']),
-
+    ...mapActions('product', [
+      'setApi',
+      'getModalProfileList',
+      'getUser',
+      'edit_profile_add',
+      'edit_profile_edit',
+      'getModalProfile',
+      'getCompany',
+      'deletecompany',
+    ]),
+    selcectCompany(id) {
+      router.push({ name: 'Menu', query: { id } })
+    },
   },
-
 }
 </script>
 <style lang="scss">
-.vue2leaflet-map{
-  &.leaflet-container{
+.vue2leaflet-map {
+  &.leaflet-container {
     height: 350px;
   }
 }
 label {
   font-size: larger;
+}
+.center {
+  text-align: center;
 }
 </style>

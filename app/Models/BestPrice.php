@@ -16,6 +16,9 @@ class BestPrice extends Model
         'company_id',
         'location',
         'name',
+        'lat',
+        'name_location',
+        'lng',
         'price_per_kk',
         'price_per_ton',
     ];
