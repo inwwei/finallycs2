@@ -1,10 +1,21 @@
 <template>
   <div>
     <panel title="ฟอร์มกรอกข้อมูลประกาศ">
-      <pre>{{ company_data_select }}</pre>
+      <!-- <pre>{{ products }}</pre> -->
       <b-form>
         <validation-observer ref="simpleRules">
           <b-row class="ml-1 mr-1">
+            <b-col sm="4">
+              <h6>ชื่อร้าน</h6>
+
+              <b-form-group label-for="account-username">
+                <b-form-input
+                  v-model="form_add.company.name"
+                  disabled
+                  name="username"
+                />
+              </b-form-group>
+            </b-col>
             <b-col class="tree">
               <h6>เลือกพืช</h6>
               <vue-select
@@ -14,14 +25,15 @@
               />
             </b-col>
             <b-col
-              v-show="form_add.Plant_select.name=='ข้าวหอมมะลิ' || form_add.Plant_select.name=='ข้าวเหนียว'"
+              v-show="
+                form_add.Plant_select.name == 'ข้าวหอมมะลิ' ||
+                  form_add.Plant_select.name == 'ข้าวเหนียว'
+              "
               md="6"
               xl="4"
             >
               <h6>หักความชื้น (ร้อยละ)</h6>
-              <b-form-group
-                label-for="number"
-              >
+              <b-form-group label-for="number">
                 <cleave
                   id="number"
                   v-model="form_add.moisture"
@@ -32,16 +44,15 @@
               </b-form-group>
             </b-col>
             <b-col
-              v-show="form_add.Plant_select.name=='ข้าวหอมมะลิ' || form_add.Plant_select.name=='ข้าวเหนียว'"
-
+              v-show="
+                form_add.Plant_select.name == 'ข้าวหอมมะลิ' ||
+                  form_add.Plant_select.name == 'ข้าวเหนียว'
+              "
               md="6"
               xl="4"
             >
               <h6>ความชื้นต่ำสุด</h6>
-              <b-form-group
-
-                label-for="number"
-              >
+              <b-form-group label-for="number">
                 <cleave
                   id="number"
                   v-model="form_add.moisture_min"
@@ -52,16 +63,15 @@
               </b-form-group>
             </b-col>
             <b-col
-              v-show="form_add.Plant_select.name=='ข้าวหอมมะลิ' || form_add.Plant_select.name=='ข้าวเหนียว'"
-
+              v-show="
+                form_add.Plant_select.name == 'ข้าวหอมมะลิ' ||
+                  form_add.Plant_select.name == 'ข้าวเหนียว'
+              "
               md="6"
               xl="4"
             >
               <h6>ความชื้นสูงสุด</h6>
-              <b-form-group
-
-                label-for="number"
-              >
+              <b-form-group label-for="number">
                 <cleave
                   id="number"
                   v-model="form_add.moisture_max"
@@ -72,16 +82,15 @@
               </b-form-group>
             </b-col>
             <b-col
-              v-show="form_add.Plant_select.name=='ข้าวหอมมะลิ' || form_add.Plant_select.name=='ข้าวเหนียว'"
-
+              v-show="
+                form_add.Plant_select.name == 'ข้าวหอมมะลิ' ||
+                  form_add.Plant_select.name == 'ข้าวเหนียว'
+              "
               md="6"
               xl="4"
             >
               <h6>หักสิ่งแปลกปลอม (ร้อยละ)</h6>
-              <b-form-group
-
-                label-for="number"
-              >
+              <b-form-group label-for="number">
                 <cleave
                   id="number"
                   v-model="form_add.Foreign_matter"
@@ -96,10 +105,7 @@
               xl="4"
             >
               <h6>ราคาต่อกิโลกรัม</h6>
-              <b-form-group
-
-                label-for="number"
-              >
+              <b-form-group label-for="number">
                 <cleave
                   id="number"
                   v-model="form_add.price_per_kk"
@@ -136,7 +142,6 @@
               type="text"
               class="d-inline-block mr-1"
             />
-
           </div>
         </b-form-group>
       </div>
@@ -192,9 +197,7 @@
                       />
                       <span>แก้ไข</span>
                     </b-dropdown-item>
-                    <b-dropdown-item
-                      @click="deleteProduct(props.row)"
-                    >
+                    <b-dropdown-item @click="deleteProduct(props.row)">
                       <feather-icon
                         icon="TrashIcon"
                         class="mr-50"
@@ -203,7 +206,6 @@
                     </b-dropdown-item></b-dropdown>
                 </span>
               </span>
-
             </template>
 
             <template
@@ -234,12 +236,13 @@
                     </b-col> -->
                     <!-- <pre>{{ modal_data }}</pre> -->
                     <b-col
-                      v-show="modal_data.name=='ข้าวหอมมะลิ' || modal_data.name=='ข้าวเหนียว'"
+                      v-show="
+                        modal_data.name == 'ข้าวหอมมะลิ' ||
+                          modal_data.name == 'ข้าวเหนียว'
+                      "
                     >
                       <h6>หักความชื้น (ร้อยละ)</h6>
-                      <b-form-group
-                        label-for="number"
-                      >
+                      <b-form-group label-for="number">
                         <cleave
                           id="number"
                           v-model="modal_data.moisture"
@@ -250,13 +253,13 @@
                       </b-form-group>
                     </b-col>
                     <b-col
-                      v-show="modal_data.name=='ข้าวหอมมะลิ' || modal_data.name=='ข้าวเหนียว'"
+                      v-show="
+                        modal_data.name == 'ข้าวหอมมะลิ' ||
+                          modal_data.name == 'ข้าวเหนียว'
+                      "
                     >
                       <h6>ความชื้นต่ำสุด</h6>
-                      <b-form-group
-
-                        label-for="number"
-                      >
+                      <b-form-group label-for="number">
                         <cleave
                           id="number"
                           v-model="modal_data.moisture_min"
@@ -267,13 +270,13 @@
                       </b-form-group>
                     </b-col>
                     <b-col
-                      v-show="modal_data.name=='ข้าวหอมมะลิ' || modal_data.name=='ข้าวเหนียว'"
+                      v-show="
+                        modal_data.name == 'ข้าวหอมมะลิ' ||
+                          modal_data.name == 'ข้าวเหนียว'
+                      "
                     >
                       <h6>ความชื้นสูงสุด</h6>
-                      <b-form-group
-
-                        label-for="number"
-                      >
+                      <b-form-group label-for="number">
                         <cleave
                           id="number"
                           v-model="modal_data.moisture_max"
@@ -284,13 +287,13 @@
                       </b-form-group>
                     </b-col>
                     <b-col
-                      v-show="modal_data.name=='ข้าวหอมมะลิ' || modal_data.name=='ข้าวเหนียว'"
+                      v-show="
+                        modal_data.name == 'ข้าวหอมมะลิ' ||
+                          modal_data.name == 'ข้าวเหนียว'
+                      "
                     >
                       <h6>หักสิ่งแปลกปลอม (ร้อยละ)</h6>
-                      <b-form-group
-
-                        label-for="number"
-                      >
+                      <b-form-group label-for="number">
                         <cleave
                           id="number"
                           v-model="modal_data.Foreign_matter"
@@ -302,10 +305,7 @@
                     </b-col>
                     <b-col>
                       <h6>ราคาต่อกิโลกรัม</h6>
-                      <b-form-group
-
-                        label-for="number"
-                      >
+                      <b-form-group label-for="number">
                         <cleave
                           id="number"
                           v-model="modal_data.price_per_kk"
@@ -314,18 +314,18 @@
                           :options="options.number"
                         />
                       </b-form-group>
-                    </b-col>
-                  </validation-observer></b-form> </b-modal>
+                    </b-col> </validation-observer></b-form>
+              </b-modal>
               <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-center mb-0 mt-1">
-                  <span class="text-nowrap ">
-                    แสดง 1 ถึง
-                  </span>
+                  <span class="text-nowrap"> แสดง 1 ถึง </span>
                   <b-form-select
                     v-model="pageLength"
-                    :options="['3','5','10']"
+                    :options="['3', '5', '10']"
                     class="mx-1"
-                    @input="(value)=>props.perPageChanged({currentPerPage:value})"
+                    @input="
+                      (value) => props.perPageChanged({ currentPerPage: value })
+                    "
                   />
                   <span class="text-nowrap"> ของ {{ props.total }} แถว </span>
                 </div>
@@ -340,7 +340,9 @@
                     prev-class="prev-item"
                     next-class="next-item"
                     class="mt-1 mb-0"
-                    @input="(value)=>props.pageChanged({currentPage:value})"
+                    @input="
+                      (value) => props.pageChanged({ currentPage: value })
+                    "
                   >
                     <template #prev-text>
                       <feather-icon
@@ -362,13 +364,18 @@
         </b-col>
       </div>
       <b-row />
-    </panel></div>
+    </panel>
+  </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import {
-  BRow, BCol, BFormGroup, BInputGroupPrepend, BInputGroup,
+  BRow,
+  BCol,
+  BFormGroup,
+  BInputGroupPrepend,
+  BInputGroup,
 } from 'bootstrap-vue'
 import Cleave from 'vue-cleave-component'
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -387,6 +394,7 @@ export default {
   },
   data() {
     return {
+
       dir: false,
       searchTerm: '',
       options: {
@@ -398,7 +406,18 @@ export default {
     }
   },
   computed: {
-    ...mapState('product', ['modal_data', 'company_data_select', 'columns_menu', 'Plants', 'test', 'products', 'columns', 'form_add', 'pageLength', 'products_data_table']),
+    ...mapState('product', [
+      'modal_data',
+      'company_data_select',
+      'columns_menu',
+      'Plants',
+      'test',
+      'products',
+      'columns',
+      'form_add',
+      'pageLength',
+      'products_data_table',
+    ]),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -410,25 +429,40 @@ export default {
       return this.dir
     },
   },
+  //   destroyed() {
+  //     this.clear()
+  //   },
   mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
     this.getData()
     this.getPlants()
     setTimeout(() => {
-      this.loadCompany(this.$route.query.id)
-    }, 400)
+      this.loadCompanys(this.$route.query.id)
+    }, 100)
   },
   methods: {
-    ...mapActions('product', ['getModalId', 'loadCompany ', 'pushData', 'request_add', 'getPlants', 'setApi', 'getData', 'queryProductInfo', 'confirmEdit_menu', 'deleteProduct']),
-  },
+    ...mapActions('product', [
+      'clear',
+      'getModalId',
+      'pushData',
+      'request_add',
+      'getPlants',
+      'setApi',
+      'getData',
+      'queryProductInfo',
+      'confirmEdit_menu',
+      'deleteProduct',
+      'loadCompanys',
+    ]),
 
+  },
 }
 </script>
 <style  scoped>
-label{
-    font-size: larger;
+label {
+  font-size: larger;
 }
-.center{
-    text-align: center;
+.center {
+  text-align: center;
 }
 </style>

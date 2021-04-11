@@ -1,6 +1,7 @@
 import router from '@/router'
 
 const data = () => ({
+  company: '',
   api: '',
   self: '',
   refs: '',
@@ -10,11 +11,9 @@ const data = () => ({
   products: [],
   product_id: '',
   Plants: [],
-  company_data: {
-  },
+  company_data: '',
   form_add: {
-    user_id: '123456789',
-    Plant_select: '',
+    company_id: '',
     first_date: '',
     end_date: '',
     name: '',
@@ -24,6 +23,8 @@ const data = () => ({
     Foreign_matter: '',
     price_per_kk: '',
     price_per_ton: '',
+    Plant_select: '',
+    company: '',
   },
   form: {
     Plant_select: '',
@@ -141,6 +142,7 @@ export default {
   getters: {
   },
   mutations: {
+
     SET_ARRAY_DATA_EDIT_PROFILE(state, data) {
       state.modal_data_profile = data
     },
@@ -158,17 +160,34 @@ export default {
       state.request_data = data.price_list
       state.request_detail = data
     },
+    SET_COMPANY_SELECT(state, data) {
+      state.form_add.company = data
+      state.form_add.company_id = state.form_add.company.id
+    },
     SET_DATA(state, products) {
       state.products = products
     },
     SET_NAME(state) {
       state.form_add.name = state.form_add.Plant_select.name
     },
+    CLEAR(state) {
+      state.form_add = data().form_add
+    },
     SET_USER(state, data) {
       state.user_data = data
     },
     SET_COMPANY(state, data) {
       state.company_data = data
+    },
+    CLEAR_FORM_ADD(state) {
+      state.form_add.name = ''
+      state.form_add.moisture = ''
+      state.form_add.moisture_min = ''
+      state.form_add.moisture_max = ''
+      state.form_add.Foreign_matter = ''
+      state.form_add.price_per_kk = ''
+      state.form_add.price_per_ton = ''
+      state.form_add.Plant_select = ''
     },
     SET_COMPANY_DATA(state, data) {
       state.company_data_select = data
@@ -197,6 +216,9 @@ export default {
 
   },
   actions: {
+    clear({ commit }) {
+      commit('CLEAR')
+    },
     setEditData({ commit, dispatch }, product_info) {
       commit('SET_PLANT_ID', product_info)
     //   dispatch('editProductData')
@@ -230,20 +252,23 @@ export default {
               },
               buttonsStyling: false,
             }).then(result => {
-              state.api.post('/api/product', state.form_add)
-              state.self.$swal({
-                icon: 'success',
-                title: 'เพิ่มข้อมูลสำเร็จ!',
-                text: `ข้อมูลสินค้า ${state.form_add.Plant_select.name} ถูกเพิ่มสำเร็จ`,
-                confirmButtonText: 'ยืนยัน',
-                customClass: {
-                  confirmButton: 'btn btn-success',
-                },
-              }).then(result => {
-                if (result.isConfirmed) {
-                  dispatch('getData')
-                }
-              })
+              if (result.isConfirmed) {
+                state.api.post('/api/product', state.form_add)
+                state.self.$swal({
+                  icon: 'success',
+                  title: 'เพิ่มข้อมูลสำเร็จ!',
+                  text: `ข้อมูลสินค้า ${state.form_add.Plant_select.name} ถูกเพิ่มสำเร็จ`,
+                  confirmButtonText: 'ยืนยัน',
+                  customClass: {
+                    confirmButton: 'btn btn-success',
+                  },
+                }).then(result => {
+                  if (result) {
+                    dispatch('getData')
+                    commit('CLEAR_FORM_ADD')
+                  }
+                })
+              }
             })
           } else {
             state.self.$swal({
@@ -318,7 +343,7 @@ export default {
     },
     async loadCompany({ commit, state }, id) {
       const company_id = id
-      console.log(company_id)
+      //   console.log(company_id)
       try {
         const { data } = await state.api.get(
           `/api/company/${company_id}`,
@@ -328,10 +353,16 @@ export default {
         throw error
       }
     },
-    async getData({ commit, state }) {
+    selcectCompany({ commit, state }, id) {
+      router.push({ name: 'Menu', query: { id } })
+    },
+    async getData({ commit, state, dispatch }) {
+      console.log('id ปัจจุบัน')
+      console.log(state.form_add.company_id)
+      console.log('จบ')
       try {
-        const { data } = await state.api.get('/api/product')
-        commit('SET_DATA', data.data)
+        const { data } = await state.api.get(`/api/product/show_announce/${state.form_add.company_id} `)
+        await commit('SET_DATA', data.data)
       } catch (error) {
         throw error
       }
@@ -445,7 +476,7 @@ export default {
       try {
         state.self.$swal({
           title: 'ปิดกิจการ',
-          text: 'ยืนยันการปิดกิจการ',
+          text: 'ท่านจะไม่สามารถกลับมาเปิดได้อีก ยืนยันที่จะปิดกิจการหรือไม่ ?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'ยืนยัน',
@@ -632,6 +663,13 @@ export default {
         throw error
       }
     },
-
+    async loadCompanys({ state, commit }, id) {
+      try {
+        const { data } = await state.api.get(`/api/company/${id}`)
+        commit('SET_COMPANY_SELECT', data.data)
+      } catch (error) {
+        throw error
+      }
+    },
   },
 }

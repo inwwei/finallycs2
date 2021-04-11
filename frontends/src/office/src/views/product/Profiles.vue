@@ -415,7 +415,7 @@
                 <b-button
                   v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                   variant="primary"
-                  @click="selcectCompany(modal_data_profile_add.id)"
+                  @click="selcectCompany(props.row.id)"
                 >
                   เลือก
                 </b-button>
@@ -469,6 +469,7 @@
             </div>
           </template>
         </vue-good-table>
+        <!-- <pre>{{ company_data }}</pre> -->
       </b-col>
     </div>
     <!-- <panel title="แผนที่">
@@ -552,8 +553,10 @@ export default {
       'getModalProfile',
       'getCompany',
       'deletecompany',
+    //   'selcectCompany',
     ]),
     selcectCompany(id) {
+      console.log(id)
       router.push({ name: 'Menu', query: { id } })
     },
   },

@@ -83,7 +83,7 @@ class CompanyController extends Controller
     public function show($id)
     {
         $query = Company::find($id);
-        return response()->success($query->toArray(), [], '0',  200);
+        return response()->success($query, [], '0',  200);
     }
 
     /**

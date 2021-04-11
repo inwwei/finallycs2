@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 Route::resource('ranking', 'App\Http\Controllers\RankingController');
+Route::get('WhatToPlant', 'App\Http\Controllers\WhatToPlantController@index');
+Route::get('hit', 'App\Http\Controllers\WhatToPlantController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('helper/alltag', 'App\Http\Controllers\HelperController@allTag');
     Route::get('Charts', 'App\Http\Controllers\ChartsController@index');
     Route::get('Plants', 'App\Http\Controllers\PlantController@index');
+    Route::get('product/show_announce/{id}', 'App\Http\Controllers\ProductController@show_announce');
     Route::resource('product', 'App\Http\Controllers\ProductController');
     Route::get('user_data', 'App\Http\Controllers\UserController@getUser');
     Route::get('user/{id}', 'App\Http\Controllers\UserController@show');

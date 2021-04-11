@@ -98,6 +98,20 @@ export default [
     },
   },
   {
+    path: '/product/WhatToPlant',
+    name: 'WhatToPlant',
+    component: () => import('@/views/product/WhatToPlant.vue'),
+    meta: {
+      breadcrumb: [
+
+        {
+          text: 'พืชยอดนิยม',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
     path: '/product/ManageShop/Menu',
     name: 'Menu',
     component: () => import('@/views/product/Menu.vue'),

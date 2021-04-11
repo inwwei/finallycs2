@@ -22,6 +22,7 @@ import printSaleProduct from './module/product/sale/print'
 import receive from './module/product/receive'
 import company from './module/product/company'
 import ranking from './module/product/ranking'
+import hit from './module/product/hit'
 import branch from './module/product/branch'
 import register from './module/product/register'
 // import authorize from './module/authorize'
@@ -62,6 +63,7 @@ export default new Vuex.Store({
     register,
     ranking,
     branch,
+    hit,
   },
   strict: process.env.DEV,
 })

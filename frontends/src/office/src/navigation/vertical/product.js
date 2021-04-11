@@ -17,6 +17,12 @@ export default [
 
   },
   {
+    title: 'WhatToPlant',
+    route: 'WhatToPlant',
+    icon: 'TrendingUpIcon',
+
+  },
+  {
     title: 'Ranking',
     route: 'Ranking',
     icon: 'TrendingUpIcon',

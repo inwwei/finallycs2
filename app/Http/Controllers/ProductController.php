@@ -27,15 +27,11 @@ class ProductController extends Controller
 
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $data = Product::with('company')->whereHas('company', function($query) use ($user_id){
-            $query->where('user_id',$user_id);
-        })->get();
-
-        if (!$data) {
-            return response()->error(['ไม่มีข้อมูลในระบบ'], '40');
+        $data = Product::get();
+        if ($data) {
+            return response()->success($data);
         } else {
-            return response()->success($data, [], '0', 200);
+            return response()->error(['ไม่พบข้อมูลสินค้าที่ต้องการ'], '40');
         }
     }
 
@@ -59,7 +55,7 @@ class ProductController extends Controller
     {
 
         $datas = $request->validate([
-            'user_id' => 'required',
+            'company_id' => 'required',
             'name' => 'required',
             'moisture' => 'sometimes',
             'moisture_min' => 'sometimes',
@@ -69,7 +65,7 @@ class ProductController extends Controller
             'price_per_ton' => 'sometimes',
 
         ]);
-        $datas['user_id'] = Auth::user()->id;
+        $datas['status'] = 'ปกติ';
         $product = Product::create($datas);
         if (!$product) {
             return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');
@@ -86,11 +82,21 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data = Product::with('settingMasterProduct', 'settingBasicBranch')->withTrashed()->find($id);
+
+        $data = Product::where('company_id',$id)->get();
         if ($data) {
             return response()->success($data);
         } else {
             return response()->error(['ไม่พบข้อมูลสินค้าที่ต้องการ'], '40');
+        }
+    }
+    public function show_announce($id)
+    {
+        $data = Product::where('company_id',$id)->where('status','ปกติ')->get();
+        if ($data) {
+            return response()->success($data);
+        } else {
+            return response()->error(['ไม่พบ'], '40');
         }
     }
 
@@ -119,7 +125,7 @@ class ProductController extends Controller
     {
         $datas = $request->validate([
             'id' => 'required',
-            'user_id' => 'required',
+            'company_id' => 'required',
             'name' => 'required',
             'moisture' => 'sometimes',
             'moisture_min' => 'sometimes',
@@ -128,14 +134,13 @@ class ProductController extends Controller
             'price_per_kk' => 'required',
             'price_per_ton' => 'sometimes',
         ]);
-
-        $datas['user_id'] = Auth::user()->id;
-        $product = Product::find($id);
+        $datas['status'] = 'ปกติ';
+        $product = Product::create($datas);
+        $query = Product::find($id);
         if (!$product) {
             return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');
         } else {
-            $result = $product->update($datas);
-            $product = Product::create($datas);
+            $result = Product::where('id',$query->id)->update(['status'=>'อัพเดท']);
             return response()->success($result, [], '0', 200);
         }
     }
