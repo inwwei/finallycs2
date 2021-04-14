@@ -40,13 +40,32 @@
           </div>
 
           <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <!-- Column: Action -->
+            <span v-if="props.column.field === 'manage'">
+
+              <b-button
+                @click="viewCompany(props.row.id)"
+              >
+                <feather-icon
+                  icon="SearchIcon"
+                  class="mr-50"
+                />
+                <span>ข้อมูล</span>
+              </b-button>
+
+            </span>
+          </template>
+          <template
             slot="pagination-bottom"
             slot-scope="props"
           >
             <div class="d-flex justify-content-between flex-wrap">
               <div class="d-flex align-items-center mb-0 mt-1">
                 <span class="text-nowrap ">
-                  แสดง 1 ถึง
+                  Showing 1 to
                 </span>
                 <b-form-select
                   v-model="pageLength"
@@ -54,7 +73,7 @@
                   class="mx-1"
                   @input="(value)=>props.perPageChanged({currentPerPage:value})"
                 />
-                <span class="text-nowrap"> ของ {{ props.total }} แถว </span>
+                <span class="text-nowrap"> of {{ props.total }} entries </span>
               </div>
               <div>
                 <b-pagination
@@ -89,6 +108,7 @@
       </b-col>
     </div>
     <b-row />
+    <!-- <pre>{{ data_with_company }}</pre> -->
   </panel>
 </template>
 
@@ -125,7 +145,7 @@ export default {
     this.post_with_company()
   },
   methods: {
-    ...mapActions('company', ['setApi', 'getData', 'post_with_company', 'deleteProduct', 'editProduct']),
+    ...mapActions('company', ['setApi', 'getData', 'post_with_company', 'deleteProduct', 'editProduct', 'viewCompany']),
   },
 
 }

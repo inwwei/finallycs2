@@ -10,7 +10,6 @@
             type="text"
             class="d-inline-block mr-1"
           />
-
         </div>
       </b-form-group>
     </div>
@@ -19,7 +18,7 @@
         <vue-good-table
           theme="nocturnal"
           :columns="columns"
-          :rows="products"
+          :rows="countItems"
           :rtl="direction"
           :search-options="{
             enabled: true,
@@ -113,6 +112,8 @@ export default {
   data() {
     return {
       dir: false,
+      countItems: '',
+      items: [],
       searchTerm: '',
     }
   },
@@ -132,18 +133,24 @@ export default {
   mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
     this.getDataHit()
+    if (this.products) {
+      this.items = this.products
+
+      this.countItems = this.items.filter(item => item.sum !== 0)
+      console.log(this.item)
+      console.log(this.countItems)
+    }
   },
   methods: {
     ...mapActions('hit', ['setApi', 'getDataHit']),
   },
-
 }
 </script>
 <style  scoped>
-label{
-    font-size: larger;
+label {
+  font-size: larger;
 }
-.center{
-    text-align: center;
+.center {
+  text-align: center;
 }
 </style>

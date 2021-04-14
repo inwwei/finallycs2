@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class UserController extends Controller
 
     public function user_data_all()
     {
-        $data = User::get();
+        $data = Company::get();
         return response()->success($data, [], '0', 200);
     }
 
@@ -198,8 +199,9 @@ public function register(){{
 
     public function show($id)
     {
-        $data = User::with(['product'])->find($id);
-
+        $data = Company::with('product')->whereHas('product',function($query){
+            $query->where('status','ปกติ');
+        })->find($id);
         if ($data) {
             return response()->success($data);
         } else {

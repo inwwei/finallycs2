@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function getPostWithCompany()
     {
-        $data = Product::with('company')->get();
+        $data = Product::with('company')->where('status','ปกติ')->get();
 
         if (!$data) {
             return response()->error(['ไม่มีข้อมูลในระบบ'], '40');

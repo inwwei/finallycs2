@@ -198,6 +198,7 @@
         </b-col>
       </div>
       <b-row />
+      <!-- <pre>{{ company_info }}</pre> -->
     </panel>
   </div>
 </template>

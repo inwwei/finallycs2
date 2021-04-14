@@ -19,16 +19,16 @@ class WhatToPlantController extends Controller
         $name = [];
         foreach ($plants as $index => $plant) {
             $plant['name'];
-
-            $query_part = Product::where('name',$plant['name'])->get();
-            $query_count = Product::where('name',$plant['name'])->count();
-
+            // $find = Product::where('name', '=', $plant['name'])->firstOrFail();
+            // if ($find) {
+                $query_part = Product::where('name', $plant['name'])->where('status','ปกติ')->get();
+                $query_count = Product::where('name', $plant['name'])->where('status','ปกติ')->count();
+            // }
             $result = [
-                'name'=>$plant['name'],
-                'sum'=>$query_count,
+                'name' => $plant['name'],
+                'sum' => $query_count,
             ];
-
-                        array_push($name,$result);
+            array_push($name, $result);
         }
         if (!$query_part) {
             return response()->error(['ไม่สามารถแก้ไขข้อมูลได้'], '40');

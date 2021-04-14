@@ -53,16 +53,24 @@ const data = () => ({
       field: 'name',
     },
     {
+      label: 'ราคา(บาท) / กิโลกรัม ',
+      field: 'price_per_kk',
+    },
+    {
       label: 'ร้าน',
-      field: 'user.name',
+      field: 'company.name',
     },
     {
       label: 'เบอร์โทรติดต่อ',
-      field: 'user.company_tel',
+      field: 'company.company_tel',
     },
     {
       label: 'ที่อยู่',
-      field: 'user.address',
+      field: 'company.address',
+    },
+    {
+      label: 'จัดการ',
+      field: 'manage',
     },
 
   ],
@@ -283,7 +291,7 @@ export default {
     async queryCompanyInfo({ state, commit }) {
       try {
         const { data } = await state.api.get(
-          `/api/user/${state.company_id}`,
+          `/api/company/${state.company_id}`,
         )
         commit('SET_COMPANY_INFO', data.data)
       } catch (error) {
