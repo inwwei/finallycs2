@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BestPrice;
 use App\Models\Plant;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
@@ -19,11 +20,17 @@ class ProcessController extends Controller
         $name = [];
         foreach ($plants as $index => $plant) {
             $plant['name'];
-            $query_part = Product::where('name', $plant['name'])->first();
-            $query_present = Product::where('name', $plant['name'])->orderBy('price_per_kk', 'desc')->first();
-
+            $query_part = Product::where('status','ปกติ')
+            ->where('name', $plant['name'])->max('price_per_kk');
+            // return $query_part;
+            $query_present = Product::where('status','ปกติ')
+            ->where('name', $plant['name'])->where('price_per_kk',$query_part)->first();
+            // $query_present['sum'] =    $query_present;
+            BestPrice::create($query_present);
+return $query_present;
             $result = [
                 'query' => $query_present,
+                'max' => $query_part,
             ];
 
             if (strlen($result['query'])>2) {

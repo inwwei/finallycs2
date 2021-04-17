@@ -40,8 +40,6 @@ class AutoInsert extends Command
     public function handle()
     {
         $this->info('Start GET API TO MinistryOfCommerceInformation');
-        $response = Http::get('https://dataapi.moc.go.th/gis-product-prices?product_id=P11001&from_date=2021-03-03&to_date=2021-03-26');
-            dd($response);
-            $this->info($response);
+$this->call();
     }
 }
