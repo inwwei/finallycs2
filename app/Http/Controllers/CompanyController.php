@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Product\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,12 @@ class CompanyController extends Controller
     public function show($id)
     {
         $query = Company::find($id);
+        return response()->success($query, [], '0',  200);
+    }
+
+    public function post_company($id)
+    {
+        $query = Product::where('company_id',$id)->where('status','ปกติ')->get();
         return response()->success($query, [], '0',  200);
     }
 

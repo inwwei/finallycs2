@@ -23,6 +23,7 @@ const data = () => ({
   },
   user_all_data: [],
   user_data: {},
+  pageLength: 5,
   company_sub_data: [],
   data_with_company: {},
   columns_regis: [
@@ -55,6 +56,7 @@ const data = () => ({
     {
       label: 'ราคา(บาท) / กิโลกรัม ',
       field: 'price_per_kk',
+      type: 'number',
     },
     {
       label: 'ร้าน',
@@ -63,14 +65,17 @@ const data = () => ({
     {
       label: 'เบอร์โทรติดต่อ',
       field: 'company.company_tel',
+      sortable: false,
     },
     {
       label: 'ที่อยู่',
       field: 'company.address',
+      sortable: false,
     },
     {
       label: 'จัดการ',
       field: 'manage',
+      sortable: false,
     },
 
   ],
@@ -125,12 +130,15 @@ export default {
       state.refs = refs
     },
     SET_DATA_REQUEST(state, data) {
-      state.company_sub_data = data.product
+    //   state.company_sub_data = data.product
 
       state.request_detail = data
     },
     SET_DATA(state, products) {
       state.products = products
+    },
+    SET_POST(state, data) {
+      state.company_sub_data = data
     },
     SET_NAME(state) {
       state.form_add.name = state.form_add.Plant_select.name
@@ -149,7 +157,11 @@ export default {
     },
     SET_COMPANY_INFO(state, data) {
       state.company_info = data
-      state.company_sub_data = data.product
+    //   state.company_sub_data = data.product
+    },
+    SET_CLEAR_FORM(state) {
+    //   state.company_info = data.company_info
+      state.company_sub_data = data.company_sub_data
     },
 
     SET_POST_WITH_COMPANY(state, data) {
@@ -183,6 +195,10 @@ export default {
     //* ***************************************************************** */
     setEditData({ commit, dispatch }, product_info) {
       commit('SET_PLANT_ID', product_info)
+    //   dispatch('editProductData')
+    },
+    clearForm({ commit }) {
+      commit('SET_CLEAR_FORM')
     //   dispatch('editProductData')
     },
     nodeSelect({ commit }, node) {
@@ -276,6 +292,16 @@ export default {
           '/api/Plants',
         )
         commit('SET_PLANT', data.data)
+      } catch (error) {
+        throw error
+      }
+    },
+    async queryCompanyPost({ commit, state }) {
+      try {
+        const { data } = await state.api.post(
+          `/api/post_company/${state.company_info.id}`,
+        )
+        commit('SET_POST', data.data)
       } catch (error) {
         throw error
       }

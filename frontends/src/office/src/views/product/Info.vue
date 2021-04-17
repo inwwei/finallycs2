@@ -198,7 +198,7 @@
         </b-col>
       </div>
       <b-row />
-      <!-- <pre>{{ company_info }}</pre> -->
+      <!-- <pre>{{ company_sub_data }}</pre> -->
     </panel>
   </div>
 </template>
@@ -207,21 +207,42 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
+  data() {
+    return {
+      dir: false,
+      searchTerm: '',
+    }
+  },
   computed: {
     ...mapState('company', [
+      'pageLength',
       'company_info',
       'product_id',
       'company_sub_data',
       'columns_menu',
     ]),
+    direction() {
+      if (this.$store.state.appConfig.isRTL) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.dir = true
+        return this.dir
+      }
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.dir = false
+      return this.dir
+    },
+  },
+  destroyed() {
+    this.clearForm()
   },
   mounted() {
     this.setId(this.$route.query.id)
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
     this.queryCompanyInfo()
+    this.queryCompanyPost()
   },
   methods: {
-    ...mapActions('company', ['setApi', 'setId', 'queryCompanyInfo']),
+    ...mapActions('company', ['clearForm', 'setApi', 'setId', 'queryCompanyInfo', 'queryCompanyPost']),
   },
 }
 </script>

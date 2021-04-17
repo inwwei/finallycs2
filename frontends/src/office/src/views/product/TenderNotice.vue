@@ -47,7 +47,7 @@
             <span v-if="props.column.field === 'manage'">
 
               <b-button
-                @click="viewCompany(props.row.id)"
+                @click="viewCompany(props.row.company_id)"
               >
                 <feather-icon
                   icon="SearchIcon"
@@ -128,7 +128,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('company', ['test', 'products', 'columns', 'pageLength', 'data_with_company']),
+    ...mapState('company', ['test', 'products', 'pageLength', 'columns', 'pageLength', 'data_with_company']),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
