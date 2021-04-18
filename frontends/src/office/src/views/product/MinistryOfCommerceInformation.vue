@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="สินค้าคงเหลือ">
+    <panel>
       <b-form>
         <validation-observer ref="simpleRules">
           <b-row class="ml-1 mr-1">
