@@ -1,5 +1,5 @@
 <template>
-  <panel title="สินค้าคงเหลือ">
+  <panel title="รายการประกาศ">
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-form-group>
         <div class="d-flex align-items-center">
