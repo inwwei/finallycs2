@@ -71,17 +71,34 @@ class IsekiDemoUser extends Command
             ->times(50)
             ->create();
 
-            $data = User::create([
-                'role'=>'guest',
-                'name' => 'ผู้ใช้งานทั่วไป',
-                'username' => 'oweimann@example.com',
-                'email' => 'guest@gmail.com',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
-                ]);
-            User::factory()
-                ->times(50)
-                ->create();
+             // Fix user ตัวนี้ไว้จะได้จำ Login
+        $data = User::create([
+            'id'=>'92B2E648-AF2F-45DC-8FF0-F9E1058A3BC1',
+            'identification_number'=>'1409600250281',
+            'role'=>'member',
+            'name' => 'ผู้ใช้ ทั่วไป',
+            'username' => 'guest',
+            'email' => 'guest@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            "ceo_prefix"=> '',
+            "ceo_firstname"=> 'ผู้ใช้',
+            "ceo_lastname"=> 'ทั่วไป',
+            "company_tel"=> '',
+            "ceo_tel"=> '',
+            "amphoe"=> 'เมือง',
+            "district"=> 'ศิลา',
+            "province"=> 'ขอนแก่น',
+            "postal_code"=> '40000',
+            "role"=> "member",
+            "lat"=> 16.4736762,
+            "lng"=> 102.8241283,
+            "zoom"=>'18z',
+            "name_location"=>'คณะวิทยาศาสตร์'
+            ]);
+        User::factory()
+            ->times(50)
+            ->create();
 
     }
 }

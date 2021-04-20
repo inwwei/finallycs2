@@ -153,9 +153,10 @@
                 </b-col>
                 <b-col>
                   <b-button
-                    type="submit_guest"
+                    type="submit"
                     variant="success"
                     block
+                    @click="login_guest"
                   >
                     เข้าสู่ระบบ (ผู้ใช้ทั่วไป)
                   </b-button>
@@ -325,59 +326,54 @@ export default {
       })
     },
     login_guest() {
-      this.$refs.loginForm.validate().then(success => {
-        if (success) {
-          useJwt
-            .login({
-            //   username: this.userEmail,
-            //   password: this.password,
-              username: 'guest',
-              password: 'password',
+      console.log(1)
+      useJwt
+        .login({
+          //   username: this.userEmail,
+          //   password: this.password,
+          username: 'guest',
+          password: 'password',
+        })
+        .then(response => {
+          const { token, name } = response.data.data
+          // FIXME: หน้าบ้านต้องส่งมา
+          const userData = {
+            role: 'admin', // src\auth\utils.js
+            fullName: name,
+            username: name,
+            ability: [{ action: 'manage', subject: 'all' }], // ไม่มี การทำงาน
+          }
+
+          useJwt.setToken(token)
+          useJwt.setRefreshToken(token)
+          localStorage.setItem('userData', JSON.stringify(userData))
+          this.$ability.update(userData.ability)
+
+          // ? This is just for demo purpose as well.
+          // ? Because we are showing eCommerce app's cart items count in navbar
+          //   this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)
+
+          // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
+          this.$router
+            .push(getHomeRouteForLoggedInUser(userData.role))
+            .then(() => {
+              this.$toast({
+                component: ToastificationContent,
+                position: 'top-right',
+                props: {
+                  title: `Welcome ${
+                    userData.fullName || userData.username
+                  }`,
+                  icon: 'CoffeeIcon',
+                  variant: 'success',
+                  text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
+                },
+              })
             })
-            .then(response => {
-              const { token, name } = response.data.data
-              // FIXME: หน้าบ้านต้องส่งมา
-              const userData = {
-                role: 'admin', // src\auth\utils.js
-                fullName: name,
-                username: name,
-                ability: [{ action: 'manage', subject: 'all' }], // ไม่มี การทำงาน
-              }
-
-              useJwt.setToken(token)
-              useJwt.setRefreshToken(token)
-              localStorage.setItem('userData', JSON.stringify(userData))
-              this.$ability.update(userData.ability)
-
-              // ? This is just for demo purpose as well.
-              // ? Because we are showing eCommerce app's cart items count in navbar
-              //   this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)
-
-              // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
-              this.$router
-                .push(getHomeRouteForLoggedInUser(userData.role))
-                .then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: 'top-right',
-                    props: {
-                      title: `Welcome ${
-                        userData.fullName || userData.username
-                      }`,
-                      icon: 'CoffeeIcon',
-                      variant: 'success',
-                      text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
-                    },
-                  })
-                })
-                .catch(error => {
-                  this.$refs.loginForm.setErrors(error.response.data.error)
-                })
+            .catch(error => {
+              this.$refs.loginForm.setErrors(error.response.data.error)
             })
-        } else {
-          console.log(111)
-        }
-      })
+        })
     },
   },
 }
