@@ -60,7 +60,7 @@ class Kernel extends ConsoleKernel
         BestPrice::create($datas);
     }
 
-        })->dailyAt('00:00');
+        })->dailyAt('04:23');
     }
 
     /**
