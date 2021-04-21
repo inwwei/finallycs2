@@ -54,14 +54,17 @@ const data = () => ({
     {
       label: 'ณ วันที่',
       field: 'date',
+      sortable: false,
     },
     {
       label: 'ราคาเฉลี่ยต่ำสุด',
       field: 'price_min',
+      type: 'number',
     },
     {
       label: 'ราคาเฉลี่ยสูงสุด',
       field: 'price_max',
+      type: 'number',
     },
 
   ],

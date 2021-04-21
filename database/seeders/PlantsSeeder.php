@@ -15,7 +15,7 @@ class PlantsSeeder extends Seeder
     public function run()
     {
         $datas = [
-            ['id' => '92B2E648-B307-4552-9B83-B952FE5B0F17', 'code' => 'R11018', 'name' => 'ข้าวสารเหนียว กข.6'],
+            ['id' => '92B2E648-B307-4552-9B83-B952FE5B0F17', 'code' => 'R11018', 'name' => 'ข้าวเหนียว'],
             ['id' => '92B2E648-B34C-44BB-8E55-BA495C7F89CF', 'code' => 'R11029', 'name' => 'ข้าวหอมมะลิ'],
             ['id' => '92B2E648-AF2F-45DC-8FF0-F9E1058A3BCF', 'code' => 'P13001', 'name' => 'ผักคะน้า(คละ)'],
             ['id' => '92B2E648-AF34-43F2-AD37-1DB76DF90C68', 'code' => 'P13002', 'name' => 'ผักคะน้า(คัด)'],

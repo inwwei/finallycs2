@@ -1,5 +1,5 @@
 <template>
-  <panel title="รายการประกาศรับซื้อผลผลิตทางการเกษตร">
+  <panel title="การเติบโตของราคาในช่วงเดือน">
     <!-- <pre>{{ products }}</pre> -->
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-form-group>
