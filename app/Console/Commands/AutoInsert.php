@@ -40,6 +40,5 @@ class AutoInsert extends Command
     public function handle()
     {
         $this->info('Start GET API TO MinistryOfCommerceInformation');
-$this->call();
     }
 }

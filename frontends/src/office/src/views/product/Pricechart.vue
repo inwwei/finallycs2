@@ -1,36 +1,38 @@
 <template>
-  <b-card>
-    <b-card-body>
-      <vue-apex-charts
-        ref="testharts"
-        type="bar"
-        height="350"
-        :options="option"
-        :series="series"
-      />
+  <div>
+    <panel>
+      <validation-observer ref="simpleRules">
+        <b-row class="ml-1 mr-1">
+          <b-col
+            class="tree"
+          >
+            <label>เลือกพืช</label>
+            <vue-select
+              v-model="form.Plant_select"
+              :option="Plants"
+              title="name"
+              col="4"
+            />
+          </b-col>
 
-      <!-- <vue-apex-charts
-        ref="testharts"
-        type="bar"
-        height="350"
-        :options="option"
-        :series="series"
-      /> -->
+        </b-row>
+      </validation-observer></panel>
+    <b-card>
 
-      <!-- <vue-apex-charts
-        type="area"
-        height="650"
-        :options="lineAreaChartSpline.chartOptions"
-        :series="lineAreaChartSpline.series"
-      /> -->
-    </b-card-body>
-  </b-card>
+      <b-card-body>
+        <vue-apex-charts
+          ref="testharts"
+          type="bar"
+          height="350"
+          :options="option"
+          :series="series"
+        />
+      </b-card-body>
+    </b-card>
+  </div>
 </template>
 
 <script>
-// import { mapState, mapActions } from 'vuex'
-
-// import Ripple from 'vue-ripple-directive'
 import {
   BCard, BCardBody,
 } from 'bootstrap-vue'
@@ -56,6 +58,11 @@ export default {
   },
   data() {
     return {
+      form: {
+        Plant_select: '',
+        first_date: '',
+        end_date: '',
+      },
       dir: false,
       searchTerm: '',
       option: {

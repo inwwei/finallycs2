@@ -10,10 +10,12 @@ const data = () => ({
     {
       label: 'ชื่อ',
       field: 'name',
+
     },
     {
-      label: 'จำนวนความต้องการ',
+      label: 'จำนวนความต้องการในระบบ (ร้าน)',
       field: 'sum',
+      type: 'number',
     },
 
   ],
@@ -33,6 +35,7 @@ export default {
     },
     SET_DATA(state, data) {
       state.products = data
+      console.log(state.products)
     },
   },
   actions: {
@@ -42,7 +45,7 @@ export default {
     async getDataHit({ commit, state }) {
       try {
         const { data } = await state.api.get(
-          '/api/hit',
+          '/api/hit', { timeout: 100000 },
         )
         commit('SET_DATA', data.data)
       } catch (error) {

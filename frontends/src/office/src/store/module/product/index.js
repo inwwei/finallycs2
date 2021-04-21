@@ -161,8 +161,9 @@ export default {
       state.request_detail = data
     },
     SET_COMPANY_SELECT(state, data) {
+      console.log(data, 555)
       state.form_add.company = data
-      state.form_add.company_id = state.form_add.company.id
+      state.form_add.company_id = data.id
     },
     SET_DATA(state, products) {
       state.products = products
@@ -315,7 +316,7 @@ export default {
           console.log(state.form.Plant_select.code)
           console.log(state.form.first_date)
           console.log(state.form.end_date)
-          const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`)
+          const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`, { timeout: 100000 })
           commit('SET_DATA_REQUEST', data)
         } else {
           state.self.$swal({
@@ -357,10 +358,11 @@ export default {
       router.push({ name: 'Menu', query: { id } })
     },
     async getData({ commit, state, dispatch }) {
-      console.log('id ปัจจุบัน')
+      console.log('id เอาไว้ดึงข้อมูล')
       console.log(state.form_add.company_id)
       console.log('จบ')
       try {
+        console.log('this is when select company', state.form_add.company_id)
         const { data } = await state.api.get(`/api/product/show_announce/${state.form_add.company_id} `)
         await commit('SET_DATA', data.data)
       } catch (error) {

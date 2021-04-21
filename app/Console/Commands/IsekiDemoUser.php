@@ -47,7 +47,7 @@ class IsekiDemoUser extends Command
             'id'=>'92B2E648-AF2F-45DC-8FF0-F9E1058A3BC9',
             'identification_number'=>'1409600250281',
             'role'=>'member',
-            'name' => 'จตุพล การเกษตร',
+            'name' => 'CS การเกษตร',
             'username' => 'test',
             'email' => 'test@iseki.test',
             'email_verified_at' => now(),

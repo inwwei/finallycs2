@@ -6,8 +6,7 @@ Route::get('WhatToPlant', 'App\Http\Controllers\WhatToPlantController@index');
 Route::get('hit', 'App\Http\Controllers\WhatToPlantController@index');
 Route::get('best', 'App\Http\Controllers\ProcessController@bestprice');
 Route::post('post_company/{id}', 'App\Http\Controllers\CompanyController@post_company');
-
-
+Route::get('Charts', 'App\Http\Controllers\ChartsController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +33,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('info', 'App\Http\Controllers\LoginController@info');
     Route::resource('attached', 'App\Http\Controllers\AttachedController');
     Route::get('helper/alltag', 'App\Http\Controllers\HelperController@allTag');
-    Route::get('Charts', 'App\Http\Controllers\ChartsController@index');
     Route::get('Plants', 'App\Http\Controllers\PlantController@index');
     Route::get('product/show_announce/{id}', 'App\Http\Controllers\ProductController@show_announce');
     Route::resource('product', 'App\Http\Controllers\ProductController');

@@ -130,10 +130,19 @@ export default {
       return this.dir
     },
   },
-  mounted() {
+  //   watch() {
+  //     if (this.products) {
+  //       this.items = this.products
+
+  //       this.countItems = this.items.filter(item => item.sum !== 0)
+  //       console.log(this.item)
+  //       console.log(this.countItems)
+  //     }
+  //   },
+  async mounted() {
     this.setApi({ api: this.$http, self: this, refs: this.$refs })
-    this.getDataHit()
-    if (this.products) {
+    await this.getDataHit()
+    if (await this.products) {
       this.items = this.products
 
       this.countItems = this.items.filter(item => item.sum !== 0)

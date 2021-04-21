@@ -17,17 +17,16 @@ class ProcessController extends Controller
     public function bestprice()
     {
         $plants = Plant::get();
+
         $name = [];
         foreach ($plants as $index => $plant) {
             $plant['name'];
             $query_part = Product::where('status','ปกติ')
             ->where('name', $plant['name'])->max('price_per_kk');
-            // return $query_part;
             $query_present = Product::where('status','ปกติ')
             ->where('name', $plant['name'])->where('price_per_kk',$query_part)->first();
-            // $query_present['sum'] =    $query_present;
-            BestPrice::create($query_present);
-return $query_present;
+            // BestPrice::create($query_present);
+
             $result = [
                 'query' => $query_present,
                 'max' => $query_part,

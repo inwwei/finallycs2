@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(ChartsSeeder::class);
-        // $this->call(PlantsSeeder::class);
+        $this->call(PlantSeeder::class);
         Artisan::call('iseki:demo_user');
-        // $this->call(ProductsSeeder::class);
+        $this->call(CompaniesSeeder::class);
+        $this->call(ProductsSeeder::class);
         $this->call(BestPriceSeeder::class);
 
 

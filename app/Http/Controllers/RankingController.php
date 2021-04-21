@@ -22,17 +22,24 @@ class RankingController extends Controller
         $plants = Plant::get();
         $name = [];
         foreach ($plants as $index => $plant) {
-            // $plant_name = $plant[$index]['name'];
             $plant['name'];
-            $query_part = Product::where('name',$plant['name'])->where('created_at', '>', $first_date)->first();
-            $query_present = Product::where('name',$plant['name'])->where('created_at', '<', $end_date)->orderBy('created_at', 'desc')->first();
+            $query_part = Product::where('name', $plant['name'])->where('created_at', '>', $first_date)->first();
+            $query_present = Product::where('name', $plant['name'])->where('created_at', '<', $end_date)->orderBy('created_at', 'desc')->first();
             $sum = 0;
-            // $sum = ($query_present->price_per_kk - $query_part->price_per_kk) / $query_part->price_per_kk;
-$result = [
-    'name'=>$plant['name'],
-    'sum'=>$sum,
-];
-            array_push($name,$result);
+
+            // if ($query_present->price_per_kk && $query_part->price_per_kk) {
+            //     $sum = ($query_present->price_per_kk - $query_part->price_per_kk) / $query_part->price_per_kk;
+            // } else {
+            //     $sum = 0;
+            // }
+
+            $result = [
+                'name' => $query_part,
+                'sum' => $sum,
+            ];
+            if (strlen($result['name']) > 2) {
+                array_push($name, $result);
+            }
         }
 
         return response()->success($name, [], '0', 200);

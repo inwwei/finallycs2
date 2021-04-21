@@ -1,7 +1,7 @@
 <template>
   <div>
     <panel title="ฟอร์มกรอกข้อมูลประกาศ">
-      <!-- <pre>{{ products }}</pre> -->
+      <!-- <pre>{{ form_add }}</pre> -->
       <b-form>
         <validation-observer ref="simpleRules">
           <b-row class="ml-1 mr-1">
@@ -432,13 +432,16 @@ export default {
   //   destroyed() {
   //     this.clear()
   //   },
-  mounted() {
-    this.setApi({ api: this.$http, self: this, refs: this.$refs })
-    this.getData()
-    this.getPlants()
-    setTimeout(() => {
-      this.loadCompanys(this.$route.query.id)
-    }, 100)
+  async mounted() {
+    await this.setApi({ api: this.$http, self: this, refs: this.$refs })
+    await this.loadCompanys(this.$route.query.id)
+    await this.getData()
+    await this.getPlants()
+    // setTimeout(() => {
+    //   console.log('before', this.$route.query.id)
+    //   console.log('=====ไอดีที่ส่งมา=====')
+    //   console.log('after', this.$route.query.id)
+    // }, 100)
   },
   methods: {
     ...mapActions('product', [
