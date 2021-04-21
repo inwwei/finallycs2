@@ -6,15 +6,27 @@
           <b-col
             class="tree"
           >
+            <!-- <pre>{{ form.Plant_select.title }}</pre> -->
             <label>เลือกพืช</label>
             <vue-select
               v-model="form.Plant_select"
-              :option="Plants"
-              title="name"
+              :option="selected"
+              title="title"
               col="4"
             />
           </b-col>
 
+        </b-row>
+        <b-row class="my-2 d-flex justify-content-end">
+          <b-button
+            v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+            v-b-modal.modal-success
+            variant="primary"
+            class="mr-1"
+            @click="loadData()"
+          >
+            <span class="align-middle">ยืนยัน</span>
+          </b-button>
         </b-row>
       </validation-observer></panel>
     <b-card>
@@ -116,13 +128,13 @@ export default {
 
   },
   mounted() {
-    this.loadData()
+    // this.loadData()
   },
   methods: {
 
     async loadData() {
       try {
-        const { data: { data: RESULT } } = await this.$http.get('/api/Charts')
+        const { data: { data: RESULT } } = await this.$http.post(`/api/Charts/${this.form.Plant_select.title}`, this.form)
         await RESULT.forEach(item => {
           this.option.xaxis.categories.push(item.date)
           this.series[0].data.push(item.max_price)

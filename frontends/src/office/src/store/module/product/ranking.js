@@ -102,7 +102,7 @@ export default {
     async getDataRank({ commit, state }) {
       try {
         const { data } = await state.api.get(
-          '/api/ranking',
+          '/api/ranking', { timeout: 100000 },
         )
         commit('SET_DATA', data.data)
       } catch (error) {
