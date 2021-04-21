@@ -30,30 +30,37 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('csc2:auto_insert')->everyMinute();
         $schedule->call(function () {
-        //    Product::where('id','0A7353F3-8433-468F-BB11-E4DAD0837401')->update(['question'=>'ข้าว']);
+            $plants = Plant::get();
 
-        $plants = Plant::get();
-        $name = [];
-        foreach ($plants as $index => $plant) {
-            $plant['name'];
-            $query_part = Product::where('status','ปกติ')
-            ->where('name', $plant['name'])->max('price_per_kk');
-            // return $query_part;
-            $query_present = Product::where('status','ปกติ')
-            ->where('name', $plant['name'])->where('price_per_kk',$query_part)->first();
-            // $query_present['sum'] =    $query_present;
-            BestPrice::create($query_present);
-// return $query_present;
-//             $result = [
-//                 'query' => $query_present,
-//                 'max' => $query_part,
-//             ];
+            $name = [];
+            foreach ($plants as $index => $plant) {
+                $plant['name'];
+                $query_part = Product::where('status', 'ปกติ')
+                    ->where('name', $plant['name'])->max('price_per_kk');
+                $query_present = Product::where('status', 'ปกติ')
+                    ->where('name', $plant['name'])->where('price_per_kk', $query_part)->first();
+                // BestPrice::create($query_present);
 
-//             if (strlen($result['query'])>2) {
-//                 array_push($name, $result);
-//             }
-        }
-        })->everyMinute();
+                if (isset($query_present)) {
+
+                    $result = [
+                        'company_id' => $query_present->company_id,
+                        'plant_id' => $query_present->plant_id,
+                        'name' => $query_present->name,
+                        'lat' => null,
+                        'lng' => null,
+                        'price_per_kk' => $query_present->price_per_kk,
+                    ];
+
+                    array_push($name, $result);
+                }
+            }
+
+    foreach ($name as $key => $datas) {
+        BestPrice::create($datas);
+    }
+
+        })->dailyAt('00:00');
     }
 
     /**

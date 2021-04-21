@@ -21,21 +21,30 @@ class ProcessController extends Controller
         $name = [];
         foreach ($plants as $index => $plant) {
             $plant['name'];
-            $query_part = Product::where('status','ปกติ')
-            ->where('name', $plant['name'])->max('price_per_kk');
-            $query_present = Product::where('status','ปกติ')
-            ->where('name', $plant['name'])->where('price_per_kk',$query_part)->first();
+            $query_part = Product::where('status', 'ปกติ')
+                ->where('name', $plant['name'])->max('price_per_kk');
+            $query_present = Product::where('status', 'ปกติ')
+                ->where('name', $plant['name'])->where('price_per_kk', $query_part)->first();
             // BestPrice::create($query_present);
 
-            $result = [
-                'query' => $query_present,
-                'max' => $query_part,
-            ];
+            if (isset($query_present)) {
 
-            if (strlen($result['query'])>2) {
+                $result = [
+                    'company_id' => $query_present->company_id,
+                    'plant_id' => $query_present->plant_id,
+                    'name' => $query_present->name,
+                    'lat' => null,
+                    'lng' => null,
+                    'price_per_kk' => $query_present->price_per_kk,
+                ];
+
                 array_push($name, $result);
             }
         }
+
+foreach ($name as $key => $datas) {
+    BestPrice::create($datas);
+}
 
         return response()->success($name, [], '0', 200);
     }
