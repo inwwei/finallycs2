@@ -29,6 +29,11 @@ class ProcessController extends Controller
 
             if (isset($query_present)) {
 
+                // $result = [
+                //     'name' => $query_present,
+                //     'sum' => 123,
+                // ];
+
                 $result = [
                     'company_id' => $query_present->company_id,
                     'plant_id' => $query_present->plant_id,

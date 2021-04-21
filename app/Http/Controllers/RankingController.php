@@ -6,6 +6,7 @@ use App\Models\Plant;
 use App\Models\Product\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use stdClass;
 
 class RankingController extends Controller
 {
@@ -18,30 +19,43 @@ class RankingController extends Controller
     {
         $first_date = $this->checkdate();
         $end_date = Carbon::now();
-
+// dd($first_date,$end_date);
         $plants = Plant::get();
         $name = [];
         foreach ($plants as $index => $plant) {
-            $plant['name'];
-            $query_part = Product::where('name', $plant['name'])->where('created_at', '>', $first_date)->first();
-            $query_present = Product::where('name', $plant['name'])->where('created_at', '<', $end_date)->orderBy('created_at', 'desc')->first();
-            $sum = 0;
+            $query_past = Product::where('name', $plant['name'])
+            ->where('created_at', '>=', $first_date)->first();
+            if(!isset($query_past)) continue;
+            // ?? (object) array(
+            //     'price_per_kk'=> 15.00
+            // );
+            $query_present = Product::where('name', $plant['name'])
+            ->where('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'desc')->first() ??  (object) array(
+                'price_per_kk'=> 15.00
+            );
 
-            // if ($query_present->price_per_kk && $query_part->price_per_kk) {
-            //     $sum = ($query_present->price_per_kk - $query_part->price_per_kk) / $query_part->price_per_kk;
+            $sum = ($query_present->price_per_kk - $query_past->price_per_kk) / $query_past->price_per_kk;
+            // if ($query_present->price_per_kk && $query_past->price_per_kk) {
+            //     $sum = ($query_present->price_per_kk - $query_past->price_per_kk) / $query_past->price_per_kk;
             // } else {
             //     $sum = 0;
             // }
-
+            // return $sum;
             $result = [
-                'name' => $query_part,
+                'name' => $query_past,
                 'sum' => $sum,
             ];
-            if (strlen($result['name']) > 2) {
-                array_push($name, $result);
-            }
+
+            array_push($name, $result);
+
+            // array_push($name, $result);
+            // if (isset($result) && !(isset($result['name']->price_per_kk))) {
+            //     array_push($name, $result);
+            // }
         }
 
+// dd($name);
         return response()->success($name, [], '0', 200);
 
     }
