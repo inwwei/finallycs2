@@ -6,7 +6,7 @@ Route::get('WhatToPlant', 'App\Http\Controllers\WhatToPlantController@index');
 Route::get('hit', 'App\Http\Controllers\WhatToPlantController@index');
 Route::get('best', 'App\Http\Controllers\ProcessController@bestprice');
 Route::post('post_company/{id}', 'App\Http\Controllers\CompanyController@post_company');
-Route::post('Charts/{name}', 'App\Http\Controllers\ChartsController@store');
+Route::post('Charts', 'App\Http\Controllers\ChartsController@store');
 
 /*
 |--------------------------------------------------------------------------

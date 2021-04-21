@@ -134,7 +134,7 @@ export default {
 
     async loadData() {
       try {
-        const { data: { data: RESULT } } = await this.$http.post(`/api/Charts/${this.form.Plant_select.title}`, this.form)
+        const { data: { data: RESULT } } = await this.$http.post('/api/Charts', this.form, { timeout: 100000 })
         await RESULT.forEach(item => {
           this.option.xaxis.categories.push(item.date)
           this.series[0].data.push(item.max_price)

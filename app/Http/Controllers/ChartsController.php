@@ -36,7 +36,9 @@ class ChartsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request['Plant_select']['title'];
+        $query = Charts::where('name',$request['Plant_select']['title'])->get();
+        return response()->success($query);
     }
 
     /**
