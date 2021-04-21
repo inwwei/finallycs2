@@ -25,11 +25,13 @@ const data = () => ({
   columns: [
     {
       label: 'ชื่อ',
-      field: 'name',
+      field: 'name.name',
+      sortable: false,
     },
     {
       label: 'อัตราการเติบโต ( 1 = 100 %)',
       field: 'sum',
+      type: 'number',
     },
 
   ],

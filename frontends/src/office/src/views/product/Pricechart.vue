@@ -58,6 +58,11 @@ export default {
   },
   data() {
     return {
+      selected: [
+        { title: 'พริกสดชี้ฟ้า' },
+        { title: 'ข้าวหอมมะลิ 100% ชั้น 1' },
+        { title: 'ข้าวโพดฝักอ่อน' },
+      ],
       form: {
         Plant_select: '',
         first_date: '',

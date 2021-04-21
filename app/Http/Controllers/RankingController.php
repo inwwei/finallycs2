@@ -44,7 +44,7 @@ class RankingController extends Controller
             // return $sum;
             $result = [
                 'name' => $query_past,
-                'sum' => $sum,
+                'sum' => number_format($sum*100,2,),
             ];
 
             array_push($name, $result);
