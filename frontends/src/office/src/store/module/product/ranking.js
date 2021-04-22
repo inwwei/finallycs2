@@ -29,7 +29,7 @@ const data = () => ({
       sortable: false,
     },
     {
-      label: 'อัตราการเติบโต ( 1 = 100 %)',
+      label: 'อัตราการเติบโต (%)',
       field: 'sum',
       type: 'number',
     },
