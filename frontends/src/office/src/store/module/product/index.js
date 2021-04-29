@@ -54,10 +54,10 @@ const data = () => ({
     ceo_lastname: '',
     email: '',
     company_tel: '',
-    distric: '',
+    district: '',
     amphoe: '',
     province: '',
-    zipcode: '',
+    postal_code: '',
   },
   company_data_select: {},
   modal_data_profile_add: {},
@@ -193,6 +193,7 @@ export default {
     },
     CLEAR(state) {
       state.form_add = data().form_add
+      state.modal_data_profile = data().modal_data_profile
     },
     SET_USER(state, data) {
       state.user_data = data
@@ -233,6 +234,10 @@ export default {
     SET_MODAL_DATA_EDIT_PROFILE(state, data) {
       // set ข้อมูลที่มาจากหน้าบ้านในส่วนของ modal ให้เข้าไปในตัวแปร modal_data
       state.modal_data_profile = data
+    },
+    SET_CLEAR(state, data) {
+      // set ข้อมูลที่มาจากหน้าบ้านในส่วนของ modal ให้เข้าไปในตัวแปร modal_data
+      state.modal_data_profile = data().modal_data_profile
     },
 
   },
@@ -567,18 +572,11 @@ export default {
         throw error
       }
     },
+
     async edit_profile_add({ state, commit, dispatch }) {
       try {
-        if (state.user_data.name !== ''
-        && state.user_data.email !== ''
-        && state.user_data.ceo_firstname !== ''
-        && state.user_data.ceo_lastname !== ''
-        && state.user_data.company_tel !== ''
-        && state.user_data.amphoe !== ''
-        && state.user_data.district !== ''
-        && state.user_data.province !== ''
-        && state.user_data.postal_code !== ''
-        ) {
+        const result = await state.refs.add.validate()
+        if (result) {
           state.self.$swal({
             title: 'แก้ไขข้อมูลร้าน',
             text: `คุณต้องการแก้ไขข้อมูลร้าน ${state.user_data.name} ใช่หรือไม่?`,
@@ -605,6 +603,7 @@ export default {
               }).then(result => {
                 if (result.isConfirmed) {
                   dispatch('getCompany')
+                  commit('SET_CLEAR')
                 }
               })
             }
@@ -628,19 +627,11 @@ export default {
     },
     async edit_profile_edit({ state, commit, dispatch }) {
       try {
-        if (state.modal_data_profile_add.name !== ''
-        && state.modal_data_profile_add.email !== ''
-        && state.modal_data_profile_add.ceo_firstname !== ''
-        && state.modal_data_profile_add.ceo_lastname !== ''
-        && state.modal_data_profile_add.company_tel !== ''
-        && state.modal_data_profile_add.amphoe !== ''
-        && state.modal_data_profile_add.district !== ''
-        && state.modal_data_profile_add.province !== ''
-        && state.modal_data_profile_add.postal_code !== ''
-        ) {
+        const result = await state.refs.edit.validate()
+        if (result) {
           state.self.$swal({
             title: 'แก้ไขข้อมูลร้าน',
-            text: `คุณต้องการแก้ไขข้อมูลร้าน ${state.modal_data_profile_add.name} ใช่หรือไม่?`,
+            text: `คุณต้องการแก้ไขข้อมูลร้าน ${state.user_data.name} ใช่หรือไม่?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'ยืนยัน',
@@ -685,6 +676,65 @@ export default {
         throw error
       }
     },
+    // async edit_profile_edits({ state, commit, dispatch }) {
+    //   try {
+    //     if (state.modal_data_profile_add.name !== ''
+    //     && state.modal_data_profile_add.email !== ''
+    //     && state.modal_data_profile_add.ceo_firstname !== ''
+    //     && state.modal_data_profile_add.ceo_lastname !== ''
+    //     && state.modal_data_profile_add.company_tel !== ''
+    //     && state.modal_data_profile_add.amphoe !== ''
+    //     && state.modal_data_profile_add.district !== ''
+    //     && state.modal_data_profile_add.province !== ''
+    //     && state.modal_data_profile_add.postal_code !== ''
+    //     ) {
+    //       state.self.$swal({
+    //         title: 'แก้ไขข้อมูลร้าน',
+    //         text: `คุณต้องการแก้ไขข้อมูลร้าน ${state.modal_data_profile_add.name} ใช่หรือไม่?`,
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonText: 'ยืนยัน',
+    //         cancelButtonText: 'ยกเลิก',
+    //         customClass: {
+    //           confirmButton: 'btn btn-primary',
+    //           cancelButton: 'btn btn-danger ml-1',
+    //         },
+    //         buttonsStyling: false,
+    //       }).then(result => {
+    //         if (result.isConfirmed) {
+    //           state.api.put(`/api/company/${state.modal_data_profile_add.id}`, state.modal_data_profile_add)
+    //           state.self.$swal({
+    //             icon: 'success',
+    //             title: 'แก้ไขข้อมูลสำเร็จ!',
+    //             text: `ข้อมูล ${state.modal_data_profile_add.name} ถูกแก้ไขสำเร็จ`,
+    //             confirmButtonText: 'ยืนยัน',
+    //             customClass: {
+    //               confirmButton: 'btn btn-success',
+    //             },
+    //           }).then(result => {
+    //             if (result.isConfirmed) {
+    //               dispatch('getCompany')
+    //             }
+    //           })
+    //         }
+    //       })
+    //     } else {
+    //       state.self.$swal({
+    //         title: 'ผิดพลาด!',
+    //         text: ' กรุณากรอกข้อมูลให้ครบถ้วน',
+    //         icon: 'error',
+    //         confirmButtonText: 'ยืนยัน',
+    //         cancelButtonText: 'ยกเลิก',
+    //         customClass: {
+    //           confirmButton: 'btn btn-danger',
+    //         },
+    //         buttonsStyling: false,
+    //       })
+    //     }
+    //   } catch (error) {
+    //     throw error
+    //   }
+    // },
     async loadCompanys({ state, commit }, id) {
       try {
         const { data } = await state.api.get(`/api/company/${id}`)
