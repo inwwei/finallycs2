@@ -21,8 +21,9 @@ const data = () => ({
     moisture_min: '',
     moisture_max: '',
     Foreign_matter: '',
-    price_per_kk: '',
-    price_per_ton: '',
+    price: '',
+    amount: '',
+    unit: '',
     Plant_select: '',
     company: '',
   },
@@ -42,10 +43,22 @@ const data = () => ({
     moisture_min: '',
     moisture_max: '',
     Foreign_matter: '',
-    price_per_kk: '',
-    price_per_ton: '',
+    price: '',
+    amount: '',
+    unit: '',
   },
-  modal_data_profile: {},
+  modal_data_profile: {
+    name: '',
+    branch: '',
+    ceo_firstname: '',
+    ceo_lastname: '',
+    email: '',
+    company_tel: '',
+    distric: '',
+    amphoe: '',
+    province: '',
+    zipcode: '',
+  },
   company_data_select: {},
   modal_data_profile_add: {},
   user_data: {},
@@ -78,7 +91,7 @@ const data = () => ({
     },
     {
       label: 'ราคา/กก.',
-      field: 'price_per_kk',
+      field: 'price',
       type: 'number',
     },
     {
@@ -100,6 +113,10 @@ const data = () => ({
       label: 'หักสิ่งแปลกปลอม (ร้อยละ)',
       field: 'Foreign_matter',
       type: 'number',
+    },
+    {
+      label: 'วันที่',
+      field: 'created_at',
     },
     {
       label: 'จัดการ',
@@ -189,8 +206,8 @@ export default {
       state.form_add.moisture_min = ''
       state.form_add.moisture_max = ''
       state.form_add.Foreign_matter = ''
-      state.form_add.price_per_kk = ''
-      state.form_add.price_per_ton = ''
+      state.form_add.price = ''
+
       state.form_add.Plant_select = ''
     },
     SET_COMPANY_DATA(state, data) {
@@ -241,7 +258,7 @@ export default {
       try {
         const result = await state.refs.simpleRules.validate()
         if (result) {
-          if (state.form_add.price_per_kk !== '' && state.form_add.Plant_select !== '') {
+          if (state.form_add.price !== '' && state.form_add.Plant_select !== '') {
             commit('SET_NAME')
             state.self.$swal({
               title: 'เพิ่มข้อมูลสินค้า',
@@ -391,7 +408,7 @@ export default {
     },
     async confirmEdit_menu({ state, commit, dispatch }) {
       try {
-        if (state.modal_data.price_per_kk !== '') {
+        if (state.modal_data.price !== '') {
           state.self.$swal({
             title: 'แก้ไขประกาศ',
             text: `คุณต้องการแก้ไขข้อมูลสินค้า ${state.modal_data.name} ใช่หรือไม่?`,

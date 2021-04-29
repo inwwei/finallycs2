@@ -108,7 +108,7 @@
               <b-form-group label-for="number">
                 <cleave
                   id="number"
-                  v-model="form_add.price_per_kk"
+                  v-model="form_add.price"
                   class="form-control"
                   :raw="false"
                   :options="options.number"
@@ -308,7 +308,7 @@
                       <b-form-group label-for="number">
                         <cleave
                           id="number"
-                          v-model="modal_data.price_per_kk"
+                          v-model="modal_data.price"
                           class="form-control"
                           :raw="false"
                           :options="options.number"

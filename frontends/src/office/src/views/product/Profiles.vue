@@ -151,203 +151,111 @@
       ok-title="ยืนยัน"
       cancel-title="ยกเลิก"
       centered
+      size="lg"
       @ok="edit_profile_add"
     >
       <b-form>
         <validation-observer ref="simpleRules">
-          <!-- <pre>{{ modal_data_profile }}</pre> -->
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.name"
-                label="ชื่อร้าน"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.branch"
-                label="สาขา"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.ceo_firstname"
-                label="ชื่อผู้จัดการ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.ceo_lastname"
-                label="นามสกุลผู้จัดการ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.district"
+          <b-row>
+            <b-col>
+              <b-form-group label-for="number">
+                <form-input
+                  v-model="modal_data_profile.name"
+                  label="ชื่อร้าน"
+                  rules="required"
+                />
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label-for="number">
+                <form-input
+                  v-model="modal_data_profile.branch"
+                  label="สาขา"
+                  rules="required"
+                />
+              </b-form-group>
+            </b-col>
+
+          </b-row>
+          <b-row>
+            <b-col>
+              <b-form-group label-for="number">
+                <form-input
+                  v-model="modal_data_profile.ceo_firstname"
+                  label="ชื่อผู้จัดการ"
+                  rules="required"
+                />
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label-for="number">
+                <form-input
+                  v-model="modal_data_profile.ceo_lastname"
+                  label="นามสกุลผู้จัดการ"
+                  rules="required"
+                />
+              </b-form-group>
+            </b-col>
+
+          </b-row>
+          <b-row>
+            <b-col>
+              <b-form-group label-for="number">
+                <form-input
+                  v-model="modal_data_profile.email"
+                  label="อีเมล"
+                  rules="required"
+                />
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label-for="number">
+                <form-input
+                  v-model="modal_data_profile.company_tel"
+                  label="เบอร์โทรติดต่อ"
+                  rules="required"
+                />
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <ThailandAutoComplete
+                v-model="district"
+                type="district"
                 label="ตำบล"
-                rules="required"
+                color="#42b883"
+                size="medium"
+                @select="select"
               />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.amphoe"
+              <ThailandAutoComplete
+                v-model="amphoe"
+                type="amphoe"
                 label="อำเภอ"
-                rules="required"
+                size="medium"
+                @select="select"
               />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.province"
-                label="จังหวัด"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.postal_code"
-                label="รหัสไปรษณีย์"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.email"
-                label="อีเมล"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile.company_tel"
-                label="เบอร์โทรติดต่อ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col> </validation-observer></b-form>
-    </b-modal>
-    <b-modal
-      id="modal-profile-add"
-      cancel-variant="danger"
-      ok-title="ยืนยัน"
-      cancel-title="ยกเลิก"
-      centered
-      @ok="edit_profile_edit"
-    >
-      <b-form>
-        <validation-observer ref="simpleRules">
-          <!-- <pre>{{ modal_data_profile }}</pre> -->
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.name"
-                label="ชื่อร้าน"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.branch"
-                label="สาขา"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.ceo_firstname"
-                label="ชื่อผู้จัดการ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.ceo_lastname"
-                label="นามสกุลผู้จัดการ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.district"
-                label="ตำบล"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.amphoe"
-                label="อำเภอ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.province"
-                label="จังหวัด"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.postal_code"
-                label="รหัสไปรษณีย์"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.email"
-                label="อีเมล"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label-for="number">
-              <form-input
-                v-model="modal_data_profile_add.company_tel"
-                label="เบอร์โทรติดต่อ"
-                rules="required"
-              />
-            </b-form-group>
-          </b-col> </validation-observer></b-form>
+            </b-col>
+          </b-row>
+          <ThailandAutoComplete
+            v-model="province"
+            type="province"
+            label="จังหวัด"
+            size="medium"
+            color="#35495e"
+            @select="select"
+          />
+
+          <ThailandAutoComplete
+            v-model="zipcode"
+            type="zipcode"
+            label="รหัสไปรษณีย์"
+            size="medium"
+            color="#00a4e4"
+
+            @select="select"
+          />
+        </validation-observer></b-form>
     </b-modal>
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-col cols="12">
@@ -469,27 +377,15 @@
             </div>
           </template>
         </vue-good-table>
-        <!-- <pre>{{ company_data }}</pre> -->
       </b-col>
     </div>
-    <!-- <panel title="แผนที่">
-      <b-row>
-        <l-map
-          :zoom="zoom"
-          :center="center"
-        >
-          <l-tile-layer :url="url" />
-          <l-marker :lat-lng="markerLatLng">
-            <l-popup>You're here!</l-popup>
-          </l-marker>
-        </l-map>
-      </b-row>
-    </panel> -->
+    <pre>{{ modal_data_profile }}</pre>
   </div>
 </template>
 
 <script>
 import router from '@/router'
+import ThailandAutoComplete from 'vue-thailand-address-autocomplete'
 
 import { mapState, mapActions } from 'vuex'
 import {
@@ -500,16 +396,24 @@ import Ripple from 'vue-ripple-directive'
 
 export default {
   components: {
-    // LMap,
-    // LTileLayer,
-    // LMarker,
-    // LPopup,
+    ThailandAutoComplete,
+
   },
   directives: {
     Ripple,
   },
   data() {
     return {
+    //   modal_data_profile: {
+    //     district: '',
+    //     amphoe: '',
+    //     province: '',
+    //     zipcode: '',
+    //   },
+      district: '',
+      amphoe: '',
+      province: '',
+      zipcode: '',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 8,
       center: [47.31322, -1.319482],
@@ -525,7 +429,6 @@ export default {
       'company_data',
       'columns_company',
       'modal_data_profile',
-      'modal_data_profile_add',
     ]),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
@@ -553,8 +456,15 @@ export default {
       'getModalProfile',
       'getCompany',
       'deletecompany',
-    //   'selcectCompany',
+      'select',
     ]),
+    select(address) {
+      this.modal_data_profile.district = address.district
+      this.modal_data_profile.amphoe = address.amphoe
+      this.modal_data_profile.province = address.province
+      this.modal_data_profile.zipcode = address.zipcode
+      console.log(address)
+    },
     selcectCompany(id) {
       console.log(id)
       router.push({ name: 'Menu', query: { id } })

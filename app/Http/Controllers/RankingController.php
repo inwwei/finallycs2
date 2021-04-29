@@ -27,17 +27,17 @@ class RankingController extends Controller
             ->where('created_at', '>=', $first_date)->first();
             if(!isset($query_past)) continue;
             // ?? (object) array(
-            //     'price_per_kk'=> 15.00
+            //     'price'=> 15.00
             // );
             $query_present = Product::where('name', $plant['name'])
             ->where('created_at', '<=', $end_date)
             ->orderBy('created_at', 'desc')->first() ??  (object) array(
-                'price_per_kk'=> 15.00
+                'price'=> 15.00
             );
 
-            $sum = ($query_present->price_per_kk - $query_past->price_per_kk) / $query_past->price_per_kk;
-            // if ($query_present->price_per_kk && $query_past->price_per_kk) {
-            //     $sum = ($query_present->price_per_kk - $query_past->price_per_kk) / $query_past->price_per_kk;
+            $sum = ($query_present->price - $query_past->price) / $query_past->price;
+            // if ($query_present->price && $query_past->price) {
+            //     $sum = ($query_present->price - $query_past->price) / $query_past->price;
             // } else {
             //     $sum = 0;
             // }
@@ -50,7 +50,7 @@ class RankingController extends Controller
             array_push($name, $result);
 
             // array_push($name, $result);
-            // if (isset($result) && !(isset($result['name']->price_per_kk))) {
+            // if (isset($result) && !(isset($result['name']->price))) {
             //     array_push($name, $result);
             // }
         }

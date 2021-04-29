@@ -17,14 +17,14 @@ class CreateProductsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('company_id')->nullable()->comment('บริษัท');
             $table->uuid('plant_id')->nullable()->comment('เชื่อมพืช');
-            $table->string('question')->comment('คำถาม')->nullable();
             $table->string('name')->comment('ชื่อพืช')->nullable();
-            $table->double('price_per_kk', 8, 2)->comment('ราคาต่อกิโลกรัม')->nullable();
+            $table->double('price', 8, 2)->comment('ราคา')->nullable();
             $table->double('moisture', 8, 2)->comment('หักความชื้นร้อยละ')->nullable();
             $table->double('moisture_min', 8, 2)->comment('ความชื้นน้อยสุด')->nullable();
             $table->double('moisture_max', 8, 2)->comment('ความชื้นมากสุด')->nullable();
             $table->double('Foreign_matter', 8, 2)->comment('สิ่งแปลกปลอม')->nullable();
-            $table->double('price_per_ton', 8, 2)->comment('ราคาต่อตัน')->nullable();
+            $table->double('amount', 8, 2)->comment('จำนวน')->nullable();
+            $table->enum('unit', ['กิโลกรัม', 'กรัม','ขีด','ตัน','',]);
             $table->enum('status', ['อัพเดท', 'ปกติ']);
             $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')
             ->onDelete('cascade');

@@ -12,14 +12,9 @@ class BestPrice extends Model
     use HasFactory, SoftDeletes, UseUuid;
 
     protected $fillable = [
-        'question',
         'company_id',
-        'location',
+        'plant_id',
         'name',
-        'lat',
-        'name_location',
-        'lng',
-        'price_per_kk',
-        'price_per_ton',
+        'price',
     ];
 }

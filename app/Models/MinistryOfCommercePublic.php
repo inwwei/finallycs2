@@ -12,11 +12,11 @@ class MinistryOfCommercePublic extends Model
     use HasFactory, SoftDeletes, UseUuid;
     protected $fillable = [
         'name',
-        'price_per_kk',
+        'price',
         'moisture',
         'moisture_min',
         'moisture_max',
         'Foreign_matter',
-        'price_per_ton',
+
     ];
 }

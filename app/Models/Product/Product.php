@@ -30,9 +30,10 @@ class Product extends Model
         'moisture_min',
         'moisture_max',
         'Foreign_matter',
-        'price_per_kk',
-        'price_per_ton',
+        'price',
         'status',
+        'amount',
+        'unit',
     ];
 
     /**

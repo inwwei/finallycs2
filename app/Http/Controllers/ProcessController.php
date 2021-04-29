@@ -22,9 +22,9 @@ class ProcessController extends Controller
         foreach ($plants as $index => $plant) {
             $plant['name'];
             $query_part = Product::where('status', 'ปกติ')
-                ->where('name', $plant['name'])->max('price_per_kk');
+                ->where('name', $plant['name'])->max('price');
             $query_present = Product::where('status', 'ปกติ')
-                ->where('name', $plant['name'])->where('price_per_kk', $query_part)->first();
+                ->where('name', $plant['name'])->where('price', $query_part)->first();
             // BestPrice::create($query_present);
 
             if (isset($query_present)) {
@@ -40,7 +40,7 @@ class ProcessController extends Controller
                     'name' => $query_present->name,
                     'lat' => null,
                     'lng' => null,
-                    'price_per_kk' => $query_present->price_per_kk,
+                    'price' => $query_present->price,
                 ];
 
                 array_push($name, $result);

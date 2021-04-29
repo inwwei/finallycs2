@@ -38,7 +38,7 @@ export default {
       try {
         const result = await state.refs.simpleRules.validate()
         if (result) {
-          if (state.form_add.price_per_kk !== '' && state.form_add.Plant_select !== '') {
+          if (state.form_add.price !== '' && state.form_add.Plant_select !== '') {
             commit('SET_NAME')
             state.self.$swal({
               title: 'เพิ่มข้อมูลสินค้า',
@@ -173,7 +173,7 @@ export default {
     // },
     async confirmEdit_menu({ state, commit, dispatch }) {
       try {
-        if (state.modal_data.price_per_kk !== '') {
+        if (state.modal_data.price !== '') {
           state.self.$swal({
             title: 'แก้ไขประกาศ',
             text: `คุณต้องการแก้ไขข้อมูลสินค้า ${state.modal_data.name} ใช่หรือไม่?`,

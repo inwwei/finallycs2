@@ -18,8 +18,9 @@ const data = () => ({
     moisture_min: '',
     moisture_max: '',
     Foreign_matter: '',
-    price_per_kk: '',
-    price_per_ton: '',
+    price: '',
+    amount: '',
+    unit: '',
   },
   products: [],
   columns: [
@@ -43,7 +44,7 @@ const data = () => ({
     },
     {
       label: 'ราคา/กก.',
-      field: 'price_per_kk',
+      field: 'price',
       type: 'number',
     },
     {
