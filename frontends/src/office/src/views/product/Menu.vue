@@ -104,7 +104,7 @@
               md="6"
               xl="4"
             >
-              <h6>ราคาต่อกิโลกรัม</h6>
+              <h6>ราคา</h6>
               <b-form-group label-for="number">
                 <cleave
                   id="number"
@@ -114,6 +114,31 @@
                   :options="options.number"
                 />
               </b-form-group>
+            </b-col>
+            <b-col
+              md="6"
+              xl="4"
+            >
+              <h6>จำนวน</h6>
+              <b-form-group label-for="number">
+                <cleave
+                  id="number"
+                  v-model="form_add.amount"
+                  class="form-control"
+                  :raw="false"
+                  :options="options.number"
+                />
+              </b-form-group>
+            </b-col>
+            <b-col
+              md="6"
+              xl="4"
+            >
+              <h6>หน่วย</h6>
+              <b-form-select
+                v-model="form_add.unit"
+                :options="unit"
+              />
             </b-col>
           </b-row>
         </validation-observer>
@@ -130,7 +155,6 @@
         </b-row>
       </b-form>
     </panel>
-    <!-- <pre>{{ form_add }}</pre> -->
     <panel title="รายการประกาศ">
       <div class="custom-search d-flex justify-content-end mb-1">
         <b-form-group>
@@ -145,6 +169,7 @@
           </div>
         </b-form-group>
       </div>
+      <!-- <pre>{{ products }}</pre> -->
       <div class="custom-search d-flex justify-content-end mb-1">
         <b-col cols="12">
           <vue-good-table
@@ -304,7 +329,7 @@
                       </b-form-group>
                     </b-col>
                     <b-col>
-                      <h6>ราคาต่อกิโลกรัม</h6>
+                      <h6>ราคา</h6>
                       <b-form-group label-for="number">
                         <cleave
                           id="number"
@@ -314,7 +339,16 @@
                           :options="options.number"
                         />
                       </b-form-group>
-                    </b-col> </validation-observer></b-form>
+                    </b-col>
+
+                    <b-col>
+                      <h6>หน่วย</h6>
+                      <b-form-select
+                        v-model="modal_data.unit"
+                        :options="unit"
+                      />
+                    </b-col>
+                  </validation-observer></b-form>
               </b-modal>
               <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-center mb-0 mt-1">
@@ -369,14 +403,16 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 import {
+  BFormSelect,
   BRow,
   BCol,
   BFormGroup,
   BInputGroupPrepend,
   BInputGroup,
 } from 'bootstrap-vue'
+import { mapState, mapActions } from 'vuex'
+
 import Cleave from 'vue-cleave-component'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'cleave.js/dist/addons/cleave-phone.us'
@@ -384,6 +420,8 @@ import Ripple from 'vue-ripple-directive'
 
 export default {
   components: {
+    // BCardCode,
+    BFormSelect,
     BFormGroup,
     Cleave,
     BRow,
@@ -394,7 +432,12 @@ export default {
   },
   data() {
     return {
-
+      unit: [
+        { value: 'กิโลกรัม', text: 'กิโลกรัม' },
+        { value: 'ขีด', text: 'ขีด' },
+        { value: 'ตัน', text: 'ตัน' },
+        { value: 'กรัม', text: 'กรัม' },
+      ],
       dir: false,
       searchTerm: '',
       options: {

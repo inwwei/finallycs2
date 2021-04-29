@@ -1,5 +1,6 @@
 <template>
   <panel title="รายการประกาศรับซื้อผลผลิตทางการเกษตร">
+    <!-- <pre>{{ data_with_company }}</pre> -->
     <div class="custom-search d-flex justify-content-end mb-1">
       <b-form-group>
         <div class="d-flex align-items-center">

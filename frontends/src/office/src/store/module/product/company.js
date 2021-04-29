@@ -55,10 +55,20 @@ const data = () => ({
       field: 'name',
     },
     {
-      label: 'ราคา(บาท) / กิโลกรัม ',
+      label: 'ราคา',
       field: 'price',
       type: 'number',
     },
+    {
+      label: 'จำนวน',
+      field: 'amount',
+      sortable: false,
+    },
+    {
+      label: 'หน่วย',
+      field: 'unit',
+    },
+
     {
       label: 'ร้าน',
       field: 'company.name',
@@ -71,12 +81,12 @@ const data = () => ({
     {
       label: 'ที่อยู่',
       field: 'company.address',
-      sortable: false,
     },
     {
       label: 'วันที่',
       field: 'created_at',
     },
+
     {
       label: 'จัดการ',
       field: 'manage',

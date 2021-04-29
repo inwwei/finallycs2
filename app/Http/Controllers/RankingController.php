@@ -19,43 +19,28 @@ class RankingController extends Controller
     {
         $first_date = $this->checkdate();
         $end_date = Carbon::now();
-// dd($first_date,$end_date);
         $plants = Plant::get();
         $name = [];
         foreach ($plants as $index => $plant) {
             $query_past = Product::where('name', $plant['name'])
-            ->where('created_at', '>=', $first_date)->first();
+            ->first();
+            // ->where('created_at', '>=', $first_date)->first();
             if(!isset($query_past)) continue;
-            // ?? (object) array(
-            //     'price'=> 15.00
-            // );
             $query_present = Product::where('name', $plant['name'])
-            ->where('created_at', '<=', $end_date)
+            // ->where('created_at', '<=', $end_date)
             ->orderBy('created_at', 'desc')->first() ??  (object) array(
                 'price'=> 15.00
             );
 
             $sum = ($query_present->price - $query_past->price) / $query_past->price;
-            // if ($query_present->price && $query_past->price) {
-            //     $sum = ($query_present->price - $query_past->price) / $query_past->price;
-            // } else {
-            //     $sum = 0;
-            // }
-            // return $sum;
+
             $result = [
                 'name' => $query_past,
-                'sum' => number_format($sum*100,2,),
+                'sum' => number_format($sum*100,2,)
             ];
 
             array_push($name, $result);
-
-            // array_push($name, $result);
-            // if (isset($result) && !(isset($result['name']->price))) {
-            //     array_push($name, $result);
-            // }
         }
-
-// dd($name);
         return response()->success($name, [], '0', 200);
 
     }

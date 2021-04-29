@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <pre>{{ modal_data_profile_add }}</pre> -->
     <b-col
       cols="12"
     >
@@ -24,7 +25,7 @@
       size="lg"
       @ok="edit_profile_edit"
     >
-      <!-- <pre>{{ modal_data_profile_add }}</pre> -->
+
       <b-form>
         <validation-observer ref="edit">
           <b-row>
@@ -118,8 +119,8 @@
           />
 
           <ThailandAutoComplete
-            v-model="modal_data_profile_add.postal_code"
-            type="postal_code"
+            v-model="modal_data_profile_add.zipcode"
+            type="zipcode"
             label="รหัสไปรษณีย์"
             size="medium"
             color="#00a4e4"
@@ -134,7 +135,7 @@
       cancel-title="ยกเลิก"
       centered
       size="lg"
-      @ok="edit_profile_add"
+      @ok="edit_profile_add(address)"
     >
       <b-form>
         <validation-observer ref="add">
@@ -202,8 +203,9 @@
           </b-row>
           <b-row>
             <b-col>
+
               <ThailandAutoComplete
-                v-model="modal_data_profile.district"
+                v-model="district"
                 type="district"
                 label="ตำบล"
                 color="#42b883"
@@ -211,7 +213,7 @@
                 @select="select"
               />
               <ThailandAutoComplete
-                v-model="modal_data_profile.amphoe"
+                v-model="amphoe"
                 type="amphoe"
                 label="อำเภอ"
                 size="medium"
@@ -220,22 +222,22 @@
             </b-col>
           </b-row>
           <ThailandAutoComplete
-            v-model="modal_data_profile.province"
+            v-model="province"
             type="province"
             label="จังหวัด"
             size="medium"
             color="#35495e"
             @select="select"
           />
-
           <ThailandAutoComplete
-            v-model="modal_data_profile.postal_code"
-            type="postal_code"
+            v-model="zipcode"
+            type="zipcode"
             label="รหัสไปรษณีย์"
             size="medium"
             color="#00a4e4"
             @select="select"
           />
+
         </validation-observer></b-form>
     </b-modal>
     <div class="custom-search d-flex justify-content-end mb-1">
@@ -385,11 +387,12 @@ export default {
   },
   data() {
     return {
-
+      address: '',
       district: '',
       amphoe: '',
       province: '',
-      postal_code: '',
+      zipcode: '',
+
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 8,
       center: [47.31322, -1.319482],
@@ -406,6 +409,7 @@ export default {
       'columns_company',
       'modal_data_profile',
       'modal_data_profile_add',
+      'address',
     ]),
     direction() {
       if (this.$store.state.appConfig.isRTL) {
@@ -440,11 +444,12 @@ export default {
       'clear',
     ]),
     select(address) {
-      this.modal_data_profile.district = address.district
-      this.modal_data_profile.amphoe = address.amphoe
-      this.modal_data_profile.province = address.province
-      this.modal_data_profile.postal_code = address.postal_code
-      console.log(address)
+      this.district = address.district
+      this.amphoe = address.amphoe
+      this.province = address.province
+      this.zipcode = address.zipcode
+      this.address = address
+      console.log(this.address)
     },
     selcectCompany(id) {
       console.log(id)

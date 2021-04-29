@@ -15,18 +15,37 @@ class WhatToPlantController extends Controller
      */
     public function index()
     {
+        $all = 0;
         $plants = Plant::get();
         $name = [];
+
         foreach ($plants as $index => $plant) {
+            $amount_sum = [];
             $plant['name'];
             // $find = Product::where('name', '=', $plant['name'])->firstOrFail();
             // if ($find) {
-                $query_part = Product::where('name', $plant['name'])->where('status','ปกติ')->get();
-                $query_count = Product::where('name', $plant['name'])->where('status','ปกติ')->count();
-            // }
+            $query_part = Product::where('name', $plant['name'])->where('status', 'ปกติ')->get();
+
+            foreach ($query_part as $key => $data) {
+
+                if ($data->unit == 'กรัม') {
+                    $sum = $data->amount / 1000;
+                    array_push($amount_sum, $sum);
+                } elseif ($data->unit == 'ขีด') {
+                    $sum = $data->amount / 10;
+                    array_push($amount_sum, $sum);
+                } elseif ($data->unit == 'กิโลกรัม') {
+                    $sum = $data->amount * 1000;
+                    array_push($amount_sum, $sum);
+                }
+                $all_sum = array_sum($amount_sum);
+            }
+            $query_count = Product::where('name', $plant['name'])->where('status', 'ปกติ')->count();
+
             $result = [
                 'name' => $plant['name'],
                 'sum' => $query_count,
+                'amount' => $all_sum,
             ];
             array_push($name, $result);
         }

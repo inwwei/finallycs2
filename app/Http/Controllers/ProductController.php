@@ -62,12 +62,12 @@ class ProductController extends Controller
             'moisture_max' => 'sometimes',
             'Foreign_matter' => 'sometimes',
             'price' => 'required',
-
             'unit' => 'sometimes',
             'amount' => 'sometimes',
 
         ]);
 $datas['price'] = str_replace(',', '', $datas['price']);
+$datas['amount'] = str_replace(',', '', $datas['amount']);
         $datas['status'] = 'ปกติ';
         $product = Product::create($datas);
         if (!$product) {
@@ -135,11 +135,11 @@ $datas['price'] = str_replace(',', '', $datas['price']);
             'moisture_max' => 'sometimes',
             'Foreign_matter' => 'sometimes',
             'price' => 'required',
-
             'unit' => 'sometimes',
             'amount' => 'sometimes',
         ]);
         $datas['price'] = str_replace(',', '', $datas['price']);
+        $datas['amount'] = str_replace(',', '', $datas['amount']);
         $datas['status'] = 'ปกติ';
         $product = Product::create($datas);
         $query = Product::find($id);

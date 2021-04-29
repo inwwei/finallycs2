@@ -1,6 +1,7 @@
 import router from '@/router'
 
 const data = () => ({
+  addressData: {},
   company: '',
   api: '',
   self: '',
@@ -90,8 +91,18 @@ const data = () => ({
       sortable: false,
     },
     {
-      label: 'ราคา/กก.',
+      label: 'ราคา',
       field: 'price',
+      type: 'number',
+    },
+    {
+      label: 'จำนวน.',
+      field: 'amount',
+      type: 'number',
+    },
+    {
+      label: 'หน่วย.',
+      field: 'unit',
       type: 'number',
     },
     {
@@ -142,7 +153,6 @@ const data = () => ({
     {
       label: 'ที่อยู่',
       field: 'address',
-      sortable: false,
     },
     {
       label: 'จัดการ',
@@ -163,6 +173,12 @@ export default {
   },
   mutations: {
 
+    SET_DATA_NEW(state, data) {
+      state.modal_data_profile.district = data.district
+      state.modal_data_profile.amphoe = data.amphoe
+      state.modal_data_profile.province = data.province
+      state.modal_data_profile.postal_code = data.zipcode
+    },
     SET_ARRAY_DATA_EDIT_PROFILE(state, data) {
       state.modal_data_profile = data
     },
@@ -338,11 +354,24 @@ export default {
             },
           })
 
-          console.log(state.form.Plant_select.code)
-          console.log(state.form.first_date)
-          console.log(state.form.end_date)
-          const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`, { timeout: 100000 })
-          commit('SET_DATA_REQUEST', data)
+          const date = new Date(state.form.first_date.split('/').reverse().join('/')) < new Date(state.form.end_date.split('/').reverse().join('/'))
+
+          if (date === true) {
+            console.log(state.form.Plant_select.code)
+            console.log(state.form.first_date)
+            console.log(state.form.end_date)
+            const { data } = await state.api.get(`https://dataapi.moc.go.th/gis-product-prices?product_id=${state.form.Plant_select.code}&from_date=${state.form.first_date}&to_date=${state.form.end_date}`, { timeout: 100000 })
+            commit('SET_DATA_REQUEST', data)
+          } else {
+            state.self.$swal({
+              icon: 'warning',
+              title: 'กรุณากรอกวันที่ให้ถูกต้อง',
+              confirmButtonText: 'ยืนยัน',
+              customClass: {
+                confirmButton: 'btn btn-danger',
+              },
+            })
+          }
         } else {
           state.self.$swal({
             icon: 'warning',
@@ -573,7 +602,9 @@ export default {
       }
     },
 
-    async edit_profile_add({ state, commit, dispatch }) {
+    async edit_profile_add({ state, commit, dispatch }, address) {
+      commit('SET_DATA_NEW', address)
+      console.log(state.modal_data_profile)
       try {
         const result = await state.refs.add.validate()
         if (result) {
