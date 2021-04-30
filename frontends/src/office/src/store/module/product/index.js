@@ -275,14 +275,19 @@ export default {
       commit('SET_API', { api, self, refs })
     },
     async request_add({ state, commit, dispatch }) {
-      console.log('555')
       try {
         const result = await state.refs.simpleRules.validate()
         if (result) {
-          if (state.form_add.price !== '' && state.form_add.Plant_select !== '') {
+          if (
+            state.form_add.moisture_max >= state.form_add.moisture_min
+              && state.form_add.Plant_select.code !== undefined
+              && state.form_add.price !== ''
+              && state.form_add.amount !== ''
+              && state.form_add.unit !== ''
+          ) {
             commit('SET_NAME')
             state.self.$swal({
-              title: 'เพิ่มข้อมูลสินค้า',
+              title: 'เพิ่มข้อมูลสินค้ากกก',
               text: 'คุณต้องการเพิ่มข้อมูลใช่หรือไม่?',
               icon: 'warning',
               showCancelButton: true,
@@ -315,7 +320,7 @@ export default {
           } else {
             state.self.$swal({
               title: 'ผิดพลาด!',
-              text: ' กรุณากรอกข้อมูลให้ครบถ้วน',
+              text: ' กรุณากรอกข้อมูลให้ถูกต้อง',
               icon: 'error',
               confirmButtonText: 'ยืนยัน',
               cancelButtonText: 'ยกเลิก',

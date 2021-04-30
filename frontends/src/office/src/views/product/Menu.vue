@@ -22,6 +22,7 @@
                 v-model="form_add.Plant_select"
                 :option="Plants"
                 title="name"
+                rules="required"
               />
             </b-col>
             <b-col
@@ -40,6 +41,7 @@
                   class="form-control"
                   :raw="false"
                   :options="options.number"
+                  rules="required"
                 />
               </b-form-group>
             </b-col>
@@ -59,6 +61,7 @@
                   class="form-control"
                   :raw="false"
                   :options="options.number"
+                  rules="required"
                 />
               </b-form-group>
             </b-col>
@@ -78,6 +81,7 @@
                   class="form-control"
                   :raw="false"
                   :options="options.number"
+                  rules="required"
                 />
               </b-form-group>
             </b-col>
@@ -97,6 +101,7 @@
                   class="form-control"
                   :raw="false"
                   :options="options.number"
+                  rules="required"
                 />
               </b-form-group>
             </b-col>
@@ -112,6 +117,7 @@
                   class="form-control"
                   :raw="false"
                   :options="options.number"
+                  rules="required"
                 />
               </b-form-group>
             </b-col>
@@ -127,6 +133,7 @@
                   class="form-control"
                   :raw="false"
                   :options="options.number"
+                  rules="required"
                 />
               </b-form-group>
             </b-col>
@@ -138,6 +145,7 @@
               <b-form-select
                 v-model="form_add.unit"
                 :options="unit"
+                rules="required"
               />
             </b-col>
           </b-row>
